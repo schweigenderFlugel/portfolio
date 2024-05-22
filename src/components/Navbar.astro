@@ -1,18 +1,29 @@
 ---
+import Icon from "./Icon.astro";
+
+interface Props {
+    mode: 'light' | 'dark';
+}
+
+const { mode } = Astro.props;
+
 ---
 
-<nav class="flex justify-between bg-gray-400 dark:bg-black px-6 py-2 w-full">
-    <div class="inline-flex">
+<nav class="flex items-center justify-between text-black dark:text-white bg-gray-400 bg-opacity-50 dark:bg-opacity-95 dark:bg-black px-6 py-3 w-full">
+    <div class="inline-flex gap-2">
         <p>Home</p>
         <p>Proyectos</p>
     </div>
-    <div class="inline-flex gap-3 items-center">
-        <div>
-            <p>Contacto</p>
-        </div>
-        <button type="button" class="inline-flex gap-2 items-center bg-green-700 text-white border-none rounded-lg px-4 py-2">
+    <div class="inline-flex gap-3">
+        <button>
+          {mode
+            ? <Icon name="sun" className="w-5 h-5"/>
+            : <Icon name="moon" className="w-5 h-5"/>
+          }
+        </button>
+        <button type="button" class="inline-flex gap-2 items-center dark:bg-black bg-white text-blue-700 border border-blue-700 font-bold rounded-lg px-3 py-1">
             <p>Currículum</p>
-            <img class="w-5 font-bold" src="/download.svg"/>
+            <Icon name="download" className="w-5 h-5"/>
         </button>
     </div>
 </nav>

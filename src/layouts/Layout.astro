@@ -5,6 +5,8 @@ interface Props {
 	title: string;
 }
 
+let mode: 'light' | 'dark' = 'dark';
+
 const { title } = Astro.props;
 ---
 
@@ -14,8 +16,10 @@ const { title } = Astro.props;
 		<meta charset="UTF-8" />
 		<title>{title}</title>
 	</head>
-	<body>
-		<Navbar />
-		<slot />
+	<body class={mode}>
+		<Navbar mode={mode}/>
+		<main class="bg-white dark:bg-black text-black dark:text-white h-screen">
+			<slot />
+		</main>
 	</body>
 </html>
