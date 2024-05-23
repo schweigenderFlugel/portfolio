@@ -1,0 +1,41 @@
+---
+import Main from "../Main.astro";
+import Card from "../components/Card.astro"
+import projects from "../../data/proyectos.json"
+import { Icon } from "../components/Icon";
+
+---
+
+<Main title="Proyectos">
+  <p>Estos son algunos de mis proyectos</p>
+    <Card>
+      <ul>
+        {projects.map(item => (
+          <li>
+            <p>{item.name}</p>
+            <p>Descripción: {item.description}</p>
+            <div>
+              <p>Tecnologías: </p>
+              {item.technologies.map(technologies => (
+                <ul class="inline text-black dark:text-white gap-5">
+                  <li class="bg-grey-200 inline-flex px-3 py-2 gap-2 border rounded-xl">
+                    <Icon name={technologies.image} className="w-6 h-6"/>
+                    <p class="font-bold">{technologies.name}</p>
+                  </li>
+                </ul>
+              ))}
+            </div>
+            <div class="inline text-black dark:text-white gap-5">
+                <a class="bg-grey-200 inline-flex px-3 py-2 gap-2 border rounded-xl" href={item.repository}>
+                  <Icon name="github" className="w-6 h-6" />
+                  Repositorio
+                </a>
+                <a class="bg-grey-200 inline-flex px-3 py-2 gap-2 border rounded-xl" href={item.link}>
+                  Sitio web
+                </a>
+            </div>
+          </li>
+        ))}
+        </ul>
+    </Card>
+</Main>

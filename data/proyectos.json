@@ -1,0 +1,32 @@
+[{
+    "name": "Bankme",
+    "description": "Parte de una simulación laboral realizada por NoCountry, este proyecto consistió en el desarrollo de una banca digital en donde se puede hacer depósitos, transferencias e inversiones",
+    "technologies": [
+        {
+            "name": "Typescript",
+            "image": "typescript"
+        },
+        {
+            "name": "Express",
+            "image": "express"
+        },
+        {
+            "name": "Sequelize",
+            "image": "sequelize"
+        },
+        {
+            "name": "Postgres",
+            "image": "postgres"
+        },
+        {
+            "name": "React",
+            "image": "react"
+        },
+        {
+            "name": "Tailwindcss",
+            "image": "tailwindcss"
+        }
+    ],
+    "repository": "https://github.com/No-Country/c17-126-n-typescript",
+    "link": "https://bankme-nc.netlify.app/"
+}]
