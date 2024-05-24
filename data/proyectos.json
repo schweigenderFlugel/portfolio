@@ -1,32 +1,22 @@
-[{
-    "name": "Bankme",
+[
+  {
+    "blur": false,
+    "title": "Bankme",
+    "images": [],
+    "subtitle": "Billetera virtual",
     "description": "Parte de una simulación laboral realizada por NoCountry, este proyecto consistió en el desarrollo de una banca digital en donde se puede hacer depósitos, transferencias e inversiones",
-    "technologies": [
-        {
-            "name": "Typescript",
-            "image": "typescript"
-        },
-        {
-            "name": "Express",
-            "image": "express"
-        },
-        {
-            "name": "Sequelize",
-            "image": "sequelize"
-        },
-        {
-            "name": "Postgres",
-            "image": "postgres"
-        },
-        {
-            "name": "React",
-            "image": "react"
-        },
-        {
-            "name": "Tailwindcss",
-            "image": "tailwindcss"
-        }
-    ],
-    "repository": "https://github.com/No-Country/c17-126-n-typescript",
+    "tags": ["Typescript", "Express", "Sequelize", "Postgresql", "React", "Tailwind"],
+    "github": "https://github.com/No-Country/c17-126-n-typescript",
     "link": "https://bankme-nc.netlify.app/"
-}]
+  },
+  {
+    "blur": false,
+    "title": "Pizzeria Don Remolo",
+    "subtitle": "Página de una tienda de pizza",
+    "images": [],
+    "description": "Un proyecto independiente, tomando como base referencias de ID for Ideas. En esta aplicación podrá hacer pedidos de pizza y otros comestibles",
+    "tags": ["Typescript", "Nestjs", "Typeorm", "Tailwind", "React"],
+    "github": "",
+    "link": ""
+  }
+]

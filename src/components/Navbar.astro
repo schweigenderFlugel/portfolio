@@ -1,6 +1,6 @@
 ---
-import { Icon } from "./Icon";
-import { DarkModeButton } from "./ModeButton";
+import Download from "../icons/Download.astro"
+import ThemeButton from "./ThemeButton.astro"
 ---
 
 <nav class="flex items-center justify-between text-black dark:text-white bg-gray-400 bg-opacity-50 dark:bg-opacity-95 dark:bg-black px-6 py-3 w-full">
@@ -9,10 +9,10 @@ import { DarkModeButton } from "./ModeButton";
         <p>Proyectos</p>
     </div>
     <div class="inline-flex gap-3">
-        <DarkModeButton client:load />
+        <ThemeButton/>
         <button type="button" class="inline-flex gap-2 items-center dark:bg-black bg-white text-blue-700 border border-blue-700 font-bold rounded-lg px-3 py-1">
             <p>Currículum</p>
-            <Icon name="download" className="w-5 h-5"/>
+            <Download className="w-5 h-5"/>
         </button>
     </div>
 </nav>
