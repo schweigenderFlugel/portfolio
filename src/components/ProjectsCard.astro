@@ -8,7 +8,7 @@ export interface Props {
 const { blur } = Astro.props;
 ---
 
-<article class="relative w-full space-y-5 px-10 py-10 border rounded-3xl bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600">
+<article data-cy="projects" class="relative w-full space-y-5 px-10 py-10 border rounded-3xl bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600">
   {blur && <section class="inline-flex gap-3 font-bold absolute top-[45%] left-[34%]">
     <Lock className='w-6 h-6'/>
     <p>No disponible</p>

@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro"
 import ProjectsCard from "../components/ProjectsCard.astro"
-import projects from "../../data/proyectos.json"
+import projects from "../../data/projects.json"
 import GitHub from "../icons/GitHub.astro"
 import Web from "../icons/Web.astro"
 import TagsCarousel from "../components/TagsCarousel.astro"
@@ -14,12 +14,12 @@ import TagsCarousel from "../components/TagsCarousel.astro"
       {projects && projects.map(project => (
         <ProjectsCard blur={project.blur}>
           <div slot="header" class="text-left">
-            <p>{project.title}</p>
-            <p>{project.subtitle}</p>
+            <p data-cy="project-title">{project.title}</p>
+            <p data-cy="project-subtitle">{project.subtitle}</p>
           </div>
           <div slot="body" class="space-y-2">
             <p class="font-bold underline">Descripción</p>
-            <p>{project.description}</p>
+            <p data-cy="project-description">{project.description}</p>
           </div>
           <div slot="tags">
             <TagsCarousel id={project.id} tags={project.tags} />
@@ -41,7 +41,7 @@ import TagsCarousel from "../components/TagsCarousel.astro"
 </Layout>
 
 <script>
-  import projects from "../../data/proyectos.json";
+  import projects from "../../data/projects.json";
 
   projects.map(project => {
     const carousel = document.querySelector(`#carousel-${project.id}`) as HTMLButtonElement;

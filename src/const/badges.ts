@@ -9,8 +9,21 @@ import Php from "../icons/Php.astro"
 import Laravel from "../icons/Laravel.astro"
 import Sequelize from "../icons/Sequelize.astro"
 import Typeorm from "../icons/Typeorm.astro"
+import Html from "../icons/Html.astro"
+import Css from "../icons/Css.astro"
+import AstroIcon from "../icons/AstroIcon.astro"
 
 export const badges = [
+  {
+    name: "HTML",
+    class: "w-3 h-3",
+    icon: Html,
+  },
+  {
+    name: "CSS",
+    class: "w-3 h-3",
+    icon: Css,
+  },
   {
     name: "Javascript",
     class: "w-3 h-3",
@@ -45,6 +58,11 @@ export const badges = [
     name: "React",
     class: "w-3 h-3",
     icon: React,
+  },
+  {
+    name: "Astro",
+    class: "w-3 h-3",
+    icon: AstroIcon,
   },
   {
     name: "Sequelize",
