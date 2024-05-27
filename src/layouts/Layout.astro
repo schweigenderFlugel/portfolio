@@ -1,5 +1,6 @@
 ---
 import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
 	title: string;
@@ -14,11 +15,14 @@ const { title } = Astro.props;
 	<meta charset="UTF-8" />
 	<title>{title}</title>
   </head>
-  <body>
+  <body class="bg-white dark:bg-black text-black dark:text-white">
 	<Navbar/>
-	<main class="flex justify-center px-10 py-10 bg-white dark:bg-black text-black dark:text-white">
+	<main class="flex justify-center px-10 py-10">
 	  <slot />
 	</main>
+	<section class="flex justify-center">
+		<Footer />
+	</section>
   </body>
 </html>
 

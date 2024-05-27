@@ -24,12 +24,12 @@ import TagsCarousel from "../components/TagsCarousel.astro"
           <div slot="tags">
             <TagsCarousel id={project.id} tags={project.tags} />
           </div>
-          <div slot="buttons" class="text-right">
-              <a id={`github-${project.id}`} class="bg-grey-200 inline-flex px-5 py-2 gap-2 border rounded-xl select-none" href={!project.blur ? project.github : null}>
+          <div slot="buttons" class="text-right space-x-3">
+              <a id={`github-${project.id}`} class={`bg-grey-200 inline-flex px-5 py-2 gap-2 border rounded-xl ${!project.blur && 'hover:text-purple-600 hover:border-purple-600'}`} href={!project.blur ? project.github : null}>
                 <GitHub className="w-6 h-6" />
                 Código fuente
               </a>
-              <a id={`website-${project.id}`} class="bg-grey-200 inline-flex px-5 py-2 gap-2 border rounded-xl" href={!project.blur ? project.link : null}>
+              <a id={`website-${project.id}`} class={`bg-grey-200 inline-flex px-5 py-2 gap-2 border rounded-xl ${!project.blur && 'hover:text-purple-600 hover:border-purple-600'}`} href={!project.blur ? project.link : null}>
                 <Web className="w-6 h-6" />
                 Sitio web
               </a>

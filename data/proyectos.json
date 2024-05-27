@@ -12,7 +12,7 @@
   },
   {
     "id": 2,
-    "blur": true,
+    "blur": false,
     "title": "Pizzeria Don Remolo",
     "subtitle": "Página de una tienda de pizza",
     "images": [],

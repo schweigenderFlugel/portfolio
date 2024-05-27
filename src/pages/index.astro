@@ -18,6 +18,7 @@ import Laravel from '../icons/Laravel.astro';
 import React from '../icons/React.astro';
 import Tailwind from '../icons/Tailwind.astro';
 import Download from '../icons/Download.astro';
+import AstroIcon from '../icons/AstroIcon.astro';
 ---
 
 <Layout title="Bienvenidos">
@@ -36,14 +37,14 @@ import Download from '../icons/Download.astro';
         <p>{about.description}</p>
       </div>
       <div class="flex justify-center items-center col-span-2">
-        <button type="button" class="flex gap-2 justify-center items-center text-black dark:text-white hover:text-purple-600 dark:hover:text-purple-600 border hover:border-purple-600 font-bold rounded-full px-3 py-1">
+        <button type="button" class="flex gap-2 justify-center items-center hover:text-purple-600 dark:hover:text-purple-600 border hover:border-purple-600 font-bold rounded-full px-3 py-1">
           <Download className='w-6 h-6' /> 
         </button>
       </div>
     </div>
     <div slot="technologies" id="carousel" class="flex gap-4 items-center overflow-hidden transition-transform duration-300">
       <Html className='h-10 w-10 flex-shrink-0'/>
-      <Css className='h-10 w-10 flex-shrink-0' />
+      <Css className='h-9 w-9 pt-[1px] flex-shrink-0' />
       <Javascript className='h-8 w-8 flex-shrink-0'/>
       <Typescript className='h-8 w-8 flex-shrink-0' />
       <Php className='h-10 w-10 flex-shrink-0'/> 
@@ -53,10 +54,11 @@ import Download from '../icons/Download.astro';
       <Typeorm className='h-10 w-10 flex-shrink-0' />
       <Laravel className='h-10 w-10 flex-shrink-0' />
       <React className='h-10 w-10 flex-shrink-0' />
+      <AstroIcon className='h-9 w-9 flex-shrink-0' />
       <Tailwind className='h-10 w-10 flex-shrink-0' />
     </div>
     <div slot="experience">
-      <p class="font-bold text-[18px] text-purple-600">+{new Date().getFullYear() - about.experience}</p>
+      <p class="font-bold text-[18px] text-purple-600 select-none">+{new Date().getFullYear() - about.experience}</p>
     </div>
 	</GeneralCard>
   </section>
