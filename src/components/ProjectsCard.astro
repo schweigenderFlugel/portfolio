@@ -1,0 +1,28 @@
+---
+import Lock from '../icons/Lock.astro';
+
+export interface Props {
+  blur: boolean;
+}
+
+const { blur } = Astro.props;
+---
+
+<article class="relative w-full space-y-5 px-10 py-10 border rounded-3xl bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600">
+  {blur && <section class="inline-flex gap-3 font-bold absolute top-[45%] left-[34%]">
+    <Lock className='w-6 h-6'/>
+    <p>No disponible</p>
+  </section>}
+  <header class=`font-bold ${blur && "blur-lg select-none"}`>
+    <slot name="header" />
+  </header>
+  <section class=`font-bold ${blur && "blur-lg"}`>
+    <slot name="tags"/>
+  </section>
+  <section class=`${blur && "blur-lg select-none"}`>
+    <slot name="body" />
+  </section>
+  <footer class=`select-none ${blur && "blur-lg"}`>
+    <slot name="buttons" />
+  </footer>
+</article>

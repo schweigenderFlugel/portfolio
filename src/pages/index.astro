@@ -1,7 +1,93 @@
 ---
-import Main from '../layouts/Layout.astro';
+import GeneralCard from '../components/GeneralCard.astro';
+import Layout from '../layouts/Layout.astro';
+import about from '../../data/about.json';
+import Linkedin from '../icons/Linkedin.astro';
+import Discord from '../icons/Discord.astro';
+import GitHub from '../icons/GitHub.astro';
+import Html from '../icons/Html.astro';
+import Css from '../icons/Css.astro';
+import Javascript from '../icons/Javascript.astro';
+import Typescript from '../icons/Typescript.astro';
+import Php from '../icons/Php.astro';
+import Express from '../icons/Express.astro';
+import Sequelize from '../icons/Sequelize.astro';
+import Nestjs from '../icons/Nestjs.astro';
+import Typeorm from '../icons/Typeorm.astro';
+import Laravel from '../icons/Laravel.astro';
+import React from '../icons/React.astro';
+import Tailwind from '../icons/Tailwind.astro';
+import Download from '../icons/Download.astro';
 ---
 
-<Main title="Bienvenidos">
-	<p>Aquí comenzamos a lanzar nuestro proyecto</p>
-</Main>
+<Layout title="Bienvenidos">
+  <section class="w-[500px] space-y-6">
+	<GeneralCard>
+		<div slot="header">
+      <div class="block space-x-3">
+        <a href={about.social.linkedin} class="inline-flex items-center"><Linkedin className='w-4 h-4'/></a>
+        <a href={about.social.github} class="inline-flex items-center"><GitHub className='w-5 h-5'/></a>
+        <a href={about.social.discord} class="inline-flex items-center"><Discord className='w-5 h-5'/></a>
+      </div>
+    </div>
+    <div slot="description" class="grid grid-cols-12">
+      <div class="col-span-10 space-y-3">
+        <p class="text-purple-600 text-[20px]">Hola, soy <strong class="text-black dark:text-white">{about.fullName}</strong></p>
+        <p>{about.description}</p>
+      </div>
+      <div class="flex justify-center items-center col-span-2">
+        <button type="button" class="flex gap-2 justify-center items-center text-black dark:text-white hover:text-purple-600 dark:hover:text-purple-600 border hover:border-purple-600 font-bold rounded-full px-3 py-1">
+          <Download className='w-6 h-6' /> 
+        </button>
+      </div>
+    </div>
+    <div slot="technologies" id="carousel" class="flex gap-4 items-center overflow-hidden transition-transform duration-300">
+      <Html className='h-10 w-10 flex-shrink-0'/>
+      <Css className='h-10 w-10 flex-shrink-0' />
+      <Javascript className='h-8 w-8 flex-shrink-0'/>
+      <Typescript className='h-8 w-8 flex-shrink-0' />
+      <Php className='h-10 w-10 flex-shrink-0'/> 
+      <Express className='h-8 w-8 flex-shrink-0' />
+      <Sequelize className='h-10 w-10 flex-shrink-0' />
+      <Nestjs className='h-10 w-10 flex-shrink-0' /> 
+      <Typeorm className='h-10 w-10 flex-shrink-0' />
+      <Laravel className='h-10 w-10 flex-shrink-0' />
+      <React className='h-10 w-10 flex-shrink-0' />
+      <Tailwind className='h-10 w-10 flex-shrink-0' />
+    </div>
+    <div slot="experience">
+      <p class="font-bold text-[18px] text-purple-600">+{new Date().getFullYear() - about.experience}</p>
+    </div>
+	</GeneralCard>
+  </section>
+</Layout>
+
+<script>
+  const carousel = document.querySelector("#carousel") as HTMLButtonElement;
+
+  let isDown: boolean = false;
+  let startX: any;
+  let scrollLeft: any;
+
+  carousel.addEventListener("mousedown", (e: MouseEvent) => {
+    isDown = true;
+    carousel.classList.add('active');
+    startX = e.pageX - carousel.offsetLeft;
+    scrollLeft = carousel.scrollLeft;
+  });
+  carousel.addEventListener('mouseleave', (e: MouseEvent) => {
+    isDown = false;
+    carousel.classList.remove('active');
+  });
+  carousel.addEventListener('mouseup', (e: MouseEvent) => {
+    isDown = false;
+    carousel.classList.remove('active');
+  });
+  carousel.addEventListener('mousemove', (e: MouseEvent) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - carousel.offsetLeft;
+    const walk = (x - startX);
+    carousel.scrollLeft = scrollLeft - walk;
+  });
+</script>

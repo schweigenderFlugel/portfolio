@@ -1,78 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro"
-import Card from "../components/Card.astro"
+import ProjectsCard from "../components/ProjectsCard.astro"
 import projects from "../../data/proyectos.json"
-import Express from "../icons/Express.astro"
-import Nestjs from "../icons/Nestjs.astro"
-import React from "../icons/React.astro"
-import Postgresql from "../icons/Postgresql.astro"
 import GitHub from "../icons/GitHub.astro"
 import Web from "../icons/Web.astro"
-import Tailwind from "../icons/Tailwind.astro"
-import Typescript from "../icons/Typescript.astro"
-import Javascript from "../icons/Javascript.astro"
-import Php from "../icons/Php.astro"
-import Laravel from "../icons/Laravel.astro"
-import Sequelize from "../icons/Sequelize.astro"
-import Typeorm from "../icons/Typeorm.astro"
-
-const badges = [
-  {
-    name: "Javascript",
-    class: "w-3 h-3",
-    icon: Javascript,
-  },
-  {
-    name: "Typescript",
-    class: "w-3 h-3",
-    icon: Typescript,
-  },
-  {
-    name: "PHP",
-    class: "w-3 h-3",
-    icon: Php,
-  },
-  {
-    name: "Express",
-    class: "w-3 h-3",
-    icon: Express,
-  },
-  {
-    name: "Nestjs",
-    class: "w-3 h-3",
-    icon: Nestjs,
-  },
-  {
-    name: "Laravel",
-    class: "w-3 h-3",
-    icon: Laravel,
-  },
-  {
-    name: "React",
-    class: "w-3 h-3",
-    icon: React,
-  },
-  {
-    name: "Sequelize",
-    class: "w-3 h-3",
-    icon: Sequelize,
-  },
-  {
-    name: "Typeorm",
-    class: "w-3 h-3",
-    icon: Typeorm,
-  },
-  {
-    name: "Postgresql",
-    class: "w-3 h-3",
-    icon: Postgresql,
-  },
-  {
-    name: "Tailwind",
-    class: "w-3 h-3",
-    icon: Tailwind,
-  }
-]
+import TagsCarousel from "../components/TagsCarousel.astro"
 ---
 
 <Layout title="Proyectos">
@@ -80,7 +12,7 @@ const badges = [
     <p>Estos son algunos de mis proyectos</p>
     <ul class="w-[500px] space-y-6">
       {projects && projects.map(project => (
-        <Card blur={project.blur}>
+        <ProjectsCard blur={project.blur}>
           <div slot="header" class="text-left">
             <p>{project.title}</p>
             <p>{project.subtitle}</p>
@@ -90,72 +22,64 @@ const badges = [
             <p>{project.description}</p>
           </div>
           <div slot="tags">
-            {project.tags.length && 
-              <div data-move-tags class="flex rounded-xl px-2 py-2 space-x-1 overflow-hidden transition-transform duration-300">
-                {project.tags.map(name => 
-                  badges.filter(badge => badge.name === name).map(tag =>
-                    <div class="bg-grey-200 inline-flex items-center gap-2 px-5 py-[2px] border rounded-xl flex-shrink-0">
-                      <tag.icon className={tag.class} />
-                      <p class="text-[12px] select-none">{tag.name}</p>
-                    </div>
-                  )
-                )}
-              </div>
-            }
-            {!project.tags.length && <p>No hay etiquetas disponibles</p>}
+            <TagsCarousel id={project.id} tags={project.tags} />
           </div>
           <div slot="buttons" class="text-right">
-              <a class="bg-grey-200 inline-flex px-5 py-1 gap-2 border rounded-xl" href={project.github}>
+              <a id={`github-${project.id}`} class="bg-grey-200 inline-flex px-5 py-2 gap-2 border rounded-xl select-none" href={!project.blur ? project.github : null}>
                 <GitHub className="w-6 h-6" />
                 Código fuente
               </a>
-              <a class="bg-grey-200 inline-flex px-5 py-1 gap-2 border rounded-xl" href={project.link}>
+              <a id={`website-${project.id}`} class="bg-grey-200 inline-flex px-5 py-2 gap-2 border rounded-xl" href={!project.blur ? project.link : null}>
                 <Web className="w-6 h-6" />
                 Sitio web
               </a>
           </div>
-        </Card>
+        </ProjectsCard>
       ))}
     </ul>
   </main>
 </Layout>
 
 <script>
-  const carousel = document.querySelector("[data-move-tags]") as HTMLButtonElement;
+  import projects from "../../data/proyectos.json";
 
-  let isDown: boolean = false;
-  let startX: any;
-  let scrollLeft: any;
-  const isOverflowing = carousel.scrollWidth > carousel.clientWidth;
+  projects.map(project => {
+    const carousel = document.querySelector(`#carousel-${project.id}`) as HTMLButtonElement;
 
-  if (isOverflowing) { 
-    carousel.classList.add(
-      "cursor-pointer", 
-      "hover:bg-white", 
-      "dark:hover:bg-black", 
-      "hover:border",
-      "dark:hover:border-purple-600"
-    )
-    carousel.addEventListener("mousedown", (e: MouseEvent) => {
-      isDown = true;
-      carousel.classList.add('active');
-      startX = e.pageX - carousel.offsetLeft;
-      scrollLeft = carousel.scrollLeft;
-    });
-    carousel.addEventListener('mouseleave', (e: MouseEvent) => {
-      isDown = false;
-      carousel.classList.remove('active');
-    });
-    carousel.addEventListener('mouseup', (e: MouseEvent) => {
-      isDown = false;
-      carousel.classList.remove('active');
-    });
-    carousel.addEventListener('mousemove', (e: MouseEvent) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - carousel.offsetLeft;
-      const walk = (x - startX);
-      carousel.scrollLeft = scrollLeft - walk;
-    });
-  }
+    let isDown: boolean = false;
+    let startX: any;
+    let scrollLeft: any;
+    const isOverflowing = carousel.scrollWidth > carousel.clientWidth;
+
+    if (isOverflowing && !project.blur) { 
+      carousel.classList.add(
+        "cursor-pointer", 
+        "hover:bg-white", 
+        "dark:hover:bg-black", 
+        "hover:border",
+        "dark:hover:border-purple-600"
+      )
+      carousel.addEventListener("mousedown", (e: MouseEvent) => {
+        isDown = true;
+        carousel.classList.add('active');
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+      });
+      carousel.addEventListener('mouseleave', (e: MouseEvent) => {
+        isDown = false;
+        carousel.classList.remove('active');
+      });
+      carousel.addEventListener('mouseup', (e: MouseEvent) => {
+        isDown = false;
+        carousel.classList.remove('active');
+      });
+      carousel.addEventListener('mousemove', (e: MouseEvent) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - carousel.offsetLeft;
+        const walk = (x - startX);
+        carousel.scrollLeft = scrollLeft - walk;
+      });
+    }
+  })
 </script>

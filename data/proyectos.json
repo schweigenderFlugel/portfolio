@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "blur": false,
     "title": "Bankme",
     "images": [],
@@ -10,7 +11,8 @@
     "link": "https://bankme-nc.netlify.app/"
   },
   {
-    "blur": false,
+    "id": 2,
+    "blur": true,
     "title": "Pizzeria Don Remolo",
     "subtitle": "Página de una tienda de pizza",
     "images": [],
