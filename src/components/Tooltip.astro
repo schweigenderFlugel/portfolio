@@ -1,0 +1,16 @@
+---
+export interface Props {
+  id: string;
+  className?: string;
+}
+
+const { id, className } = Astro.props;
+---
+
+<div 
+  data-tooltip={id}
+  role="tooltip"
+  class={`${className} invisible z-10 whitespace-normal transition-opacity duration-300 break-words rounded-lg bg-black py-1.5 px-3 font-sans text-sm font-normal text-white focus:outline-none select-none tooltip`}
+>
+  <slot />
+</div>

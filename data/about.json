@@ -5,8 +5,7 @@
   "technologies": ["Html", "Css", "Javascript", "Typescript", "PHP", "Python", "NodeJs", "Express", "Sequelize", "Nestjs", "Typeorm", "MongoDB", "React", "Tailwind", "Astro"],
   "social": {
     "linkedin": "https://www.linkedin.com/in/facundo-castro-87b864234",
-    "github": "https://github.com/schweigenderFlugel",
-    "discord": ""
+    "github": "https://github.com/schweigenderFlugel"
   },
   "resume": {
     "fullName": "Facundo Ezequiel Castro",

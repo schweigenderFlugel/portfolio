@@ -3,7 +3,6 @@ import GeneralCard from '../components/GeneralCard.astro';
 import Layout from '../layouts/Layout.astro';
 import about from '../../data/about.json';
 import Linkedin from '../icons/Linkedin.astro';
-import Discord from '../icons/Discord.astro';
 import GitHub from '../icons/GitHub.astro';
 import Html from '../icons/Html.astro';
 import Css from '../icons/Css.astro';
@@ -20,6 +19,7 @@ import Tailwind from '../icons/Tailwind.astro';
 import Download from '../icons/Download.astro';
 import AstroIcon from '../icons/AstroIcon.astro';
 import Cypress from '../icons/Cypress.astro';
+import Tooltip from '../components/Tooltip.astro';
 ---
 
 <Layout title="Bienvenidos">
@@ -29,7 +29,6 @@ import Cypress from '../icons/Cypress.astro';
       <div class="block space-x-3">
         <a href={about.social.linkedin} data-cy="linkedin" class="inline-flex items-center"><Linkedin className='w-4 h-4'/></a>
         <a href={about.social.github} data-cy="github" class="inline-flex items-center"><GitHub className='w-5 h-5'/></a>
-        <a href={about.social.discord} data-cy="discord"  class="inline-flex items-center"><Discord className='w-5 h-5'/></a>
       </div>
     </div>
     <div slot="description" class="grid grid-cols-12">
@@ -38,9 +37,12 @@ import Cypress from '../icons/Cypress.astro';
         <p data-cy="description">{about.description}</p>
       </div>
       <div class="flex justify-center items-center col-span-2">
-        <button type="button" class="flex gap-2 justify-center items-center hover:text-purple-600 dark:hover:text-purple-600 border hover:border-purple-600 font-bold rounded-full px-3 py-1">
+        <button data-resume type="button" class="flex gap-2 justify-center items-center hover:text-purple-600 px-3 py-1">
           <Download className='w-6 h-6' /> 
         </button>
+        <Tooltip id="resume" className="absolute bg-purple-600 mb-24">
+          <p>Descargar currículum</p>
+        </Tooltip>
       </div>
     </div>
     <div slot="technologies" id="carousel" class="flex gap-4 items-center overflow-hidden transition-transform duration-300">
@@ -68,6 +70,12 @@ import Cypress from '../icons/Cypress.astro';
 
 <script>
   const carousel = document.querySelector("#carousel") as HTMLButtonElement;
+  const resume = document.querySelector('[data-resume]') as HTMLButtonElement;
+  const experience = document.querySelector('[data-experience]') as HTMLButtonElement;
+  const technologies = document.querySelector('[data-technologies]') as HTMLButtonElement;
+  const tooltip1 = document.querySelector(`[data-tooltip="resume"]`) as HTMLElement;
+  const tooltip2 = document.querySelector(`[data-tooltip="technologies"]`) as HTMLElement;
+  const tooltip3 = document.querySelector(`[data-tooltip="experience"]`) as HTMLElement;
 
   let isDown: boolean = false;
   let startX: any;
@@ -93,5 +101,29 @@ import Cypress from '../icons/Cypress.astro';
     const x = e.pageX - carousel.offsetLeft;
     const walk = (x - startX);
     carousel.scrollLeft = scrollLeft - walk;
+  });
+  resume.addEventListener('mouseover', (e: MouseEvent) => {
+    e.preventDefault();
+    tooltip1.classList.remove("invisible");
+  });
+  resume.addEventListener('mouseleave', (e: MouseEvent) => {
+    e.preventDefault();
+    tooltip1.classList.add("invisible");
+  });
+  technologies.addEventListener('mouseover', (e: MouseEvent) => {
+    e.preventDefault();
+    tooltip2.classList.remove("invisible");
+  });
+  technologies.addEventListener('mouseleave', (e: MouseEvent) => {
+    e.preventDefault();
+    tooltip2.classList.add("invisible");
+  });
+  experience.addEventListener('mouseover', (e: MouseEvent) => {
+    e.preventDefault();
+    tooltip3.classList.remove("invisible");
+  });
+  experience.addEventListener('mouseleave', (e: MouseEvent) => {
+    e.preventDefault();
+    tooltip3.classList.add("invisible");
   });
 </script>

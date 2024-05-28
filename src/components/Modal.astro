@@ -1,0 +1,28 @@
+---
+import XMark from '../icons/XMark.astro';
+
+export interface Props {
+  id: number;
+  images: string[];
+}
+
+const { id, images } = Astro.props;
+---
+
+<div id={`modal-${id}`} class="fixed hidden items-center justify-center bg-gray-900 bg-opacity-80 z-10 inset-0 overflow-auto">
+  <div class="absolute px-4 py-4 rounded-3xl bg-white dark:bg-black border dark:border-purple-600">
+    <header class="flex items-center justify-end py-1">
+      <button type="button" id={`close-modal-${id}`} class=" hover:text-red-500"><XMark className="w-6 h-6" /></button>
+    </header>
+    {images.length
+      ? <div>
+          {images.map(image => (
+            <p>{image}</p>
+          ))}
+      </div>
+      : <div>
+          <p>No hay imágenes disponibles</p>
+        </div> 
+    }
+  </div>
+</div>

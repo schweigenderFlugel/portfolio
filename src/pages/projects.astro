@@ -5,6 +5,10 @@ import projects from "../../data/projects.json"
 import GitHub from "../icons/GitHub.astro"
 import Web from "../icons/Web.astro"
 import TagsCarousel from "../components/TagsCarousel.astro"
+import ImageIcon from "../icons/ImageIcon.astro"
+import Modal from "../components/Modal.astro"
+import Tooltip from "../components/Tooltip.astro"
+
 ---
 
 <Layout title="Proyectos">
@@ -13,9 +17,20 @@ import TagsCarousel from "../components/TagsCarousel.astro"
     <ul class="w-[500px] space-y-6">
       {projects && projects.map(project => (
         <ProjectsCard blur={project.blur}>
-          <div slot="header" class="text-left">
-            <p data-cy="project-title">{project.title}</p>
-            <p data-cy="project-subtitle">{project.subtitle}</p>
+          <div slot="header" class="flex justify-between items-center">
+            <div>
+              <p data-cy="project-title">{project.title}</p>
+              <p data-cy="project-subtitle">{project.subtitle}</p>
+            </div>
+            <div class="inline-flex">
+              <Tooltip id={`images-${project.id}`} className="bg-purple-600 mr-4">
+                <p>Ver imágenes</p>
+              </Tooltip>
+              <button id={`open-modal-${project.id}`} type="button" disabled={project.blur} class={`${!project.blur && 'hover:text-purple-600 cursor-pointer' }`}>
+                <ImageIcon className="w-8 h-8" />
+              </button>
+            </div>
+            <Modal id={project.id} images={project.images} />
           </div>
           <div slot="body" class="space-y-2">
             <p class="font-bold underline">Descripción</p>
@@ -45,6 +60,10 @@ import TagsCarousel from "../components/TagsCarousel.astro"
 
   projects.map(project => {
     const carousel = document.querySelector(`#carousel-${project.id}`) as HTMLButtonElement;
+    const openModal = document.querySelector(`#open-modal-${project.id}`) as HTMLButtonElement;
+    const closeModal = document.querySelector(`#close-modal-${project.id}`) as HTMLButtonElement;
+    const modal = document.querySelector(`#modal-${project.id}`) as HTMLElement;
+    const tooltip = document.querySelector(`[data-tooltip="images-${project.id}"]`) as HTMLElement;
 
     let isDown: boolean = false;
     let startX: any;
@@ -80,6 +99,27 @@ import TagsCarousel from "../components/TagsCarousel.astro"
         const walk = (x - startX);
         carousel.scrollLeft = scrollLeft - walk;
       });
+      openModal.addEventListener('mouseover', (e: MouseEvent) => {
+        e.preventDefault();
+        tooltip.classList.remove("invisible");
+      });
+      openModal.addEventListener('mouseleave', (e: MouseEvent) => {
+        e.preventDefault();
+        tooltip.classList.add("invisible");
+      })
+      openModal.addEventListener('click', (e: MouseEvent) => {
+        e.preventDefault();
+        if (modal.classList.contains("hidden")) {
+          modal.classList.add('flex');
+          modal.classList.remove('hidden');
+        }
+      });
+      closeModal.addEventListener('click', (e: MouseEvent) => {
+        if (modal.classList.contains("flex")) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      })
     }
   })
 </script>
