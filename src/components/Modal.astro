@@ -15,14 +15,10 @@ const { id, images } = Astro.props;
       <button type="button" id={`close-modal-${id}`} class=" hover:text-red-500"><XMark className="w-6 h-6" /></button>
     </header>
     {images.length
-      ? <div>
-          {images.map(image => (
-            <p>{image}</p>
-          ))}
-      </div>
-      : <div>
-          <p>No hay imágenes disponibles</p>
-        </div> 
+      ? (images.map(image => (
+            <p data-cy="project-images">{image}</p>
+          )))
+      : <p>No hay imágenes disponibles</p>
     }
   </div>
 </div>

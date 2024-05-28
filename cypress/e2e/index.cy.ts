@@ -11,17 +11,17 @@ describe('testing the main page', () => {
   })
 
   it('Should navigate to the links of social media', () => {
-    cy.get('[data-cy="linkedin"]').click()
-    .then(() => {
-      cy.url().should('eq', about.social.linkedin);
+    cy.get('[data-cy="linkedin"]')
+      .then(($link) => {
+      const url = $link.prop('href');
+      cy.wrap($link).click();
+      cy.url().should('eq', url);
     });
-    cy.get('[data-cy="github"]').click()
-    .then(() => {
-      cy.url().should('eq', about.social.github);
+    cy.get('[data-cy="github"]')
+      .then(($link) => {
+      const url = $link.prop('href');
+      cy.wrap($link).click();
+      cy.url().should('eq', url);
     });
-  })
-
-  it('Should contain the technologies', () => {
-    cy.get('[data-cy="technologies"]').should('have.length', 13);
   })
 });

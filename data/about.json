@@ -35,5 +35,8 @@
       "languages": ["Alemán B2", "Japonés", "Inglés"]
     },
     "laboral": [""]
+  },
+  "thisApp": {
+    "repository": "https://github.com/schweigenderFlugel/portfolio"
   }
 }
