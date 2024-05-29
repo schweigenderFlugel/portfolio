@@ -65,40 +65,45 @@ import Tooltip from "../components/Tooltip.astro"
     const modal = document.querySelector(`#modal-${project.id}`) as HTMLElement;
     const tooltip = document.querySelector(`[data-tooltip="images-${project.id}"]`) as HTMLElement;
 
-    let isDown: boolean = false;
-    let startX: any;
-    let scrollLeft: any;
-    const isOverflowing = tagsCarousel.scrollWidth > tagsCarousel.clientWidth;
+    if (project.tags.length) {
+      let isDown: boolean = false;
+      let startX: any;
+      let scrollLeft: any;
+      const isOverflowing = tagsCarousel.scrollWidth > tagsCarousel.clientWidth;
 
-    if (isOverflowing && !project.blur) { 
-      tagsCarousel.classList.add(
-        "cursor-pointer", 
-        "hover:bg-white", 
-        "dark:hover:bg-black", 
-        "hover:border",
-        "dark:hover:border-purple-600"
-      )
-      tagsCarousel.addEventListener("mousedown", (e: MouseEvent) => {
-        isDown = true;
-        tagsCarousel.classList.add('active');
-        startX = e.pageX - tagsCarousel.offsetLeft;
-        scrollLeft = tagsCarousel.scrollLeft;
-      });
-      tagsCarousel.addEventListener('mouseleave', (e: MouseEvent) => {
-        isDown = false;
-        tagsCarousel.classList.remove('active');
-      });
-      tagsCarousel.addEventListener('mouseup', (e: MouseEvent) => {
-        isDown = false;
-        tagsCarousel.classList.remove('active');
-      });
-      tagsCarousel.addEventListener('mousemove', (e: MouseEvent) => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - tagsCarousel.offsetLeft;
-        const walk = (x - startX);
-        tagsCarousel.scrollLeft = scrollLeft - walk;
-      });
+      if (isOverflowing && !project.blur) { 
+        tagsCarousel.classList.add(
+          "cursor-pointer", 
+          "hover:bg-white", 
+          "dark:hover:bg-black", 
+          "hover:border",
+          "dark:hover:border-purple-600"
+        )
+        tagsCarousel.addEventListener("mousedown", (e: MouseEvent) => {
+          isDown = true;
+          tagsCarousel.classList.add('active');
+          startX = e.pageX - tagsCarousel.offsetLeft;
+          scrollLeft = tagsCarousel.scrollLeft;
+        });
+        tagsCarousel.addEventListener('mouseleave', (e: MouseEvent) => {
+          isDown = false;
+          tagsCarousel.classList.remove('active');
+        });
+        tagsCarousel.addEventListener('mouseup', (e: MouseEvent) => {
+          isDown = false;
+          tagsCarousel.classList.remove('active');
+        });
+        tagsCarousel.addEventListener('mousemove', (e: MouseEvent) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - tagsCarousel.offsetLeft;
+          const walk = (x - startX);
+          tagsCarousel.scrollLeft = scrollLeft - walk;
+        });
+      }
+    } 
+    
+    if (project.images.length) {
       openModal.addEventListener('mouseover', (e: MouseEvent) => {
         e.preventDefault();
         tooltip.classList.remove("invisible");
@@ -112,14 +117,17 @@ import Tooltip from "../components/Tooltip.astro"
         if (modal.classList.contains("hidden")) {
           modal.classList.add('flex');
           modal.classList.remove('hidden');
+          document.body.style.overflow = "hidden";
         }
       });
       closeModal.addEventListener('click', (e: MouseEvent) => {
         if (modal.classList.contains("flex")) {
           modal.classList.add('hidden');
           modal.classList.remove('flex');
+          document.body.style.overflow = "auto";
         }
       })
     }
   })
+
 </script>

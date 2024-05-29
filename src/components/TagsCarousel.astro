@@ -9,16 +9,16 @@ export interface Props {
 const { id, tags } = Astro.props;
 ---
 
-{tags && 
-  <div id={`tags-carousel-${id}`} class="flex rounded-xl px-2 py-2 space-x-1 overflow-hidden transition-transform duration-300">
-    {tags.map(name => 
-      badges.filter(badge => badge.name === name).map(tag =>
-        <div data-cy="tags" class="bg-grey-200 inline-flex items-center gap-2 px-5 py-[2px] border rounded-xl flex-shrink-0">
-          <tag.icon className={tag.class} />
-          <p data-cy="tag-name" class="text-[12px] select-none">{tag.name}</p>
-        </div>
-      )
-    )}
-  </div>
+{tags.length
+  ? <div id={`tags-carousel-${id}`} class="flex rounded-xl px-2 py-2 space-x-1 overflow-hidden transition-transform duration-300">
+      {tags.map(name => 
+        badges.filter(badge => badge.name === name).map(tag =>
+          <div data-cy="tags" class="bg-grey-200 inline-flex items-center gap-2 px-5 py-[2px] border rounded-xl flex-shrink-0">
+            <tag.icon className={tag.class} />
+            <p data-cy="tag-name" class="text-[12px] select-none">{tag.name}</p>
+          </div>
+        )
+      )}
+    </div>
+  : <p>No hay etiquetas disponibles</p>
 }
-{!tags.length && <p>No hay etiquetas disponibles</p>}

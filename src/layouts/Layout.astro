@@ -64,3 +64,38 @@ const { title } = Astro.props;
 	  })
 	}
 </script>
+
+<style>
+  body::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  body::-webkit-scrollbar-thumb {
+    background-color: rgba(123, 123, 123, 0.5);
+    border-radius: 5px;
+  }
+  
+  body::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(185, 140, 228);
+    border-radius: 5px;
+  }
+  
+  body::-webkit-scrollbar-track {
+    background-color: rgba(123, 123, 123, 0.2);
+  }
+
+  .dark body::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+  }
+
+  .dark body::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(147 51 234);
+    border-radius: 5px;
+  }
+
+  .dark body::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+</style>
