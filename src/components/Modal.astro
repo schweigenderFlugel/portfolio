@@ -10,15 +10,48 @@ const { id, images } = Astro.props;
 ---
 
 <div id={`modal-${id}`} class="fixed hidden items-center justify-center bg-gray-900 bg-opacity-80 z-10 inset-0 overflow-auto">
-  <div class="absolute px-4 py-4 rounded-3xl bg-white dark:bg-black border dark:border-purple-600">
-    <header class="flex items-center justify-end py-1">
+  {images.length &&
+    <button id={`prev-${id}`} class="absolute left-[100px]">Anterior</button>
+    <button id={`next-${id}`} class="absolute right-5">Siguiente</button>
+  }
+  <div class="absolute w-[500px] rounded-3xl bg-white dark:bg-black border dark:border-purple-600">
+    <header class="flex items-center justify-end px-4 py-4">
       <button type="button" id={`close-modal-${id}`} class=" hover:text-red-500"><XMark className="w-6 h-6" /></button>
     </header>
     {images.length
-      ? (images.map(image => (
-            <p data-cy="project-images">{image}</p>
-          )))
-      : <p>No hay imágenes disponibles</p>
+      ? <div data-images-carousel class="relative w-full flex items-center space-x-6 overflow-hidden transition-transform duration-300 ease-in-out px-2 py-2">
+          {images.map(image => (
+            <img data-project-images data-cy="project-images" class="flex flex-shrink-0" src={image} />
+          ))}
+        </div>
+      : <div class="flex items-center justify-center pb-6">
+          <p>No hay imágenes disponibles</p>
+        </div> 
     }
   </div>
 </div>
+
+<script>
+  import projects from "../../data/projects.json";
+
+  projects.map(project => {
+    const prevButton = document.querySelector(`#prev-${project.id}`) as HTMLButtonElement;
+    const nextButton = document.querySelector(`#next-${project.id}`) as HTMLButtonElement;
+    const imagesCarousel = document.querySelector('[data-images-carousel]') as HTMLElement;
+    const images = document.querySelector('[data-project-images]') as HTMLElement;
+
+    let currentIndex: number = 0;
+
+    prevButton.addEventListener('click', (e: MouseEvent) => {
+      e.preventDefault();
+      currentIndex = Math.max(currentIndex - 1, 0);
+      imagesCarousel.style.transform = `translateX(-${currentIndex * images.clientWidth}px)`;
+    })
+
+    nextButton.addEventListener('click', (e: MouseEvent) => {
+      e.preventDefault();
+      currentIndex = Math.min(currentIndex + 1, imagesCarousel.children.length - 1);
+      imagesCarousel.style.transform = `translateX(-${currentIndex * images.clientWidth}px)`;
+    })
+  })
+</script>

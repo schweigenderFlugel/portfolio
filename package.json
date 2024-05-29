@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "test": "npx cypress run",
+    "cypress:run": "cypress run",
+    "test": "start-server-and-test dev http://localhost:4321 cypress:run",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro"
@@ -20,6 +21,7 @@
     "typescript": "^5.4.5"
   },
   "devDependencies": {
-    "cypress": "^13.10.0"
+    "cypress": "^13.10.0",
+    "start-server-and-test": "^2.0.3"
   }
 }

@@ -10,7 +10,7 @@ const { id, tags } = Astro.props;
 ---
 
 {tags && 
-  <div id={`carousel-${id}`} class="flex rounded-xl px-2 py-2 space-x-1 overflow-hidden transition-transform duration-300">
+  <div id={`tags-carousel-${id}`} class="flex rounded-xl px-2 py-2 space-x-1 overflow-hidden transition-transform duration-300">
     {tags.map(name => 
       badges.filter(badge => badge.name === name).map(tag =>
         <div data-cy="tags" class="bg-grey-200 inline-flex items-center gap-2 px-5 py-[2px] border rounded-xl flex-shrink-0">

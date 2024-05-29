@@ -59,9 +59,7 @@ describe("testing the projects page", () => {
       cy.get('#modal-1').should('be.visible').within(() => {
         cy.get('div').within(() => {
           cy.get('[data-cy="project-images"]').each((image, index) => {
-            cy.wrap(image).within(() => {
-              expect('[data-cy="project-images"]').to.have.text(projects[0].images[index]);
-            })
+            cy.wrap(image).should('have.text', projects[0].images[index]);
           })
         })
       });

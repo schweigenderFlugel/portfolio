@@ -59,7 +59,7 @@ import Tooltip from "../components/Tooltip.astro"
   import projects from "../../data/projects.json";
 
   projects.map(project => {
-    const carousel = document.querySelector(`#carousel-${project.id}`) as HTMLButtonElement;
+    const tagsCarousel = document.querySelector(`#tags-carousel-${project.id}`) as HTMLButtonElement;
     const openModal = document.querySelector(`#open-modal-${project.id}`) as HTMLButtonElement;
     const closeModal = document.querySelector(`#close-modal-${project.id}`) as HTMLButtonElement;
     const modal = document.querySelector(`#modal-${project.id}`) as HTMLElement;
@@ -68,36 +68,36 @@ import Tooltip from "../components/Tooltip.astro"
     let isDown: boolean = false;
     let startX: any;
     let scrollLeft: any;
-    const isOverflowing = carousel.scrollWidth > carousel.clientWidth;
+    const isOverflowing = tagsCarousel.scrollWidth > tagsCarousel.clientWidth;
 
     if (isOverflowing && !project.blur) { 
-      carousel.classList.add(
+      tagsCarousel.classList.add(
         "cursor-pointer", 
         "hover:bg-white", 
         "dark:hover:bg-black", 
         "hover:border",
         "dark:hover:border-purple-600"
       )
-      carousel.addEventListener("mousedown", (e: MouseEvent) => {
+      tagsCarousel.addEventListener("mousedown", (e: MouseEvent) => {
         isDown = true;
-        carousel.classList.add('active');
-        startX = e.pageX - carousel.offsetLeft;
-        scrollLeft = carousel.scrollLeft;
+        tagsCarousel.classList.add('active');
+        startX = e.pageX - tagsCarousel.offsetLeft;
+        scrollLeft = tagsCarousel.scrollLeft;
       });
-      carousel.addEventListener('mouseleave', (e: MouseEvent) => {
+      tagsCarousel.addEventListener('mouseleave', (e: MouseEvent) => {
         isDown = false;
-        carousel.classList.remove('active');
+        tagsCarousel.classList.remove('active');
       });
-      carousel.addEventListener('mouseup', (e: MouseEvent) => {
+      tagsCarousel.addEventListener('mouseup', (e: MouseEvent) => {
         isDown = false;
-        carousel.classList.remove('active');
+        tagsCarousel.classList.remove('active');
       });
-      carousel.addEventListener('mousemove', (e: MouseEvent) => {
+      tagsCarousel.addEventListener('mousemove', (e: MouseEvent) => {
         if (!isDown) return;
         e.preventDefault();
-        const x = e.pageX - carousel.offsetLeft;
+        const x = e.pageX - tagsCarousel.offsetLeft;
         const walk = (x - startX);
-        carousel.scrollLeft = scrollLeft - walk;
+        tagsCarousel.scrollLeft = scrollLeft - walk;
       });
       openModal.addEventListener('mouseover', (e: MouseEvent) => {
         e.preventDefault();
