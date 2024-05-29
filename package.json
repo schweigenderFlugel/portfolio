@@ -17,10 +17,12 @@
     "@astrojs/tailwind": "^5.1.0",
     "@nanostores/react": "^0.7.2",
     "astro": "^4.8.7",
+    "pdf-lib": "^1.17.1",
     "tailwindcss": "^3.4.3",
     "typescript": "^5.4.5"
   },
   "devDependencies": {
+    "@types/pdfkit": "^0.13.4",
     "cypress": "^13.10.0",
     "start-server-and-test": "^2.0.3"
   }

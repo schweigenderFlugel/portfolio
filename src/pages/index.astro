@@ -71,6 +71,8 @@ import Tooltip from '../components/Tooltip.astro';
 </Layout>
 
 <script>
+  import { generatePdf } from '../scripts/pdf.utils';
+
   const carousel = document.querySelector("#carousel") as HTMLButtonElement;
   const resume = document.querySelector('[data-resume]') as HTMLButtonElement;
   const experience = document.querySelector('[data-experience]') as HTMLButtonElement;
@@ -83,6 +85,7 @@ import Tooltip from '../components/Tooltip.astro';
   let startX: any;
   let scrollLeft: any;
 
+  // Move the carousel of technologies
   carousel.addEventListener("mousedown", (e: MouseEvent) => {
     isDown = true;
     carousel.classList.add('active');
@@ -104,6 +107,8 @@ import Tooltip from '../components/Tooltip.astro';
     const walk = (x - startX);
     carousel.scrollLeft = scrollLeft - walk;
   });
+
+  // Tooltip for resume and download
   resume.addEventListener('mouseover', (e: MouseEvent) => {
     e.preventDefault();
     tooltip1.classList.remove("invisible");
@@ -112,6 +117,9 @@ import Tooltip from '../components/Tooltip.astro';
     e.preventDefault();
     tooltip1.classList.add("invisible");
   });
+  resume.addEventListener('click', generatePdf);
+
+  // Tooltip for technologies
   technologies.addEventListener('mouseover', (e: MouseEvent) => {
     e.preventDefault();
     tooltip2.classList.remove("invisible");
@@ -120,6 +128,8 @@ import Tooltip from '../components/Tooltip.astro';
     e.preventDefault();
     tooltip2.classList.add("invisible");
   });
+
+  // Tooltip for experience
   experience.addEventListener('mouseover', (e: MouseEvent) => {
     e.preventDefault();
     tooltip3.classList.remove("invisible");
