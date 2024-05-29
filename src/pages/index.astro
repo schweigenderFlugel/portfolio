@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import about from '../../data/about.json';
 import Linkedin from '../icons/Linkedin.astro';
 import GitHub from '../icons/GitHub.astro';
+import Email from '../components/Email.astro';
 import Html from '../icons/Html.astro';
 import Css from '../icons/Css.astro';
 import Javascript from '../icons/Javascript.astro';
@@ -29,6 +30,7 @@ import Tooltip from '../components/Tooltip.astro';
       <div class="block space-x-3">
         <a href={about.social.linkedin} data-cy="linkedin" class="inline-flex items-center"><Linkedin className='w-4 h-4'/></a>
         <a href={about.social.github} data-cy="github" class="inline-flex items-center"><GitHub className='w-5 h-5'/></a>
+	<a href={about.social.email} data-cy="email" class="inline-flex items-center"><Email className='w-5 h-5'/></a>
       </div>
     </div>
     <div slot="description" class="grid grid-cols-12">
