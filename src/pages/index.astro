@@ -1,141 +1,69 @@
 ---
-import GeneralCard from '../components/GeneralCard.astro';
 import Layout from '../layouts/Layout.astro';
-import about from '../../data/about.json';
-import Linkedin from '../icons/Linkedin.astro';
-import GitHub from '../icons/GitHub.astro';
-import Email from '../icons/Email.astro';
-import Html from '../icons/Html.astro';
-import Css from '../icons/Css.astro';
-import Javascript from '../icons/Javascript.astro';
-import Typescript from '../icons/Typescript.astro';
-import Php from '../icons/Php.astro';
-import Express from '../icons/Express.astro';
-import Sequelize from '../icons/Sequelize.astro';
-import Nestjs from '../icons/Nestjs.astro';
-import Typeorm from '../icons/Typeorm.astro';
-import Laravel from '../icons/Laravel.astro';
-import React from '../icons/React.astro';
-import Tailwind from '../icons/Tailwind.astro';
-import Download from '../icons/Download.astro';
-import AstroIcon from '../icons/AstroIcon.astro';
-import Cypress from '../icons/Cypress.astro';
-import Tooltip from '../components/Tooltip.astro';
+import About from '../components/About.astro';
+import ProjectsData from '../components/ProjectsData.astro';
+import ScrollToTopBtn from '../components/ScrollToTopBtn.astro';
+import ThemeButton from '../components/ThemeButton.astro';
+import Footer from '../components/Footer.astro';
 ---
 
 <Layout title="Bienvenidos">
-  <section class="w-[500px] space-y-6">
-	<GeneralCard>
-		<div slot="header">
-      <div class="block space-x-3">
-        <a href={about.social.linkedin} data-cy="linkedin" target="_blank" class="inline-flex items-center"><Linkedin className='w-4 h-4'/></a>
-        <a href={about.social.github} data-cy="github" target="_blank" class="inline-flex items-center"><GitHub className='w-5 h-5'/></a>
-	      <a href={about.social.email} data-cy="email" target="_blank"  class="inline-flex items-center"><Email className='w-5 h-5'/></a>
-      </div>
-    </div>
-    <div slot="description" class="grid grid-cols-12">
-      <div class="col-span-10 space-y-3">
-        <p class="text-purple-600 text-[20px]">Hola, soy <strong data-cy="full-name" class="text-black dark:text-white">{about.fullName}</strong></p>
-        <p data-cy="description">{about.description}</p>
-      </div>
-      <div class="flex justify-center items-center col-span-2">
-        <button data-resume type="button" class="flex gap-2 justify-center items-center hover:text-purple-600 px-3 py-1">
-          <Download className='w-6 h-6' /> 
-        </button>
-        <Tooltip id="resume" className="absolute bg-purple-600 mb-24">
-          <p>Descargar currículum</p>
-        </Tooltip>
-      </div>
-    </div>
-    <div slot="technologies" id="carousel" class="flex gap-4 items-center overflow-hidden transition-transform duration-300">
-      <Html className='h-10 w-10 flex-shrink-0'/>
-      <Css className='h-9 w-9 pt-[1px] flex-shrink-0' />
-      <Javascript className='h-8 w-8 flex-shrink-0'/>
-      <Typescript className='h-8 w-8 flex-shrink-0' />
-      <Php className='h-10 w-10 flex-shrink-0'/> 
-      <Express className='h-8 w-8 flex-shrink-0' />
-      <Sequelize className='h-10 w-10 flex-shrink-0' />
-      <Nestjs className='h-10 w-10 flex-shrink-0' /> 
-      <Typeorm className='h-10 w-10 flex-shrink-0' />
-      <Laravel className='h-10 w-10 flex-shrink-0' />
-      <React className='h-10 w-10 flex-shrink-0' />
-      <AstroIcon className='h-9 w-9 flex-shrink-0' />
-      <Tailwind className='h-10 w-10 flex-shrink-0' />
-      <Cypress className='h-10 w-10 flex-shrink-0'/>
-    </div>
-    <div slot="experience">
-      <p class="font-bold text-[18px] text-purple-600 select-none">+{new Date().getFullYear() - about.experience}</p>
-    </div>
-	</GeneralCard>
-  </section>
+  <div>
+    <main class="space-y-20 py-20">
+      <section class="flex justify-center text-[40px] lg:text-[16px]">
+        <About />
+      </section>
+      <section class="flex justify-center text-[40px] lg:text-[16px]">
+        <ProjectsData />
+      </section>
+      <section class="fixed bottom-10 right-2">
+        <ScrollToTopBtn className="absolute bottom-40 right-10 lg:bottom-24 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
+        <ThemeButton className="absolute bottom-1 right-10 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
+      </section>
+      <section class="lg:flex lg:justify-center text-[40px] lg:text-[16px] px-10">
+        <Footer className="lg:flex lg:justify-center lg:items-center lg:space-x-16 text-center px-16 py-8 lg:px-6 lg:py-4"/>
+      </section>
+    </main>
+  </div>
 </Layout>
 
 <script>
-  import { generatePdf } from '../scripts/pdf.utils';
+  const switchTheme = document.querySelector("[data-switch-theme]") as HTMLButtonElement;
+  
+  if (
+	localStorage.getItem("appTheme") === "dark" ||
+    (!("appTheme" in localStorage) &&
+	  window.matchMedia("(prefers-color-scheme: dark)").matches)
+	) {
+	  document.documentElement.classList.add("dark");
+	} else {
+	  document.documentElement.classList.remove("dark");
+	}
 
-  const carousel = document.querySelector("#carousel") as HTMLButtonElement;
-  const resume = document.querySelector('[data-resume]') as HTMLButtonElement;
-  const experience = document.querySelector('[data-experience]') as HTMLButtonElement;
-  const technologies = document.querySelector('[data-technologies]') as HTMLButtonElement;
-  const tooltip1 = document.querySelector(`[data-tooltip="resume"]`) as HTMLElement;
-  const tooltip2 = document.querySelector(`[data-tooltip="technologies"]`) as HTMLElement;
-  const tooltip3 = document.querySelector(`[data-tooltip="experience"]`) as HTMLElement;
-
-  let isDown: boolean = false;
-  let startX: any;
-  let scrollLeft: any;
-
-  // Move the carousel of technologies
-  carousel.addEventListener("mousedown", (e: MouseEvent) => {
-    isDown = true;
-    carousel.classList.add('active');
-    startX = e.pageX - carousel.offsetLeft;
-    scrollLeft = carousel.scrollLeft;
-  });
-  carousel.addEventListener('mouseleave', (e: MouseEvent) => {
-    isDown = false;
-    carousel.classList.remove('active');
-  });
-  carousel.addEventListener('mouseup', (e: MouseEvent) => {
-    isDown = false;
-    carousel.classList.remove('active');
-  });
-  carousel.addEventListener('mousemove', (e: MouseEvent) => {
-    if (!isDown) return;
-    e.preventDefault();
-    const x = e.pageX - carousel.offsetLeft;
-    const walk = (x - startX);
-    carousel.scrollLeft = scrollLeft - walk;
-  });
-
-  // Tooltip for resume and download
-  resume.addEventListener('mouseover', (e: MouseEvent) => {
-    e.preventDefault();
-    tooltip1.classList.remove("invisible");
-  });
-  resume.addEventListener('mouseleave', (e: MouseEvent) => {
-    e.preventDefault();
-    tooltip1.classList.add("invisible");
-  });
-  resume.addEventListener('click', generatePdf);
-
-  // Tooltip for technologies
-  technologies.addEventListener('mouseover', (e: MouseEvent) => {
-    e.preventDefault();
-    tooltip2.classList.remove("invisible");
-  });
-  technologies.addEventListener('mouseleave', (e: MouseEvent) => {
-    e.preventDefault();
-    tooltip2.classList.add("invisible");
-  });
-
-  // Tooltip for experience
-  experience.addEventListener('mouseover', (e: MouseEvent) => {
-    e.preventDefault();
-    tooltip3.classList.remove("invisible");
-  });
-  experience.addEventListener('mouseleave', (e: MouseEvent) => {
-    e.preventDefault();
-    tooltip3.classList.add("invisible");
-  });
+  if (switchTheme) {
+	switchTheme.addEventListener("click", (e: MouseEvent) => {
+  	  e.preventDefault();
+      const doc = document.documentElement;
+	  if (doc) {
+		if(localStorage.getItem("appTheme")) {
+		  if (localStorage.getItem("appTheme") === "light") {
+			doc.classList.add("dark");
+		    localStorage.setItem("appTheme", "dark");
+		  } else {
+			doc.classList.remove("dark");
+		    localStorage.setItem("appTheme", "light");
+		  }
+    	} else {
+		  if (doc.classList.contains("dark")) {
+			doc.classList.remove("dark");
+		    localStorage.setItem("appTheme", "light");
+		  } else {
+			doc.classList.add("dark")
+            localStorage.setItem("appTheme", "dark")
+		  }
+		}
+	  }
+	})
+  }
+  
 </script>

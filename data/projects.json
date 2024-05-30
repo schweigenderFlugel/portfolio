@@ -24,9 +24,9 @@
   },
   {
     "id": 2,
-    "blur": true,
+    "blur": false,
     "title": "Pizzeria Don Remolo",
-    "subtitle": "Página de una tienda de pizza",
+    "subtitle": "",
     "images": [],
     "description": "Un proyecto independiente, tomando como base referencias de ID for Ideas. En esta aplicación podrá hacer pedidos de pizza y otros comestibles",
     "tags": ["Typescript", "Nestjs", "Typeorm", "Tailwind", "React"],

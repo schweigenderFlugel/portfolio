@@ -1,0 +1,30 @@
+---
+import TopArrow from "../icons/TopArrow.astro";
+
+export interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
+---
+
+<button data-scroll-top-btn class=`${className} hidden shadow-lg transition`>
+  <TopArrow className="w-20 h-20 lg:w-5 lg:h-5"/>
+</button>
+
+<script>
+  const scrollToTopBtn = document.querySelector('[data-scroll-top-btn]') as HTMLButtonElement;
+  
+  window.addEventListener('scroll', () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      scrollToTopBtn.classList.remove('hidden');
+    } else {
+      scrollToTopBtn.classList.add('hidden');
+    }
+  });
+
+  scrollToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth'});
+  });
+
+</script>

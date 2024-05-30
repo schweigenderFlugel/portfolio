@@ -10,12 +10,12 @@ const { id, tags } = Astro.props;
 ---
 
 {tags.length
-  ? <div id={`tags-carousel-${id}`} class="flex rounded-xl px-2 py-2 space-x-1 overflow-hidden transition-transform duration-300">
+  ? <div id={`tags-carousel-${id}`} class="flex rounded-xl px-2 py-2 space-x-5 lg:space-x-1 overflow-hidden transition-transform duration-300">
       {tags.map(name => 
         badges.filter(badge => badge.name === name).map(tag =>
-          <div data-cy="tags" class="bg-grey-200 inline-flex items-center gap-2 px-5 py-[2px] border rounded-xl flex-shrink-0">
+          <div data-cy="tags" class="bg-grey-200 inline-flex items-center gap-5 lg:gap-2 px-10 py-[10px] lg:px-5 lg:py-[2px] border rounded-3xl lg:rounded-xl flex-shrink-0">
             <tag.icon className={tag.class} />
-            <p data-cy="tag-name" class="text-[12px] select-none">{tag.name}</p>
+            <p data-cy="tag-name" class="text-[26px] lg:text-[12px] select-none">{tag.name}</p>
           </div>
         )
       )}

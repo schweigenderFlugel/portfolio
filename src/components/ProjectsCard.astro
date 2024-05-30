@@ -8,21 +8,21 @@ export interface Props {
 const { blur } = Astro.props;
 ---
 
-<article data-cy="projects" class="relative w-full space-y-5 px-10 py-10 border rounded-3xl bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600">
-  {blur && <section class="inline-flex gap-3 font-bold absolute top-[45%] left-[34%]">
-    <Lock className='w-6 h-6'/>
+<article data-cy="projects" class="relative grid grid-cols-6 grid-rows-8 w-[800px] h-[800px] lg:w-[500px] lg:h-[500px] space-y-10 lg:space-y-5 px-16 py-16 lg:px-10 lg:py-10 border rounded-3xl bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600">
+  {blur && <section class="inline-flex items-center gap-3 font-bold absolute top-[45%] left-[28%] lg:top-[45%] lg:left-[34%]">
+    <Lock className='w-16 h-16 lg:w-6 lg:h-6'/>
     <p>No disponible</p>
   </section>}
-  <header class=`font-bold ${blur && "blur-lg select-none"}`>
+  <header class=`relative font-bold row-span-1 col-span-6  ${blur && "blur-lg select-none"}`>
     <slot name="header" />
   </header>
-  <section class=`font-bold ${blur && "blur-lg"}`>
+  <section class=`font-bold row-span-1 col-span-6 ${blur && "blur-lg"}`>
     <slot name="tags"/>
   </section>
-  <section class=`${blur && "blur-lg select-none"}`>
+  <section class=`row-span-5 col-span-6 flex items-end ${blur && "blur-lg select-none"}`>
     <slot name="body" />
   </section>
-  <footer class=`select-none ${blur && "blur-lg"}`>
+  <footer class=`select-none flex justify-end row-span-1 col-span-6 ${blur && "blur-lg"}`>
     <slot name="buttons" />
   </footer>
 </article>
