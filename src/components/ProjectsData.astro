@@ -3,6 +3,7 @@ import ProjectsCard from "../components/ProjectsCard.astro"
 import projects from "../../data/projects.json"
 import GitHub from "../icons/GitHub.astro"
 import Web from "../icons/Web.astro"
+import XMark from '../icons/XMark.astro';
 import TagsCarousel from "../components/TagsCarousel.astro"
 import ImageIcon from "../icons/ImageIcon.astro"
 import Modal from "../components/Modal.astro"
@@ -27,19 +28,31 @@ import Tooltip from "../components/Tooltip.astro"
               <ImageIcon className="w-16 h-16 lg:w-8 lg:h-8" />
             </button>
           </div>
-          <Modal id={project.id} images={project.images} />
-        </div>
-        <div slot="tags">
-          <TagsCarousel id={project.id} tags={project.tags} />
+          <Modal id={project.id} >
+            <div slot="header" class="flex items-center justify-between lg:px-6 lg:pt-4">
+              <p class="text-[40px] lg:text-[20px] font-bold" >Detalles</p>
+              <button type="button" id={`close-modal-${project.id}`} class="hover:text-red-500"><XMark className="w-6 h-6" /></button>
+            </div>
+            <div slot="body" class="px-6 pt-2">
+              <TagsCarousel id={project.id} className="row-span-1 mb-10 lg:mb-2" tags={project.tags} />
+              <div class="space-y-3 bottom-0">
+                <p class="row-span-2 font-normal">{project.description}</p>
+                {project.publish 
+                  ? <p class="row-span-1 font-normal flex justify-end gap-x-1"><strong class="underline"><i>Presentación:</i></strong>{project.publish}</p> 
+                  : <p class="row-span-1 font-bold flex justify-end">No hay fecha de publicación</p>
+                }
+              </div>
+            </div>
+          </Modal>
         </div>
         <div slot="buttons">
-          <a id={`github-${project.id}`} class={`bg-grey-200 inline-flex items-center px-5 py-2 gap-2 border rounded-xl ${!project.blur && 'hover:text-purple-600 hover:border-purple-600'}`} href={!project.blur ? project.github : null}>
-            <GitHub className="w-10 h-10 lg:w-6 lg:h-6" />
-            Código fuente
+          <a id={`github-${project.id}`} class={`bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl ${!project.blur && 'hover:text-purple-600 hover:border-purple-600'}`} href={!project.blur ? project.github : null} target="_blank">
+            <GitHub className="w-12 h-12 lg:w-6 lg:h-6" />
+            <p class="hidden lg:display-initial">Código fuente</p>
           </a>
-          <a id={`website-${project.id}`} class={`bg-grey-200 inline-flex items-center px-5 py-2 gap-2 border rounded-xl ${!project.blur && 'hover:text-purple-600 hover:border-purple-600'}`} href={!project.blur ? project.link : null}>
-            <Web className="w-10 h-10 lg:w-6 lg:h-6" />
-            Sitio web
+          <a id={`website-${project.id}`} class={`bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl ${!project.blur && 'hover:text-purple-600 hover:border-purple-600'}`} href={!project.blur ? project.link : null} target="_blank">
+            <Web className="w-12 h-12 lg:w-6 lg:h-6" />
+            <p class="hidden lg:display-initial">Sitio web</p>
           </a>
         </div>
       </ProjectsCard>
@@ -51,64 +64,28 @@ import Tooltip from "../components/Tooltip.astro"
   import projects from "../../data/projects.json";
 
   projects.map(project => {
-    const tagsCarousel = document.querySelector(`#tags-carousel-${project.id}`) as HTMLButtonElement;
     const openModal = document.querySelector(`#open-modal-${project.id}`) as HTMLButtonElement;
     const closeModal = document.querySelector(`#close-modal-${project.id}`) as HTMLButtonElement;
     const modal = document.querySelector(`#modal-${project.id}`) as HTMLElement;
     const tooltip = document.querySelector(`#details-${project.id}`) as HTMLElement;
-
-    if (project.tags.length) {
-      let isDown: boolean = false;
-      let startX: any;
-      let scrollLeft: any;
-      const isOverflowing = tagsCarousel.scrollWidth > tagsCarousel.clientWidth;
-
-      if (isOverflowing && !project.blur) { 
-        tagsCarousel.classList.add(
-          "cursor-pointer",
-          "hover:bg-white",
-          "dark:hover:bg-black", 
-          "hover:border",
-          "lg:hover:border",
-          "dark:hover:border-purple-600"
-        )
-        tagsCarousel.addEventListener("mousedown", (e: MouseEvent) => {
-          isDown = true;
-          tagsCarousel.classList.add('active');
-          startX = e.pageX - tagsCarousel.offsetLeft;
-          scrollLeft = tagsCarousel.scrollLeft;
-        });
-        tagsCarousel.addEventListener('mouseleave', (e: MouseEvent) => {
-          isDown = false;
-          tagsCarousel.classList.remove('active');
-        });
-        tagsCarousel.addEventListener('mouseup', (e: MouseEvent) => {
-          isDown = false;
-          tagsCarousel.classList.remove('active');
-        });
-        tagsCarousel.addEventListener('mousemove', (e: MouseEvent) => {
-          if (!isDown) return;
-          e.preventDefault();
-          const x = e.pageX - tagsCarousel.offsetLeft;
-          const walk = (x - startX);
-          tagsCarousel.scrollLeft = scrollLeft - walk;
-        });
-      }
-    } 
   
     openModal.addEventListener('mouseover', (e: MouseEvent) => {
-      e.preventDefault();
-      tooltip.classList.remove("hidden");
+      if (!project.blur) {
+        e.preventDefault();
+        tooltip.classList.remove("hidden"); 
+      }
     });
     openModal.addEventListener('mouseleave', (e: MouseEvent) => {
-      e.preventDefault();
-      tooltip.classList.add("hidden");
+      if (!project.blur) {
+        e.preventDefault();
+        tooltip.classList.add("hidden");
+      }
     })
     openModal.addEventListener('click', (e: MouseEvent) => {
       e.preventDefault();
       if (modal.classList.contains("hidden")) {
         modal.classList.add('flex');
-         modal.classList.remove('hidden');
+        modal.classList.remove('hidden');
         document.body.style.overflow = "hidden";
       }
     });

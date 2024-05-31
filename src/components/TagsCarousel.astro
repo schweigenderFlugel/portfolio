@@ -3,17 +3,18 @@ import { badges } from '../scripts/badges';
 
 export interface Props {
   id: number;
+  className?: string;
   tags: string[];
 }
 
-const { id, tags } = Astro.props;
+const { id, className, tags } = Astro.props;
 ---
 
 {tags.length
-  ? <div id={`tags-carousel-${id}`} class="flex rounded-xl px-2 py-2 space-x-5 lg:space-x-1 overflow-hidden transition-transform duration-300">
+  ? <div id={`tags-carousel-${id}`} class={`${className} flex rounded-xl px-2 py-2 space-x-5 lg:space-x-1 overflow-hidden transition-transform duration-300`}>
       {tags.map(name => 
         badges.filter(badge => badge.name === name).map(tag =>
-          <div data-cy="tags" class="bg-grey-200 inline-flex items-center gap-5 lg:gap-2 px-10 py-[10px] lg:px-5 lg:py-[2px] border rounded-3xl lg:rounded-xl flex-shrink-0">
+          <div data-cy="tags" class="bg-grey-200 inline-flex items-center gap-5 lg:gap-2 px-10 py-[2px] lg:px-5 lg:py-[2px] border rounded-3xl lg:rounded-xl flex-shrink-0">
             <tag.icon className={tag.class} />
             <p data-cy="tag-name" class="text-[26px] lg:text-[12px] select-none">{tag.name}</p>
           </div>
@@ -22,3 +23,49 @@ const { id, tags } = Astro.props;
     </div>
   : <p>No hay etiquetas disponibles</p>
 }
+
+<script>
+  import projects from "../../data/projects.json";
+
+  projects.map(project => {
+    const tagsCarousel = document.querySelector(`#tags-carousel-${project.id}`) as HTMLButtonElement;
+    
+    let isDown: boolean = false;
+    let startX: any;
+    let scrollLeft: any;
+
+    if (!project.blur) { 
+      tagsCarousel.classList.add(
+        "cursor-pointer",
+        "hover:bg-white",
+        "dark:hover:bg-black", 
+        "hover:border",
+        "lg:hover:border",
+        "dark:hover:border-purple-600"
+      )
+      tagsCarousel.addEventListener("mousedown", (e: MouseEvent) => {
+        isDown = true;
+        tagsCarousel.classList.add('active');
+        startX = e.pageX - tagsCarousel.offsetLeft;
+        scrollLeft = tagsCarousel.scrollLeft;
+      });
+      tagsCarousel.addEventListener('mouseleave', (e: MouseEvent) => {
+        isDown = false;
+        tagsCarousel.classList.remove('active');
+      });
+      tagsCarousel.addEventListener('mouseup', (e: MouseEvent) => {
+        isDown = false;
+        tagsCarousel.classList.remove('active');
+      });
+      tagsCarousel.addEventListener('mousemove', (e: MouseEvent) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - tagsCarousel.offsetLeft;
+        const walk = (x - startX);
+        tagsCarousel.scrollLeft = scrollLeft - walk;
+      });
+    }
+  }
+)
+
+</script>
