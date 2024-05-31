@@ -30,15 +30,15 @@ import Tooltip from "../components/Tooltip.astro"
           </div>
           <Modal id={project.id} >
             <div slot="header" class="flex items-center justify-between lg:px-6 lg:pt-4">
-              <p class="text-[40px] lg:text-[20px] font-bold" >Detalles</p>
-              <button type="button" id={`close-modal-${project.id}`} class="hover:text-red-500"><XMark className="w-6 h-6" /></button>
+              <p class="text-[40px] lg:text-[20px] font-bold">Detalles</p>
+              <button type="button" id={`close-modal-${project.id}`} class="hover:text-red-500"><XMark className="w-10 h-10 lg:w-6 lg:h-6" /></button>
             </div>
             <div slot="body" class="px-6 pt-2">
               <TagsCarousel id={project.id} className="row-span-1 mb-10 lg:mb-2" tags={project.tags} />
               <div class="space-y-3 bottom-0">
                 <p class="row-span-2 font-normal">{project.description}</p>
                 {project.publish 
-                  ? <p class="row-span-1 font-normal flex justify-end gap-x-1"><strong class="underline"><i>Presentación:</i></strong>{project.publish}</p> 
+                  ? <p class="row-span-1 font-normal flex justify-end gap-x-3 lg:gap-x-1"><strong class="underline"><i>Presentación:</i></strong>{project.publish}</p> 
                   : <p class="row-span-1 font-bold flex justify-end">No hay fecha de publicación</p>
                 }
               </div>
