@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 # images
 cypress/screenshots
+cypress/downloads
