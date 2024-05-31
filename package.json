@@ -10,7 +10,8 @@
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.{astro,ts}\" --fix"
+    "lint": "eslint \"{src,apps,libs,test}/**/*.{astro,ts}\" --fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@astrojs/check": "^0.7.0",
@@ -28,6 +29,7 @@
     "cypress": "^13.10.0",
     "eslint": "^9.3.0",
     "eslint-plugin-astro": "^1.2.0",
+    "husky": "^8.0.3",
     "start-server-and-test": "^2.0.3"
   }
 }
