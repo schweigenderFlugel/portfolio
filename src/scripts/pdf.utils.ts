@@ -24,7 +24,7 @@ export interface IResume {
   laboral?: string[];
 }
 
-export async function generatePdf(resume: IResume) {
+export const generatePdf = async (resume: IResume): Promise<string> => {
   const data = [
     resume.fullName,
     resume.dni.toString(),

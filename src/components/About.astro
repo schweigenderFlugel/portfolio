@@ -19,6 +19,7 @@ import Download from '../icons/Download.astro';
 import AstroIcon from '../icons/AstroIcon.astro';
 import Cypress from '../icons/Cypress.astro';
 import Tooltip from './Tooltip.astro';
+import Modal from './Modal.astro';
 ---
 
 <GeneralCard>
@@ -62,6 +63,11 @@ import Tooltip from './Tooltip.astro';
     <p class="font-bold text-[40px] lg:text-[18px] text-purple-600 select-none">+{new Date().getFullYear() - about.experience}</p>
   </div>
 </GeneralCard>
+<Modal keyword="resume">
+  <div slot="body">
+    <p>Generando documento pdf...</p>
+  </div>
+</Modal>
 
 <script>
     import { generatePdf } from '../scripts/pdf.utils';
@@ -74,6 +80,7 @@ import Tooltip from './Tooltip.astro';
     const tooltip1 = document.querySelector(`[data-tooltip="resume"]`) as HTMLElement;
     const tooltip2 = document.querySelector(`[data-tooltip="technologies"]`) as HTMLElement;
     const tooltip3 = document.querySelector(`[data-tooltip="experience"]`) as HTMLElement;
+    const modal = document.querySelector('[data-modal="resume"]') as HTMLElement;
   
     let isDown: boolean = false;
     let startX: any;
@@ -117,11 +124,20 @@ import Tooltip from './Tooltip.astro';
       tooltip1.classList.add("hidden");
     });
     resume.addEventListener('click', async () => {
-      const pdfUrl = await generatePdf(about.resume);
-      const link = document.createElement('a');
-      link.href = pdfUrl;
-      link.download = `facundo_castro_cv`;
-      link.click();
+      modal.classList.add('flex');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = "hidden";
+      await generatePdf(about.resume).then(url => {
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          document.body.style.overflow = "auto";
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `facundo_castro_cv`;
+          link.click();
+        }, 1000)
+      })
     });
 
     
