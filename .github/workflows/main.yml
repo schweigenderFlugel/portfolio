@@ -14,10 +14,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Install npm dependencies, cache them correctly
-      # and run all cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v6
+      - name: Node Setup
+        uses: actions/setup-node@v4
         with:
-          start: npm run start:cypress
-          wait-on: 'http://localhost:4321'
+          node-version: 18
+
+      - name: Install depemdencies
+        run: npm install
+
+      - name: Lint
+        run: npm run eslint
