@@ -23,4 +23,4 @@ jobs:
         run: npm install --force
 
       - name: Lint
-        run: npm run eslint
+        run: npm run lint
