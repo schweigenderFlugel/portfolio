@@ -1,5 +1,4 @@
 ---
-import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
 interface Props {
@@ -13,54 +12,44 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
 	<meta charset="UTF-8" />
-	<title>{title}</title>
+	<title data-cy="title">{title}</title>
   </head>
   <body class="bg-white dark:bg-black text-black dark:text-white">
-	<Navbar/>
-	<main class="flex justify-center px-10 py-10">
 	  <slot />
-	</main>
-	<section class="flex justify-center">
-		<Footer />
-	</section>
   </body>
 </html>
 
-<script>
-	const switchTheme = document.querySelector("[data-switch-theme]") as HTMLButtonElement;
-	if (
-	  localStorage.getItem("appTheme") === "dark" ||
-	  (!("appTheme" in localStorage) &&
-	  	window.matchMedia("(prefers-color-scheme: dark)").matches)
-	) {
-	  document.documentElement.classList.add("dark");
-	} else {
-	  document.documentElement.classList.remove("dark");
-	}
+<style>
+  body::-webkit-scrollbar {
+    width: 10px;
+  }
 
-	if (switchTheme) {
-	  switchTheme.addEventListener("click", (e: MouseEvent) => {
-		e.preventDefault();
-		const doc = document.documentElement;
-		if (doc) {
-		  if(localStorage.getItem("appTheme")) {
-			if (localStorage.getItem("appTheme") === "light") {
-			  doc.classList.add("dark");
-			  localStorage.setItem("appTheme", "dark");
-			} else {
-			  doc.classList.remove("dark");
-			  localStorage.setItem("appTheme", "light");
-			}
-		  } else {
-			if (doc.classList.contains("dark")) {
-			  doc.classList.remove("dark");
-			  localStorage.setItem("appTheme", "light");
-			} else {
-			  doc.classList.add("dark")
-              localStorage.setItem("appTheme", "dark")
-			}
-		  }
-		}
-	  })
-	}
-</script>
+  body::-webkit-scrollbar-thumb {
+    background-color: rgba(123, 123, 123, 0.5);
+    border-radius: 5px;
+  }
+  
+  body::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(185, 140, 228);
+    border-radius: 5px;
+  }
+  
+  body::-webkit-scrollbar-track {
+    background-color: rgba(123, 123, 123, 0.2);
+  }
+
+  .dark body::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+  }
+
+  .dark body::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(147 51 234);
+    border-radius: 5px;
+  }
+
+  .dark body::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+</style>

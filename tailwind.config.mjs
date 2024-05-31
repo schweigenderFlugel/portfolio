@@ -4,6 +4,15 @@ export default {
 	theme: {
 		extend: {},
 	},
-	plugins: [],
+	plugins: [
+	  function({ addUtilities }) {
+		const newUtilities = {
+		  '.display-initial': {
+			display: 'initial'
+		  },
+		}
+		addUtilities(newUtilities);
+	  }
+	],
 	darkMode: 'class'
 }

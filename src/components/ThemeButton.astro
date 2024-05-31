@@ -1,9 +1,45 @@
 ---
 import Moon from "../icons/Moon.astro";
 import Sun from "../icons/Sun.astro";
+
+export interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
 ---
 
-<button data-switch-theme>
-  <Sun className="w-5 h-5 dark:flex hidden"/>
-  <Moon className="w-5 h-5 flex dark:hidden"/>
+<button data-cy="dark-mode" class=`${className}` data-switch-theme>
+  <Sun className="w-20 h-20 lg:w-5 lg:h-5 shadow-lg dark:display-initial hidden"/>
+  <Moon className="w-20 h-20 lg:w-5 lg:h-5 shadow-lg display-initial dark:hidden"/>
 </button>
+
+<script>
+  const switchLgTheme = document.querySelector("[data-lg-switch-theme]") as HTMLButtonElement
+  
+  if (switchLgTheme) {
+    switchLgTheme.addEventListener("click", (e: MouseEvent) => {
+      e.preventDefault();
+      const doc = document.documentElement;
+        if (doc) {
+          if (localStorage.getItem("appTheme")) {
+            if (localStorage.getItem("appTheme") === "light") {
+              doc.classList.add("dark");
+              localStorage.setItem("appTheme", "dark");
+            } else {
+              doc.classList.remove("dark");
+              localStorage.setItem("appTheme", "light");
+            }
+          } else {
+            if (doc.classList.contains("dark")) {
+              doc.classList.remove("dark");
+              localStorage.setItem("appTheme", "light");
+            } else {
+              doc.classList.add("dark")
+              localStorage.setItem("appTheme", "dark")
+            }
+          }
+        }
+    })
+  }
+</script>
