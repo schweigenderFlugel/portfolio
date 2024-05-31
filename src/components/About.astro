@@ -24,7 +24,7 @@ import Modal from './Modal.astro';
 
 <GeneralCard>
   <div slot="header">
-    <div class="block space-x-6 lg:space-x-2">
+    <div data-cy="social" class="block space-x-6 lg:space-x-2">
       <a href={about.social.linkedin} data-cy="linkedin" target="_blank" class="inline-flex items-center"><Linkedin className='w-[70px] h-[70px] lg:w-5 lg:h-5'/></a>
       <a href={about.social.github} data-cy="github" target="_blank" class="inline-flex items-center"><GitHub className='w-[72px] h-[72px] lg:w-6 lg:h-6'/></a>
     </div>
@@ -39,7 +39,7 @@ import Modal from './Modal.astro';
         <Download className='w-16 h-16 lg:w-6 lg:h-6' /> 
       </button>
       <Tooltip keyword="resume" className="absolute inline-flex bg-purple-600 lg:text-[16px] text-[32px] px-6 py-3 lg:py-1.5 lg:px-3 mb-48 lg:mb-24">
-        <p>Descargar currículum</p>
+        <p>Descargar CV</p>
       </Tooltip>
     </div>
   </div>
@@ -87,16 +87,15 @@ import Modal from './Modal.astro';
     let scrollLeft: any;
     const isOverflowing = carousel.scrollWidth > carousel.clientWidth;
   
-    // Move the carousel of technologies
     if (isOverflowing) {
       carousel.classList.add('cursor-pointer');
 
       carousel.addEventListener("mousedown", (e: MouseEvent) => {
-      isDown = true;
-      carousel.classList.add('active');
-      startX = e.pageX - carousel.offsetLeft;
-      scrollLeft = carousel.scrollLeft;
-    });
+        isDown = true;
+        carousel.classList.add('active');
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+      });
       carousel.addEventListener('mouseleave', (e: MouseEvent) => {
         isDown = false;
         carousel.classList.remove('active');

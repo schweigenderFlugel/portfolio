@@ -83,18 +83,14 @@ import Tooltip from "../components/Tooltip.astro"
     })
     openModal.addEventListener('click', (e: MouseEvent) => {
       e.preventDefault();
-      if (modal.classList.contains("hidden")) {
-        modal.classList.add('flex');
-        modal.classList.remove('hidden');
-        document.body.style.overflow = "hidden";
-      }
+      modal.classList.add('flex');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = "hidden";
     });
     closeModal.addEventListener('click', (e: MouseEvent) => {
-      if (modal.classList.contains('flex')) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-        document.body.style.overflow = "auto";
-      }
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = "auto";      
     })
   })
 

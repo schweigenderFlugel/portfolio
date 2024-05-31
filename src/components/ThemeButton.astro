@@ -9,7 +9,7 @@ export interface Props {
 const { className } = Astro.props;
 ---
 
-<button class=`${className}` data-switch-theme>
+<button data-cy="dark-mode" class=`${className}` data-switch-theme>
   <Sun className="w-20 h-20 lg:w-5 lg:h-5 shadow-lg dark:display-initial hidden"/>
   <Moon className="w-20 h-20 lg:w-5 lg:h-5 shadow-lg display-initial dark:hidden"/>
 </button>
