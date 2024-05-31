@@ -1,0 +1,163 @@
+---
+import GeneralCard from './GeneralCard.astro';
+import about from '../../data/about.json';
+import Linkedin from '../icons/Linkedin.astro';
+import GitHub from '../icons/GitHub.astro';
+import Html from '../icons/Html.astro';
+import Css from '../icons/Css.astro';
+import Javascript from '../icons/Javascript.astro';
+import Typescript from '../icons/Typescript.astro';
+import Php from '../icons/Php.astro';
+import Express from '../icons/Express.astro';
+import Sequelize from '../icons/Sequelize.astro';
+import Nestjs from '../icons/Nestjs.astro';
+import Typeorm from '../icons/Typeorm.astro';
+import Laravel from '../icons/Laravel.astro';
+import React from '../icons/React.astro';
+import Tailwind from '../icons/Tailwind.astro';
+import Download from '../icons/Download.astro';
+import AstroIcon from '../icons/AstroIcon.astro';
+import Cypress from '../icons/Cypress.astro';
+import Tooltip from './Tooltip.astro';
+import Modal from './Modal.astro';
+---
+
+<GeneralCard>
+  <div slot="header">
+    <div data-cy="social" class="block space-x-6 lg:space-x-2">
+      <a href={about.social.linkedin} data-cy="linkedin" target="_blank" class="inline-flex items-center"><Linkedin className='w-[70px] h-[70px] lg:w-5 lg:h-5'/></a>
+      <a href={about.social.github} data-cy="github" target="_blank" class="inline-flex items-center"><GitHub className='w-[72px] h-[72px] lg:w-6 lg:h-6'/></a>
+    </div>
+  </div>
+  <div slot="description" class="grid grid-cols-12">
+    <div class="col-span-10 space-y-3">
+      <p class="text-purple-600">Hola, soy <strong data-cy="full-name" class="text-black dark:text-white">{about.fullName}</strong></p>
+      <p data-cy="description">{about.description}</p>
+    </div>
+    <div class="flex justify-center items-center col-span-2">
+      <button data-resume type="button" class="flex gap-2 justify-center items-center hover:text-purple-600 px-3 py-1">
+        <Download className='w-16 h-16 lg:w-6 lg:h-6' /> 
+      </button>
+      <Tooltip keyword="resume" className="absolute inline-flex bg-purple-600 lg:text-[16px] text-[32px] px-6 py-3 lg:py-1.5 lg:px-3 mb-48 lg:mb-24">
+        <p>Descargar CV</p>
+      </Tooltip>
+    </div>
+  </div>
+  <div slot="technologies" data-carousel class="flex gap-4 items-center overflow-hidden transition-transform duration-300">
+    <Html className='h-[90px] w-[90px] lg:h-10 lg:w-10 flex-shrink-0'/>
+    <Css className='h-[82px] w-[82px] lg:h-9 lg:w-9 pt-[5px] flex-shrink-0' />
+    <Javascript className='h-[70px] w-[70px] lg:h-8 lg:w-8 flex-shrink-0'/>
+    <Typescript className='h-[70px] w-[70px] lg:h-8 lg:w-8 flex-shrink-0' />
+    <Php className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0'/> 
+    <Express className='h-[70px] w-[70px]lg:h-8 lg:w-8 flex-shrink-0' />
+    <Sequelize className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <Nestjs className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' /> 
+    <Typeorm className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <Laravel className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <React className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <AstroIcon className='h-[70px] w-[70px] lg:h-9 lg:w-9 flex-shrink-0' />
+    <Tailwind className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <Cypress className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0'/>
+  </div>
+  <div slot="experience">
+    <p class="font-bold text-[40px] lg:text-[18px] text-purple-600 select-none">+{new Date().getFullYear() - about.experience}</p>
+  </div>
+</GeneralCard>
+<Modal keyword="resume">
+  <div slot="body">
+    <p>Generando documento pdf...</p>
+  </div>
+</Modal>
+
+<script>
+    import { generatePdf } from '../scripts/pdf.utils';
+    import about from '../../data/about.json';
+  
+    const carousel = document.querySelector("[data-carousel]") as HTMLButtonElement;
+    const resume = document.querySelector('[data-resume]') as HTMLButtonElement;
+    const experience = document.querySelector('[data-experience]') as HTMLButtonElement;
+    const technologies = document.querySelector('[data-technologies]') as HTMLButtonElement;
+    const tooltip1 = document.querySelector(`[data-tooltip="resume"]`) as HTMLElement;
+    const tooltip2 = document.querySelector(`[data-tooltip="technologies"]`) as HTMLElement;
+    const tooltip3 = document.querySelector(`[data-tooltip="experience"]`) as HTMLElement;
+    const modal = document.querySelector('[data-modal="resume"]') as HTMLElement;
+  
+    let isDown: boolean = false;
+    let startX: any;
+    let scrollLeft: any;
+    const isOverflowing = carousel.scrollWidth > carousel.clientWidth;
+  
+    if (isOverflowing) {
+      carousel.classList.add('cursor-pointer');
+
+      carousel.addEventListener("mousedown", (e: MouseEvent) => {
+        isDown = true;
+        carousel.classList.add('active');
+        startX = e.pageX - carousel.offsetLeft;
+        scrollLeft = carousel.scrollLeft;
+      });
+      carousel.addEventListener('mouseleave', (e: MouseEvent) => {
+        isDown = false;
+        carousel.classList.remove('active');
+      });
+      carousel.addEventListener('mouseup', (e: MouseEvent) => {
+        isDown = false;
+        carousel.classList.remove('active');
+      });
+      carousel.addEventListener('mousemove', (e: MouseEvent) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - carousel.offsetLeft;
+        const walk = (x - startX);
+        carousel.scrollLeft = scrollLeft - walk;
+      });
+    }
+    
+    // Tooltip for resume and download
+    resume.addEventListener('mouseover', (e: MouseEvent) => {
+      e.preventDefault();
+      tooltip1.classList.remove("hidden");
+    });
+    resume.addEventListener('mouseleave', (e: MouseEvent) => {
+      e.preventDefault();
+      tooltip1.classList.add("hidden");
+    });
+    resume.addEventListener('click', async () => {
+      modal.classList.add('flex');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = "hidden";
+      await generatePdf(about.resume).then(url => {
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          document.body.style.overflow = "auto";
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `facundo_castro_cv`;
+          link.click();
+        }, 1000)
+      })
+    });
+
+    
+  
+    // Tooltip for technologies
+    technologies.addEventListener('mouseover', (e: MouseEvent) => {
+      e.preventDefault();
+      tooltip2.classList.remove("hidden");
+    });
+    technologies.addEventListener('mouseleave', (e: MouseEvent) => {
+      e.preventDefault();
+      tooltip2.classList.add("hidden");
+    });
+  
+    // Tooltip for experience
+    experience.addEventListener('mouseover', (e: MouseEvent) => {
+      e.preventDefault();
+      tooltip3.classList.remove("hidden");
+    });
+    experience.addEventListener('mouseleave', (e: MouseEvent) => {
+      e.preventDefault();
+      tooltip3.classList.add("hidden");
+    });
+  </script>

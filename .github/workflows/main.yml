@@ -1,0 +1,29 @@
+name: main
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: 
+    branches: ["*"]
+
+jobs:
+  test:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node Setup
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install depemdencies
+        run: npm install --force
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Cypress Tests
+        run: npm run test

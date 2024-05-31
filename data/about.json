@@ -1,20 +1,19 @@
 {  
   "fullName": "Facundo Castro",
-  "description": "Soy programador FullStack, pero me especializo más en el desarrollo del backend. También sé algo de inteligencia artificial.",
+  "description": "Soy programador FullStack, centrado especialmente en el backend. Utilizo mucho TypeScript en mis proyectos, pero tengo conocimiento en otras tegnologías.",
   "experience": 2023,
   "technologies": ["Html", "Css", "Javascript", "Typescript", "PHP", "Python", "NodeJs", "Express", "Sequelize", "Nestjs", "Typeorm", "MongoDB", "React", "Tailwind", "Astro"],
   "social": {
-    "linkedin": "",
-    "github": "",
-    "discord": ""
+    "linkedin": "https://www.linkedin.com/in/facundo-castro-87b864234",
+    "github": "https://github.com/schweigenderFlugel"
   },
   "resume": {
     "fullName": "Facundo Ezequiel Castro",
     "country": "Argentina",
     "state": "Mendoza",
     "address": "A. Bufano 140 Gral. Gutierrez, Maipú",
-    "phone": "",
-    "email": "",
+    "phone": 0,
+    "email": "facundoezcastro@gmail.com",
     "dni": 36653173,
     "cuil": 20366531755,
     "presentation": "",
@@ -36,5 +35,8 @@
       "languages": ["Alemán B2", "Japonés", "Inglés"]
     },
     "laboral": [""]
+  },
+  "thisApp": {
+    "repository": "https://github.com/schweigenderFlugel/portfolio"
   }
 }

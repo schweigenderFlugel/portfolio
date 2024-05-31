@@ -1,13 +1,20 @@
 ---
+import about from "../../data/about.json";
 import AstroIcon from "../icons/AstroIcon.astro";
+
+export interface Props {
+  className?: string;
+}
+
+const { className } = Astro.props;
 ---
 
-<footer class="mb-5 text-white px-6 py-2 flex justify-center space-x-16 bg-black rounded-full">
+<footer data-cy="footer" class=`${className} mb-5 text-white bg-black dark:bg-transparent rounded-full`>
   <div class="inline-flex items-center space-x-3">
-    <AstroIcon className="h-12 w-12*" />
+    <AstroIcon className="w-16 h-16 lg:h-10 lg:w-10" />
     <p>Desarrollada con <a class="font-bold underline hover:text-purple-600" href="https://astro.build/">Astro</a></p>
   </div>
-  <div class="inline-flex items-center space-x-3">
-    <p>Échale un vistazo al <a class="font-bold underline hover:text-purple-600" href="https://github.com/schweigenderFlugel/portfolio">código fuente</a></p>
+  <div data-cy="this-repository" class="inline-flex items-center space-x-3">
+    <p>Échale un vistazo al <a class="font-bold underline hover:text-purple-600" href={about.thisApp.repository}>código fuente</a></p>
   </div>
 </footer>
