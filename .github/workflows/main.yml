@@ -20,7 +20,10 @@ jobs:
           node-version: 18
 
       - name: Install depemdencies
-        run: npm install
+        run: npm install --force
 
       - name: Lint
-        run: npm run eslint
+        run: npm run lint
+
+      - name: Cypress Tests
+        run: npm run test
