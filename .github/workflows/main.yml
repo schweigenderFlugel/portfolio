@@ -30,8 +30,7 @@ jobs:
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          run: npm install --force --no-audit --no-fund --no--optional
-          start: npm run start
+          start: npm install --force --no-audit --no-fund --no--optional
           record: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
