@@ -28,12 +28,12 @@ jobs:
         run: npm run lint
 
       - name: Start
-        run: npm start
+        run: npm run start
 
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          wait-on: 'http://localhost:4321'
+          wait-on: 'http://localhost:4321/'
           record: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
