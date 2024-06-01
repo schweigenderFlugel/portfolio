@@ -27,15 +27,11 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Start
-        run: npm run start &
-
-      - name: Wait for server
-        run: npx wait-on http://localhost:4321
-
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
         with:
+          install-command: npm install --force 
+          start: npm run start
           record: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
