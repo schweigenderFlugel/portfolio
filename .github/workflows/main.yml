@@ -22,7 +22,7 @@ jobs:
           node-version: 18
 
       - name: Install depemdencies
-        run: npm install --force --no-audit --no-fund
+        run: SKIP_HUSKY=true npm install --force --no-audit --no-fund
 
       - name: Lint
         run: npm run lint
@@ -30,7 +30,9 @@ jobs:
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
         with: 
-          start: npm run start
+          start: |
+            --force
+            npm run start
           record: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
