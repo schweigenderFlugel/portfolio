@@ -22,7 +22,7 @@ jobs:
           node-version: 18
 
       - name: Install depemdencies
-        run: npm install --force --no-audit --no-fund --no-optional
+        run: npm install --force --no-audit --no-fund
 
       - name: Lint
         run: npm run lint
