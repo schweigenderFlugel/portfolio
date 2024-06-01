@@ -27,12 +27,10 @@ jobs:
       - name: Lint
         run: npm run lint
 
-      - name: Start
-        run: npm run start
-
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
         with:
+          start: npm run start
           record: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
