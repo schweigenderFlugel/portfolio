@@ -22,15 +22,17 @@ jobs:
           node-version: 18
 
       - name: Install depemdencies
-        run: npm install --force
+        run: npm install --force --no-audit --no-fund --no-optional
 
       - name: Lint
         run: npm run lint
 
+      - name: Start
+        run: npm run start
+
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          start: npm install --force && npm start
           wait-on: 'http://localhost:4321'
           record: true
         env:
