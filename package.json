@@ -8,7 +8,7 @@
     "cypress:run": "cypress run",
     "test": "start-server-and-test dev http://localhost:4321 cypress:run",
     "prebuild": "npm install --force",
-    "build": "astro check && astro build",
+    "build": "prebuild && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint \"{src,apps,libs,test}/**/*.{astro,ts}\" --fix",
