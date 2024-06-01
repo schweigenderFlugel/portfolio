@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-22.04
     strategy:
       fail-fast: false
-      matrix:
-        containers: [1, 2]
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,9 +30,10 @@ jobs:
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          run: npm run test
+          start: |
+            npm install --force --no-audit --no-fund --no-optional
+            npm run start
           record: true
-          parallel: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
