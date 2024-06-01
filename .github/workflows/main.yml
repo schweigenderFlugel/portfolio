@@ -30,7 +30,8 @@ jobs:
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          start: npm install --force --no-audit --no-fund --no--optional
+          start: npm start
+          wait-on: 'http://localhost:4321'
           record: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
