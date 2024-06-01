@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "dist"  # Cambia esto al directorio donde se publican tus archivos construidos
+
+[build.environment]
+  NODE_ENV = "production"
+
+[build.lifecycle]
+  onPreBuild = "npm install --force"
