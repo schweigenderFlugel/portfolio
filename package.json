@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "cypress:run": "cypress run",
+    "cypress:run": "npx cypress run",
     "test": "start-server-and-test dev http://localhost:4321 cypress:run",
     "build": "astro check && astro build",
     "preview": "astro preview",
