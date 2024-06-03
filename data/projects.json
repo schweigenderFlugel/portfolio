@@ -1,7 +1,6 @@
 [
   {
     "id": 1,
-    "blur": false,
     "title": "Bankme",
     "images": "",
     "subtitle": "Billetera virtual",
@@ -13,14 +12,13 @@
   },
   {
     "id": 2,
-    "blur": true,
-    "title": "Pizzeria Don Remolo",
-    "subtitle": "Tienda para pizzas",
-    "images": [],
-    "description": "Un proyecto independiente, tomando como base referencias de ID for Ideas. En esta aplicación podrá hacer pedidos de pizza y otros comestibles",
-    "publish": "",
-    "tags": ["Typescript", "Nestjs", "Typeorm", "Tailwind", "React"],
-    "github": "",
-    "link": ""
+    "title": "Marigold",
+    "subtitle": "E-commerce",
+    "images": "",
+    "description": "Este sitio web fue desarrollado durante mis inicios con React y Tailwind. Fue parte del curso de React y Tailwind llevado a cabo por la plataforma Platzi. La Api fue proporcionada por la plataforma, por tanto es posible que algunas cosas no se vizualicen en la pantalla",
+    "publish": "2 de junio, 2023",
+    "tags": ["Javascript", "React", "Tailwind"],
+    "github": "https://github.com/schweigenderFlugel/react-vite-tailwindcss",
+    "link": "https://comforting-marigold-0290d0.netlify.app/"
   }
 ]

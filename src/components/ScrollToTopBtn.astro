@@ -16,7 +16,7 @@ const { className } = Astro.props;
   const scrollToTopBtn = document.querySelector('[data-scroll-top-btn]') as HTMLButtonElement;
   
   window.addEventListener('scroll', () => {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 50)) {
       scrollToTopBtn.classList.remove('hidden');
     } else {
       scrollToTopBtn.classList.add('hidden');
