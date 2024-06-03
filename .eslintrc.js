@@ -5,7 +5,4 @@ module.exports = {
     parser: "@typescript-eslint/parser",
     extraFileExtensions: [".astro"],
   },
-  rules: {
-    "no-console": "error"
-  },
 }
