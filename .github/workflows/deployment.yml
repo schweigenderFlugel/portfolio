@@ -36,7 +36,6 @@ jobs:
           install-command: npm install --force 
           start: npm run start
           wait-on: http://localhost:9000
-          parallel: true
           record: true
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
