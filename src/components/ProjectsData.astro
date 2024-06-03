@@ -30,11 +30,11 @@ import Tooltip from "../components/Tooltip.astro"
           </div>
         </div>
         <div slot="buttons">
-          <a data-github={project.id} class="bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl" href={project.github} target="_blank">
+          <a data-github={project.id} class="bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.github} target="_blank">
             <GitHub className="w-12 h-12 lg:w-6 lg:h-6" />
             <p class="hidden lg:display-initial">Código fuente</p>
           </a>
-          <a data-website={project.id} class="bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl" href={project.link} target="_blank">
+          <a data-website={project.id} class="bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.link} target="_blank">
             <Web className="w-12 h-12 lg:w-6 lg:h-6" />
             <p class="hidden lg:display-initial">Sitio web</p>
           </a>
