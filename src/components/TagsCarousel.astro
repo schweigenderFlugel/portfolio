@@ -11,7 +11,7 @@ const { id, className, tags } = Astro.props;
 ---
 
 {tags.length
-  ? <div id={`tags-carousel-${id}`} class={`${className} flex rounded-xl px-2 py-2 space-x-5 lg:space-x-1 overflow-hidden transition-transform duration-300`}>
+  ? <div data-tags-carousel-btn={id} data-tags-carousel-touch={id} class={`${className} relative flex rounded-xl px-2 py-2 space-x-5 lg:space-x-1 overflow-hidden transition-transform duration-300`}>
       {tags.map(name => 
         badges.filter(badge => badge.name === name).map(tag =>
           <div data-cy="tags" class="bg-grey-200 inline-flex items-center gap-5 lg:gap-2 px-10 py-[2px] lg:px-5 lg:py-[2px] border rounded-3xl lg:rounded-xl flex-shrink-0">
@@ -28,43 +28,83 @@ const { id, className, tags } = Astro.props;
   import projects from "../../data/projects.json";
 
   projects.map(project => {
-    const tagsCarousel = document.querySelector(`#tags-carousel-${project.id}`) as HTMLButtonElement;
-    
-    let isDown: boolean = false;
-    let startX: any;
-    let scrollLeft: any;
+    const tagsCarouselBtn = document.querySelector(`[data-tags-carousel-btn="${project.id}"]`) as HTMLButtonElement;
+    const tagsCarouselTouch = document.querySelector(`[data-tags-carousel-touch="${project.id}"]`) as HTMLElement;
 
-    if (!project.blur) { 
-      tagsCarousel.classList.add(
-        "cursor-pointer",
-        "hover:bg-white",
-        "dark:hover:bg-black", 
-        "hover:border",
-        "lg:hover:border",
-        "dark:hover:border-purple-600"
-      )
-      tagsCarousel.addEventListener("mousedown", (e: MouseEvent) => {
+    const lgBreakPoint = 1024;
+    const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
+
+    const moveCarouselTouch = () => {
+      let startX: number;
+      let scrollLeft: any;
+
+      const touchStart = (e: TouchEvent) => {
+        startX = e.touches[0].clientX;
+        scrollLeft = tagsCarouselTouch.scrollLeft;
+        tagsCarouselTouch.addEventListener('touchmove', touchMove);
+        tagsCarouselTouch.addEventListener('touchend', touchEnd);
+      }
+
+      const touchMove = (e: TouchEvent) => {
+        const currentX = e.touches[0].clientX - tagsCarouselTouch.offsetLeft;
+        const walk = (currentX - startX);
+        tagsCarouselTouch.scrollLeft = scrollLeft - walk;
+      }
+
+      const touchEnd = () => {
+        tagsCarouselTouch.removeEventListener('touchmove', touchMove);
+        tagsCarouselTouch.removeEventListener('touchend', touchEnd);
+      }
+
+      tagsCarouselTouch.addEventListener('touchstart', touchStart)
+    }
+
+    const moveCarouselBtn = () => {
+      let isDown: boolean = false;
+      let startX: any;
+      let scrollLeft: any;
+
+      tagsCarouselBtn.addEventListener("mousedown", (e: MouseEvent) => {
         isDown = true;
-        tagsCarousel.classList.add('active');
-        startX = e.pageX - tagsCarousel.offsetLeft;
-        scrollLeft = tagsCarousel.scrollLeft;
+        tagsCarouselBtn.classList.add('active');
+        startX = e.pageX - tagsCarouselBtn.offsetLeft;
+        scrollLeft = tagsCarouselBtn.scrollLeft;
       });
-      tagsCarousel.addEventListener('mouseleave', (e: MouseEvent) => {
+      tagsCarouselBtn.addEventListener('mouseleave', (e: MouseEvent) => {
         isDown = false;
-        tagsCarousel.classList.remove('active');
+        tagsCarouselBtn.classList.remove('active');
       });
-      tagsCarousel.addEventListener('mouseup', (e: MouseEvent) => {
+      tagsCarouselBtn.addEventListener('mouseup', (e: MouseEvent) => {
         isDown = false;
-        tagsCarousel.classList.remove('active');
+        tagsCarouselBtn.classList.remove('active');
       });
-      tagsCarousel.addEventListener('mousemove', (e: MouseEvent) => {
+      tagsCarouselBtn.addEventListener('mousemove', (e: MouseEvent) => {
         if (!isDown) return;
         e.preventDefault();
-        const x = e.pageX - tagsCarousel.offsetLeft;
+        const x = e.pageX - tagsCarouselBtn.offsetLeft;
         const walk = (x - startX);
-        tagsCarousel.scrollLeft = scrollLeft - walk;
+        tagsCarouselBtn.scrollLeft = scrollLeft - walk;
       });
     }
+
+    if (isLgOrAbove()) {
+      moveCarouselBtn();
+      console.log("button mode")
+    } 
+    else {
+      moveCarouselTouch();
+      console.log("touch mode")
+    } 
+    
+    window.addEventListener('resize', () => {
+      if (isLgOrAbove()) {
+      moveCarouselBtn();
+      console.log("button mode")
+      } else {
+        moveCarouselTouch();
+        console.log("touch mode")
+      } 
+    })
   }
 )
 

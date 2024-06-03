@@ -6,6 +6,6 @@ module.exports = {
     extraFileExtensions: [".astro"],
   },
   rules: {
-
+    "no-console": "error"
   },
 }

@@ -14,7 +14,7 @@ import Tooltip from "../components/Tooltip.astro"
   <p>Estos son algunos de mis proyectos</p>
   <ul class="space-y-10 lg:space-y-5">
     {projects && projects.map(project => (
-      <ProjectsCard blur={project.blur}>
+      <ProjectsCard>
         <div slot="header" class="flex justify-between items-center">
           <div>
             <p data-cy="project-title">{project.title}</p>
@@ -24,14 +24,14 @@ import Tooltip from "../components/Tooltip.astro"
             <Tooltip id={project.id} className="inline-flex bg-purple-600 lg:text-[16px] text-[32px] px-6 py-3 lg:py-1.5 lg:px-3 mr-4 lg:mr-4">
               <p>Ver detalles</p>
             </Tooltip>
-            <button id={`open-modal-${project.id}`} type="button" disabled={project.blur} class={`${!project.blur && 'hover:text-purple-600 cursor-pointer' }`}>
+            <button data-open-details-modal={project.id} type="button" class="hover:text-purple-600 cursor-pointer">
               <ImageIcon className="w-16 h-16 lg:w-8 lg:h-8" />
             </button>
           </div>
           <Modal id={project.id} >
             <div slot="header" class="flex items-center justify-between lg:px-6 lg:pt-4">
               <p class="text-[40px] lg:text-[20px] font-bold">Detalles</p>
-              <button type="button" id={`close-modal-${project.id}`} class="hover:text-red-500"><XMark className="w-10 h-10 lg:w-6 lg:h-6" /></button>
+              <button type="button" data-close-details-modal={project.id} class="hover:text-red-500"><XMark className="w-10 h-10 lg:w-6 lg:h-6" /></button>
             </div>
             <div slot="body" class="px-6 pt-2">
               <TagsCarousel id={project.id} className="row-span-1 mb-10 lg:mb-2" tags={project.tags} />
@@ -46,11 +46,11 @@ import Tooltip from "../components/Tooltip.astro"
           </Modal>
         </div>
         <div slot="buttons">
-          <a id={`github-${project.id}`} class={`bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl ${!project.blur && 'hover:text-purple-600 hover:border-purple-600'}`} href={!project.blur ? project.github : null} target="_blank">
+          <a data-github={project.id} class="bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl" href={project.github} target="_blank">
             <GitHub className="w-12 h-12 lg:w-6 lg:h-6" />
             <p class="hidden lg:display-initial">Código fuente</p>
           </a>
-          <a id={`website-${project.id}`} class={`bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl ${!project.blur && 'hover:text-purple-600 hover:border-purple-600'}`} href={!project.blur ? project.link : null} target="_blank">
+          <a data-website={project.id} class="bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl" href={project.link} target="_blank">
             <Web className="w-12 h-12 lg:w-6 lg:h-6" />
             <p class="hidden lg:display-initial">Sitio web</p>
           </a>
@@ -64,28 +64,34 @@ import Tooltip from "../components/Tooltip.astro"
   import projects from "../../data/projects.json";
 
   projects.map(project => {
-    const openModal = document.querySelector(`#open-modal-${project.id}`) as HTMLButtonElement;
-    const closeModal = document.querySelector(`#close-modal-${project.id}`) as HTMLButtonElement;
-    const modal = document.querySelector(`#modal-${project.id}`) as HTMLElement;
-    const tooltip = document.querySelector(`#details-${project.id}`) as HTMLElement;
+    const tagsCarouselBtn = document.querySelector(`[data-tags-carousel-btn="${project.id}"]`) as HTMLButtonElement;
+    const openModal = document.querySelector(`[data-open-details-modal="${project.id}"]`) as HTMLButtonElement;
+    const closeModal = document.querySelector(`[data-close-details-modal="${project.id}"]`) as HTMLButtonElement;
+    const modal = document.querySelector(`[data-details-modal="${project.id}"]`) as HTMLElement;
+    const tooltip = document.querySelector(`[data-details-tooltip="${project.id}"]`) as HTMLElement;
   
     openModal.addEventListener('mouseover', (e: MouseEvent) => {
-      if (!project.blur) {
-        e.preventDefault();
-        tooltip.classList.remove("hidden"); 
-      }
+      e.preventDefault();
+      tooltip.classList.remove("hidden"); 
     });
     openModal.addEventListener('mouseleave', (e: MouseEvent) => {
-      if (!project.blur) {
-        e.preventDefault();
-        tooltip.classList.add("hidden");
-      }
+      e.preventDefault();
+      tooltip.classList.add("hidden");
     })
     openModal.addEventListener('click', (e: MouseEvent) => {
       e.preventDefault();
       modal.classList.add('flex');
       modal.classList.remove('hidden');
       document.body.style.overflow = "hidden";
+      const isOverflowing = tagsCarouselBtn.scrollWidth > tagsCarouselBtn.clientWidth;
+      if (isOverflowing) {
+        tagsCarouselBtn.classList.add(
+          "lg:cursor-pointer",
+          "hover:border",
+          "lg:hover:border-purple-600"
+        )
+      }
+
     });
     closeModal.addEventListener('click', (e: MouseEvent) => {
       modal.classList.add('hidden');
