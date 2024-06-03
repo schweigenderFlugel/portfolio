@@ -1,0 +1,50 @@
+name: Deployment
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+    types: 
+      - closed
+
+jobs:
+  deployment:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install --force --no-audit --no-fund
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          install-command: npm install --force 
+          start: npm run start
+          wait-on: http://localhost:9000
+          parallel: true
+          record: true
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+           CYPRESS_PROJECT_ID: ${{ secrets.PROJECT_ID }}
+
+      - name: Deploy to Netlify
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: npx netlify-cli deploy --dir=dist --prod

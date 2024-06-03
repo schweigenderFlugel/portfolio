@@ -20,7 +20,7 @@ jobs:
           node-version: 18
 
       - name: Install depemdencies
-        run: npm install --force
+        run: SKIP_HUSKY=true npm install --force --no-audit --no-fund
 
       - name: Lint
         run: npm run lint
