@@ -114,7 +114,7 @@ describe('testing the main page', () => {
   it(`The footer should exist and contain a link to access to the repository`, () => {
     cy.get('[data-cy="footer"]').should('exist').each(() => {
       cy.get(`[data-cy="this-repository"]`).within(() => {
-        cy.get('a').should('have.attr', 'href', about.thisApp.repository);
+        cy.get('a').should('have.attr', 'href', about.thisApp.repository).click();
       })
     })
   })
