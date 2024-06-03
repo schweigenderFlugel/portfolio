@@ -43,7 +43,7 @@ import Modal from './Modal.astro';
       </Tooltip>
     </div>
   </div>
-  <div slot="technologies" data-carousel class="flex gap-4 items-center overflow-hidden transition-transform duration-300">
+  <div slot="technologies" data-carousel-btn data-carousel-touch class="flex gap-4 items-center overflow-hidden transition-transform duration-300">
     <Html className='h-[90px] w-[90px] lg:h-10 lg:w-10 flex-shrink-0'/>
     <Css className='h-[82px] w-[82px] lg:h-9 lg:w-9 pt-[5px] flex-shrink-0' />
     <Javascript className='h-[70px] w-[70px] lg:h-8 lg:w-8 flex-shrink-0'/>
@@ -60,7 +60,7 @@ import Modal from './Modal.astro';
     <Cypress className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0'/>
   </div>
   <div slot="experience">
-    <p class="font-bold text-[40px] lg:text-[18px] text-purple-600 select-none">+{new Date().getFullYear() - about.experience}</p>
+    <p data-cy-experience-years class="font-bold text-[40px] lg:text-[18px] text-purple-600 select-none">+{new Date().getFullYear() - about.experience}</p>
   </div>
 </GeneralCard>
 <Modal keyword="resume">
@@ -70,94 +70,132 @@ import Modal from './Modal.astro';
 </Modal>
 
 <script>
-    import { generatePdf } from '../scripts/pdf.utils';
-    import about from '../../data/about.json';
+  import { generatePdf } from '../scripts/pdf.utils';
+  import about from '../../data/about.json';
   
-    const carousel = document.querySelector("[data-carousel]") as HTMLButtonElement;
-    const resume = document.querySelector('[data-resume]') as HTMLButtonElement;
-    const experience = document.querySelector('[data-experience]') as HTMLButtonElement;
-    const technologies = document.querySelector('[data-technologies]') as HTMLButtonElement;
-    const tooltip1 = document.querySelector(`[data-tooltip="resume"]`) as HTMLElement;
-    const tooltip2 = document.querySelector(`[data-tooltip="technologies"]`) as HTMLElement;
-    const tooltip3 = document.querySelector(`[data-tooltip="experience"]`) as HTMLElement;
-    const modal = document.querySelector('[data-modal="resume"]') as HTMLElement;
+  const carouselBtn = document.querySelector("[data-carousel-btn]") as HTMLButtonElement;
+  const carouselTouch = document.querySelector("[data-carousel-touch]") as HTMLElement;
+  const resume = document.querySelector('[data-resume]') as HTMLButtonElement;
+  const experience = document.querySelector('[data-experience]') as HTMLButtonElement;
+  const technologies = document.querySelector('[data-technologies]') as HTMLButtonElement;
+  const tooltip1 = document.querySelector(`[data-tooltip="resume"]`) as HTMLElement;
+  const tooltip2 = document.querySelector(`[data-tooltip="technologies"]`) as HTMLElement;
+  const tooltip3 = document.querySelector(`[data-tooltip="experience"]`) as HTMLElement;
+  const modal = document.querySelector('[data-modal="resume"]') as HTMLElement;
+
+  const lgBreakPoint = 1024;
+  const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
+
+  const moveCarouselTouch = () => {
+    let startX: number;
+    let scrollLeft: any;
+
+    const touchStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
+      scrollLeft = carouselTouch.scrollLeft;
+      carouselTouch.addEventListener('touchmove', touchMove);
+      carouselTouch.addEventListener('touchend', touchEnd);
+    }
+
+    const touchMove = (e: TouchEvent) => {
+      const currentX = e.touches[0].clientX - carouselTouch.offsetLeft;
+      const walk = (currentX - startX);
+      carouselTouch.scrollLeft = scrollLeft - walk;
+    }
+
+    const touchEnd = () => {
+      carouselTouch.removeEventListener('touchmove', touchMove);
+      carouselTouch.removeEventListener('touchend', touchEnd);
+    }
+
+    carouselTouch.addEventListener('touchstart', touchStart)
+  }
   
+  const moveCarouselBtn = () => {
     let isDown: boolean = false;
     let startX: any;
     let scrollLeft: any;
-    const isOverflowing = carousel.scrollWidth > carousel.clientWidth;
+    const isOverflowing = carouselBtn.scrollWidth > carouselBtn.clientWidth;
   
     if (isOverflowing) {
-      carousel.classList.add('cursor-pointer');
+      carouselBtn.classList.add('cursor-pointer');
 
-      carousel.addEventListener("mousedown", (e: MouseEvent) => {
+      carouselBtn.addEventListener("mousedown", (e: MouseEvent) => {
         isDown = true;
-        carousel.classList.add('active');
-        startX = e.pageX - carousel.offsetLeft;
-        scrollLeft = carousel.scrollLeft;
+        carouselBtn.classList.add('active');
+        startX = e.pageX - carouselBtn.offsetLeft;
+        scrollLeft = carouselBtn.scrollLeft;
       });
-      carousel.addEventListener('mouseleave', (e: MouseEvent) => {
+      carouselBtn.addEventListener('mouseleave', (e: MouseEvent) => {
         isDown = false;
-        carousel.classList.remove('active');
+        carouselBtn.classList.remove('active');
       });
-      carousel.addEventListener('mouseup', (e: MouseEvent) => {
+      carouselBtn.addEventListener('mouseup', (e: MouseEvent) => {
         isDown = false;
-        carousel.classList.remove('active');
+        carouselBtn.classList.remove('active');
       });
-      carousel.addEventListener('mousemove', (e: MouseEvent) => {
+      carouselBtn.addEventListener('mousemove', (e: MouseEvent) => {
         if (!isDown) return;
         e.preventDefault();
-        const x = e.pageX - carousel.offsetLeft;
+        const x = e.pageX - carouselBtn.offsetLeft;
         const walk = (x - startX);
-        carousel.scrollLeft = scrollLeft - walk;
+        carouselBtn.scrollLeft = scrollLeft - walk;
       });
     }
-    
-    // Tooltip for resume and download
-    resume.addEventListener('mouseover', (e: MouseEvent) => {
-      e.preventDefault();
-      tooltip1.classList.remove("hidden");
-    });
-    resume.addEventListener('mouseleave', (e: MouseEvent) => {
-      e.preventDefault();
-      tooltip1.classList.add("hidden");
-    });
-    resume.addEventListener('click', async () => {
-      modal.classList.add('flex');
-      modal.classList.remove('hidden');
-      document.body.style.overflow = "hidden";
-      await generatePdf(about.resume).then(url => {
-        setTimeout(() => {
-          modal.classList.add('hidden');
-          modal.classList.remove('flex');
-          document.body.style.overflow = "auto";
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = `facundo_castro_cv`;
-          link.click();
-        }, 1000)
-      })
-    });
+  }
 
+  if (isLgOrAbove()) moveCarouselBtn();
+  else moveCarouselTouch()
     
+  window.addEventListener('resize', () => {
+    if (isLgOrAbove()) moveCarouselBtn();
+    else moveCarouselTouch();
+  })
+    
+  // Tooltip for resume and download
+  resume.addEventListener('mouseover', (e: MouseEvent) => {
+    e.preventDefault();
+    tooltip1.classList.remove("hidden");
+  });
+  resume.addEventListener('mouseleave', (e: MouseEvent) => {
+    e.preventDefault();
+    tooltip1.classList.add("hidden");
+  });
+  resume.addEventListener('click', async () => {
+    modal.classList.add('flex');
+    modal.classList.remove('hidden');
+    document.body.style.overflow = "hidden";
+    await generatePdf(about.resume).then(url => {
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = "auto";
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `facundo_castro_cv`;
+        link.click();
+      }, 1000)
+    })
+  });
+
+  // Tooltip for technologies
+  technologies.addEventListener('mouseover', (e: MouseEvent) => {
+    e.preventDefault();
+    tooltip2.classList.remove("hidden");
+  });
+  technologies.addEventListener('mouseleave', (e: MouseEvent) => {
+    e.preventDefault();
+    tooltip2.classList.add("hidden");
+  });
   
-    // Tooltip for technologies
-    technologies.addEventListener('mouseover', (e: MouseEvent) => {
-      e.preventDefault();
-      tooltip2.classList.remove("hidden");
-    });
-    technologies.addEventListener('mouseleave', (e: MouseEvent) => {
-      e.preventDefault();
-      tooltip2.classList.add("hidden");
-    });
-  
-    // Tooltip for experience
-    experience.addEventListener('mouseover', (e: MouseEvent) => {
-      e.preventDefault();
-      tooltip3.classList.remove("hidden");
-    });
-    experience.addEventListener('mouseleave', (e: MouseEvent) => {
-      e.preventDefault();
-      tooltip3.classList.add("hidden");
-    });
-  </script>
+  // Tooltip for experience
+  experience.addEventListener('mouseover', (e: MouseEvent) => {
+    e.preventDefault();
+    tooltip3.classList.remove("hidden");
+  });
+  experience.addEventListener('mouseleave', (e: MouseEvent) => {
+    e.preventDefault();
+    tooltip3.classList.add("hidden");
+  });
+
+</script>

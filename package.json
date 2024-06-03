@@ -4,9 +4,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
+    "start": "astro dev --port 9000 ",
     "cypress:run": "npx cypress run",
-    "test": "start-server-and-test dev http://localhost:4321 cypress:run",
+    "test": "start-server-and-test start http://localhost:9000 cypress:run",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",

@@ -9,7 +9,7 @@ const { id, keyword, className } = Astro.props;
 ---
 
 <div
-  id={`details-${id}`}
+  data-details-tooltip={id}
   data-tooltip={keyword}
   role="tooltip"
   class={`${className} hidden z-10 whitespace-normal transition-opacity duration-300 ease-in-out break-words rounded-3xl lg:rounded-lg bg-black font-sans font-normal text-white focus:outline-none select-none`}

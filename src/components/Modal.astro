@@ -9,7 +9,7 @@ const { id, keyword, className } = Astro.props;
 
 ---
 
-<div id={`modal-${id}`} data-modal={keyword} class="fixed hidden items-center justify-center bg-gray-900 bg-opacity-80 z-10 inset-0">
+<div data-details-modal={id} data-modal={keyword} class="fixed hidden items-center justify-center bg-gray-900 bg-opacity-80 z-10 inset-0">
   <div class={`${className} mx-10 absolute h-auto px-10 pt-10 pb-20 lg:px-3 lg:pt-3 lg:pb-10 w-[800px] lg:w-[500px] rounded-3xl bg-white dark:bg-black border dark:border-purple-600`}>
     <header>
       <slot name="header" />
