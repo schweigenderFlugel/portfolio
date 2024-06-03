@@ -87,23 +87,12 @@ const { id, className, tags } = Astro.props;
       });
     }
 
-    if (isLgOrAbove()) {
-      moveCarouselBtn();
-      console.log("button mode")
-    } 
-    else {
-      moveCarouselTouch();
-      console.log("touch mode")
-    } 
+    if (isLgOrAbove()) moveCarouselBtn();
+    else moveCarouselTouch()
     
     window.addEventListener('resize', () => {
-      if (isLgOrAbove()) {
-      moveCarouselBtn();
-      console.log("button mode")
-      } else {
-        moveCarouselTouch();
-        console.log("touch mode")
-      } 
+      if (isLgOrAbove()) moveCarouselBtn();
+      else moveCarouselTouch();
     })
   }
 )

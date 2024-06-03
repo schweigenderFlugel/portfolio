@@ -5,7 +5,7 @@ import GitHub from "../icons/GitHub.astro"
 import Web from "../icons/Web.astro"
 import XMark from '../icons/XMark.astro';
 import TagsCarousel from "../components/TagsCarousel.astro"
-import ImageIcon from "../icons/ImageIcon.astro"
+import DetailsIcon from "../icons/DetailsIcon.astro"
 import Modal from "../components/Modal.astro"
 import Tooltip from "../components/Tooltip.astro"
 
@@ -25,25 +25,9 @@ import Tooltip from "../components/Tooltip.astro"
               <p>Ver detalles</p>
             </Tooltip>
             <button data-open-details-modal={project.id} type="button" class="hover:text-purple-600 cursor-pointer">
-              <ImageIcon className="w-16 h-16 lg:w-8 lg:h-8" />
+              <DetailsIcon className="w-16 h-16 lg:w-8 lg:h-8" />
             </button>
           </div>
-          <Modal id={project.id} >
-            <div slot="header" class="flex items-center justify-between lg:px-6 lg:pt-4">
-              <p class="text-[40px] lg:text-[20px] font-bold">Detalles</p>
-              <button type="button" data-close-details-modal={project.id} class="hover:text-red-500"><XMark className="w-10 h-10 lg:w-6 lg:h-6" /></button>
-            </div>
-            <div slot="body" class="px-6 pt-2">
-              <TagsCarousel id={project.id} className="row-span-1 mb-10 lg:mb-2" tags={project.tags} />
-              <div class="space-y-3 bottom-0">
-                <p class="row-span-2 font-normal">{project.description}</p>
-                {project.publish 
-                  ? <p class="row-span-1 font-normal flex justify-end gap-x-3 lg:gap-x-1"><strong class="underline"><i>Presentación:</i></strong>{project.publish}</p> 
-                  : <p class="row-span-1 font-bold flex justify-end">No hay fecha de publicación</p>
-                }
-              </div>
-            </div>
-          </Modal>
         </div>
         <div slot="buttons">
           <a data-github={project.id} class="bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl" href={project.github} target="_blank">
@@ -56,6 +40,25 @@ import Tooltip from "../components/Tooltip.astro"
           </a>
         </div>
       </ProjectsCard>
+      <Modal id={project.id} >
+        <div slot="header" class="flex items-center justify-between lg:px-6 lg:pt-4">
+          <p class="text-[40px] lg:text-[20px] font-bold">Detalles</p>
+          <button type="button" data-close-details-modal={project.id} class="hover:text-red-500"><XMark className="w-10 h-10 lg:w-6 lg:h-6" /></button>
+        </div>
+        <div slot="body" class="px-6 pt-2">
+          <TagsCarousel id={project.id} className="row-span-1 mb-10 lg:mb-2" tags={project.tags} />
+          <div class="space-y-3 bottom-0">
+            <p data-cy-description class="row-span-2 font-normal">{project.description}</p>
+            {project.publish 
+              ? <div class="row-span-1 font-normal flex justify-end gap-x-3 lg:gap-x-1">
+                  <strong class="underline"><i>Presentación:</i></strong>
+                  <p data-cy-publish-date>{project.publish}</p>
+                </div> 
+              : <p class="row-span-1 font-bold flex justify-end">No hay fecha de publicación</p>
+            }
+          </div>
+        </div>
+      </Modal>
     ))}
   </ul>
 </main>

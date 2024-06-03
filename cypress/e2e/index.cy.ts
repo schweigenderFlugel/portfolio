@@ -12,18 +12,23 @@ describe('testing the main page', () => {
 
   it('Testing the dark mode', () => {
     cy.window().then(win => {
-      const darkActive = win.document.documentElement.classList.contains('dark');
-      if (darkActive) {
-        cy.get('[data-cy="dark-mode"]').trigger('click');
-        win.document.documentElement.classList.contains('not:dark');
-      } else {
-        cy.get('[data-cy="dark-mode"]').trigger('click');
-        win.document.documentElement.classList.contains('dark');
-      }
+      cy.get('[data-cy="dark-mode"]').trigger('click');
+      win.document.documentElement.classList.contains('not:dark');
+      cy.get('[data-cy="dark-mode"]').trigger('click');
+      win.document.documentElement.classList.contains('dark');
     })
   })
 
-  it('Should retrieve data from general card', () => {
+  it('Testing the scroll to top button', () => {
+    cy.window().then(win => {
+      win.addEventListener('scroll', () => {
+        cy.get('[data-scroll-top-btn]').should('be.visible').trigger('click');
+        win.scrollY = 0;
+      })
+    })
+  })
+
+  it('Should retrieve data from general card and testing carousel button', () => {
     cy.get('[data-cy="social"]').find('a').should('have.length', 2).each((link, index) => {
       if (index === 0) {
         cy.wrap(link).should('have.attr', 'href', about.social.linkedin);
@@ -41,47 +46,75 @@ describe('testing the main page', () => {
     });
     cy.wait(1000);
     cy.get('[data-modal="resume"]').should('not.be.visible');
-    cy.get('[data-carousel]').trigger('mouseover');
-    cy.get('[data-tooltip="technologies"]').should('be.visible').within(() => {
-      cy.get('p').should('have.text', 'Tecnologías');
-    });
-    cy.get('[data-carousel]').trigger('mouseleave');
-    cy.get('[data-tooltip="technologies"]').should('not.be.visible');
+      
+    cy.get('[data-experience]').within(() => {
+      cy.get('[data-cy-experience-years]').should('have.text', `+${new Date().getFullYear() - about.experience}`);
+    })
     cy.get('[data-experience]').trigger('mouseover');
     cy.get('[data-tooltip="experience"]').should('be.visible').within(() => {
       cy.get('p').should('have.text', 'Experiencia');
     });
-    cy.get('[data-carousel]')
+
+    // Testing Tooltips
+    cy.get('[data-technologies]').trigger('mouseover');
+    cy.get('[data-tooltip="technologies"]').should('be.visible').within(() => {
+      cy.get('p').should('have.text', 'Tecnologías');
+    });
+    cy.get('[data-technologies]').trigger('mouseleave');
+    cy.get('[data-tooltip="technologies"]').should('not.be.visible');
+
+    // Testing carousel button
+    cy.get('[data-carousel-btn]').trigger('mousedown');
+    cy.get('[data-carousel-btn]')
       .trigger('mousemove')
       .children()
       .should('be.visible');
-    cy.get('[data-experience]').trigger('mouseleave');
-    cy.get('[data-tooltip="experience"]').should('not.be.visible');
+    cy.get('[data-carousel-btn]').trigger('mouseup');
+    cy.get('[data-carousel-btn]').trigger('mouseleave');
   })
 
-  //it.only('Should get the data of the project', () => {
-  //  cy.get('[data-cy="projects"]').each((project, index) => {
-  //    cy.wrap(project).within(() => {
-  //      cy.get('[data-cy="project-title"]').should('have.text', projects[index].title);
-  //      cy.get('[data-cy="project-subtitle"]').should('have.text', projects[index].subtitle);
-  //      cy.get(`#open-modal-${projects[index].id}`).trigger('click');
-  //    })
-  //  });
-  //  cy.get(`#modal-${projects[0].id}`).should('be.visible').within(() => {
-  //    cy.get(`#tags-carousel-${projects[0].id}`).trigger('mousedown');
-  //    cy.get(`#tags-carousel-${projects[0].id}`).trigger('mouseup');
-  //    cy.get(`#tags-carousel-${projects[0].id}`).trigger('mouseleave');
-  //    cy.get(`#tags-carousel-${projects[0].id}`).trigger('mousemove');
-  //    cy.get(`#close-modal-${projects[0].id}`).trigger('click');
-  //    cy.get(`#modal-${projects[0].id}`).should('not.be.visible')
-  //  });
-  //  
-  //})
+  it('Should get the data of the projects', () => {
+    cy.get('[data-cy="projects"]').each((project, index) => {
+      cy.wrap(project).within(() => {
+        cy.get('[data-cy="project-title"]').should('have.text', projects[index].title);
+        cy.get('[data-cy="project-subtitle"]').should('have.text', projects[index].subtitle);
+        cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('mouseover');
+        cy.get(`[data-details-tooltip="${projects[index].id}"]`).should('be.visible').within(() => {
+          cy.get('p').should('have.text', 'Ver detalles');
+        })
+        cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('mouseleave');
+        cy.get(`[data-details-tooltip="${projects[index].id}"]`).should('not.be.visible');
+        cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('click');
+      })
+      cy.get(`[data-details-modal="${projects[index].id}"]`).should('be.visible').within(() => {
+        cy.get('[data-cy-description]').should('have.text', projects[index].description)
+        cy.get(`[data-tags-carousel-btn="${projects[index].id}"]`).trigger('mousedown');
+        cy.get(`[data-tags-carousel-btn="${projects[index].id}"]`).trigger('mouseup');
+        cy.get(`[data-tags-carousel-btn="${projects[index].id}"]`).trigger('mouseleave');
+        cy.get(`[data-tags-carousel-btn="${projects[index].id}"]`)
+          .trigger('mousemove')
+          .within(() => {
+            cy.get('[data-cy="tags"]').each((tag, tagIndex) => {
+              cy.wrap(tag).within(() => {
+                cy.get('[data-cy="tag-name"]').should('have.text', projects[index].tags[tagIndex]);
+              })
+            })
+          });
+        cy.get('[data-cy-publish-date]').should('have.text', projects[index].publish);
+        cy.get(`[data-close-details-modal="${projects[index].id}"]`).trigger('click', { force: true });
+      });
+      cy.get(`[data-details-modal="${projects[index].id}"]`).should('not.be.visible');
+      cy.get('[data-cy-project-buttons]').should('have.length', 2).each(() => {
+        cy.get(`[data-github="${projects[index].id}"]`).should('have.attr', 'href', projects[index].github);
+        cy.get(`[data-website="${projects[index].id}"]`).should('have.attr', 'href', projects[index].link);
+      })
+    });
+  })
 
   it(`The footer should exist and contain a link to access to the repository`, () => {
-    cy.get('[data-cy="footer"]').should('exist').within(() => {
+    cy.get('[data-cy="footer"]').should('exist').each(() => {
       cy.get(`[data-cy="this-repository"]`).within(() => {
-        cy.get('a').should('have.attr', 'href', about.thisApp.repository).click()
+        cy.get('a').should('have.attr', 'href', about.thisApp.repository);
       })
     })
   })
