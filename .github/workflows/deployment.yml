@@ -1,4 +1,4 @@
-name: Deployment
+name: deployment
 
 on:
   pull_request_target:
