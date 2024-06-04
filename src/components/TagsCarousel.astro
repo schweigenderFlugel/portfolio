@@ -11,7 +11,7 @@ const { id, className, tags } = Astro.props;
 ---
 
 {tags.length
-  ? <div data-tags-carousel-btn={id} data-tags-carousel-touch={id} class={`${className} relative flex rounded-xl px-2 py-2 space-x-5 lg:space-x-1 overflow-hidden transition-transform duration-300`}>
+  ? <div data-tags-carousel={id} class={`${className} relative flex rounded-xl px-2 py-2 space-x-5 lg:space-x-1 overflow-hidden transition-transform duration-300`}>
       {tags.map(name => 
         badges.filter(badge => badge.name === name).map(tag =>
           <div data-cy="tags" class="bg-grey-200 inline-flex items-center gap-5 lg:gap-2 px-10 py-[2px] lg:px-5 lg:py-[2px] border rounded-3xl lg:rounded-xl flex-shrink-0">
@@ -28,13 +28,11 @@ const { id, className, tags } = Astro.props;
   import projects from "../../data/projects.json";
 
   projects.map(project => {
-    const tagsCarouselBtn = document.querySelector(`[data-tags-carousel-btn="${project.id}"]`) as HTMLButtonElement;
-    const tagsCarouselTouch = document.querySelector(`[data-tags-carousel-touch="${project.id}"]`) as HTMLElement;
-
     const lgBreakPoint = 1024;
     const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
 
     const moveCarouselTouch = () => {
+      const tagsCarouselTouch = document.querySelector(`[data-tags-carousel="${project.id}"]`) as HTMLElement;
       let startX: number;
       let scrollLeft: any;
 
@@ -60,6 +58,7 @@ const { id, className, tags } = Astro.props;
     }
 
     const moveCarouselBtn = () => {
+      const tagsCarouselBtn = document.querySelector(`[data-tags-carousel="${project.id}"]`) as HTMLButtonElement;
       let isDown: boolean = false;
       let startX: any;
       let scrollLeft: any;
