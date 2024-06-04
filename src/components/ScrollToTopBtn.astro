@@ -8,23 +8,50 @@ export interface Props {
 const { className } = Astro.props;
 ---
 
-<button data-scroll-top-btn class=`${className} hidden shadow-lg transition`>
+<button data-scroll-top class=`${className} hidden shadow-lg transition`>
   <TopArrow className="w-20 h-20 lg:w-5 lg:h-5"/>
 </button>
 
 <script>
-  const scrollToTopBtn = document.querySelector('[data-scroll-top-btn]') as HTMLButtonElement;
-  
-  window.addEventListener('scroll', () => {
-    if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 50)) {
-      scrollToTopBtn.classList.remove('hidden');
-    } else {
-      scrollToTopBtn.classList.add('hidden');
-    }
-  });
+  const lgBreakPoint = 1024;
+  const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
 
-  scrollToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth'});
-  });
+  const scrollBtn = () => {
+    const scrollToTopBtn = document.querySelector('[data-scroll-top]') as HTMLButtonElement;
+    window.addEventListener('scroll', () => {
+      if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 50)) {
+        scrollToTopBtn.classList.remove('hidden');
+      } else {
+        scrollToTopBtn.classList.add('hidden');
+      }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth'});
+    });
+  }
+
+  const scrollTouch = () => {
+    const scrollToTopTouch = document.querySelector('[data-scroll-top]') as HTMLElement;
+    window.addEventListener('scroll', () => {
+      if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight - 50)) {
+        scrollToTopTouch.classList.remove('hidden');
+      } else {
+        scrollToTopTouch.classList.add('hidden');
+      }
+    });
+
+    scrollToTopTouch.addEventListener('touchstart', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth'});
+    });
+  }
+  
+  if (isLgOrAbove()) scrollBtn();
+  else scrollTouch();
+    
+  window.addEventListener('resize', () => {
+    if (isLgOrAbove()) scrollBtn();
+    else scrollTouch();
+  })
 
 </script>

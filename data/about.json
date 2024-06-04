@@ -9,30 +9,40 @@
   },
   "resume": {
     "fullName": "Facundo Ezequiel Castro",
+    "image": "",
     "country": "Argentina",
     "state": "Mendoza",
     "address": "A. Bufano 140 Gral. Gutierrez, Maipú",
-    "phone": 0,
+    "phone": 2612471989,
     "email": "facundoezcastro@gmail.com",
     "dni": 36653173,
     "cuil": 20366531755,
-    "presentation": "",
+    "age": 32,
+    "presentation": "Me considero una persona puntual, creativa y organizada. Busco aplicar mi formación académica en filosofía para solucionar determinados problemas en el ámbito laboral mediante el trato interpersonal entre los integrantes de un grupo. Actualmente estoy realizando una capacitación intensiva en programación y desarrollo web, con el objetivo de desempeñarme en el ámbito laboral como programador y/o desarrollar herramientas alternativas para propósitos educativos.",
     "academic": [
       {
-        "title": "Profesorado de grado en filosofía",
+        "title": "• Profesorado de grado en filosofía",
         "start": 2014,
         "finished": 2021,
         "college": "Universidad Nacional de Cuyo"
       },
       {
-        "title": "Licenciatura en filosofía",
+        "title": "• Licenciatura en filosofía",
         "start": 2014,
         "finished": "presente",
         "college": "Universidad Nacional de Cuyo"
       }
     ],
     "additional": {
-      "languages": ["Alemán B2", "Japonés", "Inglés"]
+      "languages": [
+        "• Alemán B2 (Goethe Institut Zertifikat B2)", 
+        "• Japonés (Nihongo Nouryoku Shiken N3)", 
+        "• Inglés: Nivel Medio"
+      ],
+      "informatic": [
+        "• Operador de PC (Word, Excel, Power Point)",
+        "• Programador Full-Stack (HTML, CSS, JavaScript, Typescript, PHP, Python, SQL, Laravel, Nestjs, Expressjs, React)"
+      ]
     },
     "laboral": [""]
   },

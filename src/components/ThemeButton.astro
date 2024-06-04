@@ -9,18 +9,21 @@ export interface Props {
 const { className } = Astro.props;
 ---
 
-<button data-cy="dark-mode" class=`${className}` data-switch-theme>
+<button class=`${className}` data-switch-theme>
   <Sun className="w-20 h-20 lg:w-5 lg:h-5 shadow-lg dark:display-initial hidden"/>
   <Moon className="w-20 h-20 lg:w-5 lg:h-5 shadow-lg display-initial dark:hidden"/>
 </button>
 
 <script>
-  const switchLgTheme = document.querySelector("[data-lg-switch-theme]") as HTMLButtonElement
+  const lgBreakPoint = 1024;
+  const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
   
-  if (switchLgTheme) {
-    switchLgTheme.addEventListener("click", (e: MouseEvent) => {
-      e.preventDefault();
-      const doc = document.documentElement;
+  const themeBtn = () => {
+    const switchThemeBtn = document.querySelector("[data-switch-theme-btn]") as HTMLButtonElement;
+    if (switchThemeBtn) {
+      switchThemeBtn.addEventListener("click", (e: MouseEvent) => {
+        e.preventDefault();
+        const doc = document.documentElement;
         if (doc) {
           if (localStorage.getItem("appTheme")) {
             if (localStorage.getItem("appTheme") === "light") {
@@ -40,6 +43,45 @@ const { className } = Astro.props;
             }
           }
         }
-    })
+      })
+    }
   }
+
+  const themeTouch = () => {
+    const switchThemeTouch = document.querySelector('[data-switch-theme]') as HTMLElement;
+    if (switchThemeTouch) {
+      switchThemeTouch.addEventListener('touchstart', (e: TouchEvent) => {
+        e.preventDefault();
+        const doc = document.documentElement;
+        if (doc) {
+          if (localStorage.getItem("appTheme")) {
+            if (localStorage.getItem("appTheme") === "light") {
+              doc.classList.add("dark");
+              localStorage.setItem("appTheme", "dark");
+            } else {
+              doc.classList.remove("dark");
+              localStorage.setItem("appTheme", "light");
+            }
+          } else {
+            if (doc.classList.contains("dark")) {
+              doc.classList.remove("dark");
+              localStorage.setItem("appTheme", "light");
+            } else {
+              doc.classList.add("dark")
+              localStorage.setItem("appTheme", "dark")
+            }
+          }
+        }
+      })
+    }
+  }
+
+  if (isLgOrAbove()) themeBtn();
+  else themeTouch()
+    
+  window.addEventListener('resize', () => {
+    if (isLgOrAbove()) themeBtn();
+    else themeTouch();
+  })
+
 </script>
