@@ -43,7 +43,7 @@ import Modal from './Modal.astro';
       </Tooltip>
     </div>
   </div>
-  <div slot="technologies" data-carousel-btn data-carousel-touch class="flex gap-4 items-center overflow-hidden transition-transform duration-300">
+  <div slot="technologies" data-carousel class="flex gap-4 items-center overflow-hidden transition-transform duration-300">
     <Html className='h-[90px] w-[90px] lg:h-10 lg:w-10 flex-shrink-0'/>
     <Css className='h-[82px] w-[82px] lg:h-9 lg:w-9 pt-[5px] flex-shrink-0' />
     <Javascript className='h-[70px] w-[70px] lg:h-8 lg:w-8 flex-shrink-0'/>
@@ -73,20 +73,16 @@ import Modal from './Modal.astro';
   import { generatePdf } from '../scripts/pdf.utils';
   import about from '../../data/about.json';
   
-  const carouselBtn = document.querySelector("[data-carousel-btn]") as HTMLButtonElement;
-  const carouselTouch = document.querySelector("[data-carousel-touch]") as HTMLElement;
-  const resume = document.querySelector('[data-resume]') as HTMLButtonElement;
-  const experience = document.querySelector('[data-experience]') as HTMLButtonElement;
-  const technologies = document.querySelector('[data-technologies]') as HTMLButtonElement;
-  const tooltip1 = document.querySelector(`[data-tooltip="resume"]`) as HTMLElement;
-  const tooltip2 = document.querySelector(`[data-tooltip="technologies"]`) as HTMLElement;
-  const tooltip3 = document.querySelector(`[data-tooltip="experience"]`) as HTMLElement;
   const modal = document.querySelector('[data-modal="resume"]') as HTMLElement;
+  const errorToast = document.querySelector('[data-toast="error"]') as HTMLElement;
 
   const lgBreakPoint = 1024;
   const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
 
-  const moveCarouselTouch = () => {
+  // TOUCH EVENTS
+  const touchEvents = () => {
+    const carouselTouch = document.querySelector("[data-carousel]") as HTMLElement;
+    const resumeTouch = document.querySelector('[data-resume]') as HTMLElement;
     let startX: number;
     let scrollLeft: any;
 
@@ -96,22 +92,54 @@ import Modal from './Modal.astro';
       carouselTouch.addEventListener('touchmove', touchMove);
       carouselTouch.addEventListener('touchend', touchEnd);
     }
-
     const touchMove = (e: TouchEvent) => {
       const currentX = e.touches[0].clientX - carouselTouch.offsetLeft;
       const walk = (currentX - startX);
       carouselTouch.scrollLeft = scrollLeft - walk;
     }
-
     const touchEnd = () => {
       carouselTouch.removeEventListener('touchmove', touchMove);
       carouselTouch.removeEventListener('touchend', touchEnd);
     }
 
-    carouselTouch.addEventListener('touchstart', touchStart)
+    carouselTouch.addEventListener('touchstart', touchStart);
+
+    resumeTouch.addEventListener('touchstart', async () => {
+      modal.classList.add('flex');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = "hidden";
+      await generatePdf(about.resume).then(url => {
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          document.body.style.overflow = "auto";
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `facundo_castro_cv`;
+          link.click();
+        }, 1000)
+      }).catch(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        errorToast.classList.remove('hidden');
+        document.body.style.overflow = "auto";
+        setTimeout(() => {
+          errorToast.classList.add('hidden');
+        }, 3000)
+      })
+    });
   }
   
-  const moveCarouselBtn = () => {
+  // BUTTON EVENTS
+  const btnEvents = () => {
+    const carouselBtn = document.querySelector("[data-carousel]") as HTMLButtonElement;
+    const resumeBtn = document.querySelector('[data-resume]') as HTMLButtonElement;
+    const experience = document.querySelector('[data-experience]') as HTMLButtonElement;
+    const technologies = document.querySelector('[data-technologies]') as HTMLButtonElement;
+    const tooltip1 = document.querySelector(`[data-tooltip="resume"]`) as HTMLElement;
+    const tooltip2 = document.querySelector(`[data-tooltip="technologies"]`) as HTMLElement;
+    const tooltip3 = document.querySelector(`[data-tooltip="experience"]`) as HTMLElement;
+
     let isDown: boolean = false;
     let startX: any;
     let scrollLeft: any;
@@ -141,61 +169,69 @@ import Modal from './Modal.astro';
         const walk = (x - startX);
         carouselBtn.scrollLeft = scrollLeft - walk;
       });
-    }
-  }
+    };
 
-  if (isLgOrAbove()) moveCarouselBtn();
-  else moveCarouselTouch()
-    
-  window.addEventListener('resize', () => {
-    if (isLgOrAbove()) moveCarouselBtn();
-    else moveCarouselTouch();
-  })
-    
-  // Tooltip for resume and download
-  resume.addEventListener('mouseover', (e: MouseEvent) => {
-    e.preventDefault();
-    tooltip1.classList.remove("hidden");
-  });
-  resume.addEventListener('mouseleave', (e: MouseEvent) => {
-    e.preventDefault();
-    tooltip1.classList.add("hidden");
-  });
-  resume.addEventListener('click', async () => {
-    modal.classList.add('flex');
-    modal.classList.remove('hidden');
-    document.body.style.overflow = "hidden";
-    await generatePdf(about.resume).then(url => {
-      setTimeout(() => {
+    // Tooltip for resume and download
+    resumeBtn.addEventListener('mouseover', (e: MouseEvent) => {
+      e.preventDefault();
+      tooltip1.classList.remove("hidden");
+    });
+    resumeBtn.addEventListener('mouseleave', (e: MouseEvent) => {
+      e.preventDefault();
+      tooltip1.classList.add("hidden");
+    });
+    resumeBtn.addEventListener('click', async () => {
+      modal.classList.add('flex');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = "hidden";
+      await generatePdf(about.resume).then(url => {
+        setTimeout(() => {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          document.body.style.overflow = "auto";
+          const link = document.createElement('a');
+          link.href = url;
+          link.download = `facundo_castro_cv`;
+          link.click();
+        }, 1000)
+      }).catch(() => {
         modal.classList.add('hidden');
         modal.classList.remove('flex');
+        errorToast.classList.remove('hidden');
         document.body.style.overflow = "auto";
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `facundo_castro_cv`;
-        link.click();
-      }, 1000)
-    })
-  });
+        setTimeout(() => {
+          errorToast.classList.add('hidden');
+        }, 3000)
+      })
+    });
 
-  // Tooltip for technologies
-  technologies.addEventListener('mouseover', (e: MouseEvent) => {
-    e.preventDefault();
-    tooltip2.classList.remove("hidden");
-  });
-  technologies.addEventListener('mouseleave', (e: MouseEvent) => {
-    e.preventDefault();
-    tooltip2.classList.add("hidden");
-  });
+    // Tooltip for technologies
+    technologies.addEventListener('mouseover', (e: MouseEvent) => {
+      e.preventDefault();
+      tooltip2.classList.remove("hidden");
+    });
+    technologies.addEventListener('mouseleave', (e: MouseEvent) => {
+      e.preventDefault();
+      tooltip2.classList.add("hidden");
+    });
   
-  // Tooltip for experience
-  experience.addEventListener('mouseover', (e: MouseEvent) => {
-    e.preventDefault();
-    tooltip3.classList.remove("hidden");
-  });
-  experience.addEventListener('mouseleave', (e: MouseEvent) => {
-    e.preventDefault();
-    tooltip3.classList.add("hidden");
-  });
+    // Tooltip for experience
+    experience.addEventListener('mouseover', (e: MouseEvent) => {
+      e.preventDefault();
+      tooltip3.classList.remove("hidden");
+    });
+    experience.addEventListener('mouseleave', (e: MouseEvent) => {
+      e.preventDefault();
+      tooltip3.classList.add("hidden");
+    });
+  }
+
+  if (isLgOrAbove()) btnEvents();
+  else touchEvents();
+    
+  window.addEventListener('resize', () => {
+    if (isLgOrAbove()) btnEvents();
+    else touchEvents();
+  })
 
 </script>

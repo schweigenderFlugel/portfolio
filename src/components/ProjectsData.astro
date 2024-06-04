@@ -67,39 +67,68 @@ import Tooltip from "../components/Tooltip.astro"
   import projects from "../../data/projects.json";
 
   projects.map(project => {
-    const tagsCarouselBtn = document.querySelector(`[data-tags-carousel-btn="${project.id}"]`) as HTMLButtonElement;
-    const openModal = document.querySelector(`[data-open-details-modal="${project.id}"]`) as HTMLButtonElement;
-    const closeModal = document.querySelector(`[data-close-details-modal="${project.id}"]`) as HTMLButtonElement;
     const modal = document.querySelector(`[data-details-modal="${project.id}"]`) as HTMLElement;
-    const tooltip = document.querySelector(`[data-details-tooltip="${project.id}"]`) as HTMLElement;
-  
-    openModal.addEventListener('mouseover', (e: MouseEvent) => {
-      e.preventDefault();
-      tooltip.classList.remove("hidden"); 
-    });
-    openModal.addEventListener('mouseleave', (e: MouseEvent) => {
-      e.preventDefault();
-      tooltip.classList.add("hidden");
-    })
-    openModal.addEventListener('click', (e: MouseEvent) => {
-      e.preventDefault();
-      modal.classList.add('flex');
-      modal.classList.remove('hidden');
-      document.body.style.overflow = "hidden";
-      const isOverflowing = tagsCarouselBtn.scrollWidth > tagsCarouselBtn.clientWidth;
-      if (isOverflowing) {
-        tagsCarouselBtn.classList.add(
-          "lg:cursor-pointer",
-          "hover:border",
-          "lg:hover:border-purple-600"
-        )
-      }
 
-    });
-    closeModal.addEventListener('click', (e: MouseEvent) => {
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      document.body.style.overflow = "auto";      
+    const lgBreakPoint = 1024;
+    const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
+  
+    const modalBtn = () => {
+      const tagsCarouselBtn = document.querySelector(`[data-tags-carousel="${project.id}"]`) as HTMLButtonElement;
+      const openModalBtn = document.querySelector(`[data-open-details-modal="${project.id}"]`) as HTMLButtonElement;
+      const closeModalBtn = document.querySelector(`[data-close-details-modal="${project.id}"]`) as HTMLButtonElement;
+      const tooltip = document.querySelector(`[data-details-tooltip="${project.id}"]`) as HTMLElement;
+
+      openModalBtn.addEventListener('mouseover', (e: MouseEvent) => {
+        e.preventDefault();
+        tooltip.classList.remove("hidden"); 
+      });
+      openModalBtn.addEventListener('mouseleave', (e: MouseEvent) => {
+        e.preventDefault();
+        tooltip.classList.add("hidden");
+      })
+      openModalBtn.addEventListener('click', (e: MouseEvent) => {
+        e.preventDefault();
+        modal.classList.add('flex');
+        modal.classList.remove('hidden');
+        document.body.style.overflow = "hidden";
+        const isOverflowing = tagsCarouselBtn.scrollWidth > tagsCarouselBtn.clientWidth;
+        if (isOverflowing) {
+          tagsCarouselBtn.classList.add(
+            "lg:cursor-pointer",
+            "hover:border",
+            "lg:hover:border-purple-600"
+          )
+        }
+      });
+      closeModalBtn.addEventListener('click', (e: MouseEvent) => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = "auto";      
+      })
+    }
+
+    const modalTouch = () => {
+      const openModalTouch = document.querySelector(`[data-open-details-modal="${project.id}"]`) as HTMLButtonElement;
+      const closeModalTouch = document.querySelector(`[data-close-details-modal="${project.id}"]`) as HTMLButtonElement;
+      openModalTouch.addEventListener('touchstart', (e: TouchEvent) => {
+        e.preventDefault();
+        modal.classList.add('flex');
+        modal.classList.remove('hidden');
+        document.body.style.overflow = "hidden";
+      });
+      closeModalTouch.addEventListener('touchstart', (e: TouchEvent) => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = "auto";      
+      })
+    }
+
+    if (isLgOrAbove()) modalBtn();
+    else modalTouch();
+    
+    window.addEventListener('resize', () => {
+      if (isLgOrAbove()) modalBtn();
+      else modalTouch();
     })
   })
 
