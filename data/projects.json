@@ -15,7 +15,7 @@
     "title": "Marigold",
     "subtitle": "E-commerce",
     "images": "",
-    "description": "Este sitio web fue desarrollado durante mis inicios con React y Tailwind. Fue parte del curso de React y Tailwind llevado a cabo por la plataforma Platzi. La Api fue proporcionada por la plataforma, por tanto es posible que algunas cosas no se vizualicen en la pantalla",
+    "description": "Este sitio web fue desarrollado durante mis inicios con React y Tailwind. Fue parte del curso de React y Tailwind llevado a cabo por la plataforma Platzi. La Api fue proporcionada por la plataforma, por tanto es posible que algunas cosas no se vizualicen en la pantalla.",
     "publish": "2 de junio, 2023",
     "tags": ["Javascript", "React", "Tailwind"],
     "github": "https://github.com/schweigenderFlugel/react-vite-tailwindcss",

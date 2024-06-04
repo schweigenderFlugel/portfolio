@@ -19,7 +19,7 @@ const { className } = Astro.props;
   const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
   
   const themeBtn = () => {
-    const switchThemeBtn = document.querySelector("[data-switch-theme]") as HTMLButtonElement;
+    const switchThemeBtn = document.querySelector("[data-switch-theme-btn]") as HTMLButtonElement;
     if (switchThemeBtn) {
       switchThemeBtn.addEventListener("click", (e: MouseEvent) => {
         e.preventDefault();

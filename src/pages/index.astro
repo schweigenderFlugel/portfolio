@@ -5,9 +5,19 @@ import ProjectsData from '../components/ProjectsData.astro';
 import ScrollToTopBtn from '../components/ScrollToTopBtn.astro';
 import ThemeButton from '../components/ThemeButton.astro';
 import Footer from '../components/Footer.astro';
+import Toast from '../components/Toast.astro';
+import Warning from '../icons/Warning.astro';
 ---
 
 <Layout title="Bienvenidos">
+  <div class="flex justify-center">
+	<Toast keyword="error" className='mt-24 lg:mt-8 border border-red-700 dark:border-red-400 bg-red-200 dark:bg-black text-red-700 dark:text-red-400'>
+	  <div class="flex items-center gap-x-3 text-[35px] lg:text-[16px]">
+		<Warning className='w-10 h-10 lg:w-5 lg:h-5'/>
+		<p>Se produjo un error al generar el documento</p>
+	  </div>	
+	</Toast>
+  </div>
   <div>
     <main class="space-y-20 lg:space-y-10 py-20 lg:pt-10 lg:pb-5">
       <section class="flex justify-center text-[40px] lg:text-[16px]">
@@ -16,15 +26,15 @@ import Footer from '../components/Footer.astro';
       <section class="flex justify-center text-[40px] lg:text-[16px]">
         <ProjectsData />
       </section>
-      <section class="fixed bottom-10 right-2">
-        <ScrollToTopBtn className="absolute bottom-40 right-10 lg:bottom-24 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
-        <ThemeButton className="absolute bottom-1 right-10 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
-      </section>
       <section class="lg:flex lg:justify-center text-[40px] lg:text-[16px] px-10">
         <Footer className="lg:flex lg:justify-center lg:items-center lg:space-x-16 text-center px-16 py-8 lg:px-6 lg:py-4"/>
       </section>
     </main>
   </div>
+  <section class="fixed bottom-10 right-2">
+	<ScrollToTopBtn className="absolute bottom-40 right-10 lg:bottom-24 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
+	<ThemeButton className="absolute bottom-1 right-10 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
+  </section>
 </Layout>
 
 <script>

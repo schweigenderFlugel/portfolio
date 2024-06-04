@@ -74,6 +74,7 @@ import Modal from './Modal.astro';
   import about from '../../data/about.json';
   
   const modal = document.querySelector('[data-modal="resume"]') as HTMLElement;
+  const errorToast = document.querySelector('[data-toast="error"]') as HTMLElement;
 
   const lgBreakPoint = 1024;
   const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
@@ -117,6 +118,14 @@ import Modal from './Modal.astro';
           link.download = `facundo_castro_cv`;
           link.click();
         }, 1000)
+      }).catch(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        errorToast.classList.remove('hidden');
+        document.body.style.overflow = "auto";
+        setTimeout(() => {
+          errorToast.classList.add('hidden');
+        }, 3000)
       })
     });
   }
@@ -185,6 +194,14 @@ import Modal from './Modal.astro';
           link.download = `facundo_castro_cv`;
           link.click();
         }, 1000)
+      }).catch(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        errorToast.classList.remove('hidden');
+        document.body.style.overflow = "auto";
+        setTimeout(() => {
+          errorToast.classList.add('hidden');
+        }, 3000)
       })
     });
 
