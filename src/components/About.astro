@@ -36,7 +36,7 @@ import Modal from './Modal.astro';
     </div>
     <div class="flex justify-center items-center col-span-2">
       <button data-resume type="button" class="flex gap-2 justify-center items-center hover:text-purple-600 px-3 py-1">
-        <Download className='w-16 h-16 lg:w-6 lg:h-6' /> 
+        <Download className='w-20 h-20 lg:w-10 lg:h-10' /> 
       </button>
       <Tooltip keyword="resume" className="absolute inline-flex bg-purple-600 lg:text-[16px] text-[32px] px-6 py-3 lg:py-1.5 lg:px-3 mb-48 lg:mb-24">
         <p>Descargar CV</p>
@@ -81,8 +81,8 @@ import Modal from './Modal.astro';
 
   // TOUCH EVENTS
   const touchEvents = () => {
-    const carouselTouch = document.querySelector("[data-carousel]") as HTMLElement;
-    const resumeTouch = document.querySelector('[data-resume]') as HTMLElement;
+    const carouselTouch = document.querySelector("[data-carousel]") as HTMLButtonElement;
+    const resumeTouch = document.querySelector('[data-resume]') as HTMLButtonElement;
     let startX: number;
     let scrollLeft: any;
 
@@ -107,11 +107,15 @@ import Modal from './Modal.astro';
     resumeTouch.addEventListener('touchstart', async () => {
       modal.classList.add('flex');
       modal.classList.remove('hidden');
+      resumeTouch.classList.add('hidden');
+      resumeTouch.classList.remove('flex');
       document.body.style.overflow = "hidden";
       await generatePdf(about.resume).then(url => {
         setTimeout(() => {
           modal.classList.add('hidden');
           modal.classList.remove('flex');
+          resumeTouch.classList.add('flex');
+          resumeTouch.classList.remove('hidden');
           document.body.style.overflow = "auto";
           const link = document.createElement('a');
           link.href = url;
@@ -123,7 +127,10 @@ import Modal from './Modal.astro';
         modal.classList.remove('flex');
         errorToast.classList.remove('hidden');
         document.body.style.overflow = "auto";
+        window.scrollTo({ top: 0 });
         setTimeout(() => {
+          resumeTouch.classList.add('flex');
+          resumeTouch.classList.remove('hidden');
           errorToast.classList.add('hidden');
         }, 3000)
       })
@@ -183,11 +190,15 @@ import Modal from './Modal.astro';
     resumeBtn.addEventListener('click', async () => {
       modal.classList.add('flex');
       modal.classList.remove('hidden');
+      resumeBtn.classList.add('hidden');
+      resumeBtn.classList.remove('flex');
       document.body.style.overflow = "hidden";
       await generatePdf(about.resume).then(url => {
         setTimeout(() => {
           modal.classList.add('hidden');
           modal.classList.remove('flex');
+          resumeBtn.classList.add('flex');
+          resumeBtn.classList.remove('hidden');
           document.body.style.overflow = "auto";
           const link = document.createElement('a');
           link.href = url;
@@ -199,7 +210,10 @@ import Modal from './Modal.astro';
         modal.classList.remove('flex');
         errorToast.classList.remove('hidden');
         document.body.style.overflow = "auto";
+        window.scrollTo({ top: 0 });
         setTimeout(() => {
+          resumeBtn.classList.add('flex');
+          resumeBtn.classList.remove('hidden');
           errorToast.classList.add('hidden');
         }, 3000)
       })

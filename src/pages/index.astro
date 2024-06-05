@@ -2,8 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import About from '../components/About.astro';
 import ProjectsData from '../components/ProjectsData.astro';
-import ScrollToTopBtn from '../components/ScrollToTopBtn.astro';
-import ThemeButton from '../components/ThemeButton.astro';
 import Footer from '../components/Footer.astro';
 import Toast from '../components/Toast.astro';
 import Warning from '../icons/Warning.astro';
@@ -31,49 +29,4 @@ import Warning from '../icons/Warning.astro';
       </section>
     </main>
   </div>
-  <section class="fixed bottom-10 right-2">
-	<ScrollToTopBtn className="absolute bottom-40 right-10 lg:bottom-24 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
-	<ThemeButton className="absolute bottom-1 right-10 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
-  </section>
 </Layout>
-
-<script>
-  const switchTheme = document.querySelector("[data-switch-theme]") as HTMLButtonElement;
-  
-  if (
-	localStorage.getItem("appTheme") === "dark" ||
-    (!("appTheme" in localStorage) &&
-	  window.matchMedia("(prefers-color-scheme: dark)").matches)
-	) {
-	  document.documentElement.classList.add("dark");
-	} else {
-	  document.documentElement.classList.remove("dark");
-	}
-
-  if (switchTheme) {
-	switchTheme.addEventListener("click", (e: MouseEvent) => {
-  	  e.preventDefault();
-      const doc = document.documentElement;
-	  if (doc) {
-		if(localStorage.getItem("appTheme")) {
-		  if (localStorage.getItem("appTheme") === "light") {
-			doc.classList.add("dark");
-		    localStorage.setItem("appTheme", "dark");
-		  } else {
-			doc.classList.remove("dark");
-		    localStorage.setItem("appTheme", "light");
-		  }
-    	} else {
-		  if (doc.classList.contains("dark")) {
-			doc.classList.remove("dark");
-		    localStorage.setItem("appTheme", "light");
-		  } else {
-			doc.classList.add("dark")
-            localStorage.setItem("appTheme", "dark")
-		  }
-		}
-	  }
-	})
-  }
-  
-</script>

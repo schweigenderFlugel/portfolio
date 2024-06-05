@@ -1,4 +1,16 @@
-<article data-cy="projects" class="relative grid grid-rows-6 w-[800px] h-[800px] lg:w-[500px] lg:h-[400px] space-y-10 lg:space-y-5 px-16 py-16 lg:px-10 lg:py-10 border rounded-3xl bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600">
+---
+export interface Props {
+  id: number;
+}
+
+const { id } = Astro.props;
+---
+
+<article
+  id={`image-${id}`}
+  data-cy-projects
+  class="bg-[length:900px_700px] lg:bg-[length:500px_400px] bg-[center_top_5rem] lg:bg-[center_top_1rem] bg-no-repeat relative grid grid-rows-6 w-[800px] h-[800px] lg:w-[500px] lg:h-[400px] space-y-10 lg:space-y-5 px-16 py-16 lg:px-10 lg:py-10 border rounded-3xl bg-gray-100 dark:bg-transparent dark:border-purple-600"
+>
   <header class="relative font-bold row-span-1">
     <slot name="header" />
   </header>
@@ -9,3 +21,14 @@
     <slot name="buttons" />
   </footer>
 </article>
+
+<script>
+  import projects from "../../data/projects.json";
+  
+  projects.map(project => {
+    const projectImages = document.querySelector(`#image-${project.id}`) as HTMLElement;
+    projectImages.style.backgroundImage = `url('${project.image}')`;
+    projectImages.classList.add('bg-opacity-50')
+  })
+
+</script>

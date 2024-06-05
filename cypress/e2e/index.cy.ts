@@ -91,7 +91,7 @@ describe('testing the main page', () => {
     })
 
     it('Should get the data of the projects and button events', () => {
-      cy.get('[data-cy="projects"]').each((project, index) => {
+      cy.get('[data-cy-projects]').each((project, index) => {
         cy.wrap(project).within(() => {
           cy.get('[data-cy="project-title"]').should('have.text', projects[index].title);
           cy.get('[data-cy="project-subtitle"]').should('have.text', projects[index].subtitle);
@@ -201,7 +201,7 @@ describe('testing the main page', () => {
     });
 
     it('Should get the data of the projects and touch events', () => {
-      cy.get('[data-cy="projects"]').each((project, index) => {
+      cy.get('[data-cy-projects]').each((project, index) => {
         cy.wrap(project).within(() => {
           cy.get('[data-cy="project-title"]').should('have.text', projects[index].title);
           cy.get('[data-cy="project-subtitle"]').should('have.text', projects[index].subtitle);
