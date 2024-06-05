@@ -3,64 +3,53 @@ import ProjectsCard from "../components/ProjectsCard.astro"
 import projects from "../../data/projects.json"
 import GitHub from "../icons/GitHub.astro"
 import Web from "../icons/Web.astro"
-import XMark from '../icons/XMark.astro';
-import TagsCarousel from "../components/TagsCarousel.astro"
 import DetailsIcon from "../icons/DetailsIcon.astro"
-import Modal from "../components/Modal.astro"
 import Tooltip from "../components/Tooltip.astro"
-
+import ProjectDetails from "../components/ProjectDetails.astro"
 ---
+
 <main class="space-y-12 lg:space-y-6">
-  <p>Estos son algunos de mis proyectos</p>
-  <ul class="space-y-10 lg:space-y-5">
-    {projects && projects.map(project => (
-      <ProjectsCard>
-        <div slot="header" class="flex justify-between items-center">
-          <div>
-            <p data-cy="project-title">{project.title}</p>
-            <p data-cy="project-subtitle">{project.subtitle}</p>
+  {projects.length && (
+    <p>Estos son algunos de mis proyectos</p>
+    <ul class="space-y-20 lg:space-y-8">
+      {projects.map(project => (
+        <ProjectsCard className="space-y-10 lg:space-y-5">
+          <div slot="header" class="flex justify-between items-center">
+            <div>
+              <p data-cy="project-title">{project.title}</p>
+              <p data-cy="project-subtitle">{project.subtitle}</p>
+            </div>
+            <div class="absolute right-2 inline-flex">
+              <Tooltip id={project.id} className="inline-flex bg-purple-600 lg:text-[16px] text-[32px] px-6 py-3 lg:py-1.5 lg:px-3 mr-4 lg:mr-4">
+                <p>Ver detalles</p>
+              </Tooltip>
+              <button data-open-details-modal={project.id} type="button" class="hover:text-purple-600 cursor-pointer">
+                <DetailsIcon className="w-20 h-20 lg:w-8 lg:h-8" />
+              </button>
+            </div>
           </div>
-          <div class="absolute right-2 inline-flex">
-            <Tooltip id={project.id} className="inline-flex bg-purple-600 lg:text-[16px] text-[32px] px-6 py-3 lg:py-1.5 lg:px-3 mr-4 lg:mr-4">
-              <p>Ver detalles</p>
-            </Tooltip>
-            <button data-open-details-modal={project.id} type="button" class="hover:text-purple-600 cursor-pointer">
-              <DetailsIcon className="w-16 h-16 lg:w-8 lg:h-8" />
-            </button>
+          <div slot="buttons">
+            <a data-github={project.id} class="bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.github} target="_blank">
+              <GitHub className="w-12 h-12 lg:w-6 lg:h-6" />
+              <p class="hidden lg:display-initial">Código fuente</p>
+            </a>
+            <a data-website={project.id} class="bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.link} target="_blank">
+              <Web className="w-12 h-12 lg:w-6 lg:h-6" />
+              <p class="hidden lg:display-initial">Sitio web</p>
+            </a>
           </div>
+        </ProjectsCard>
+        <div>
+          <ProjectDetails 
+            id={project.id} 
+            description={project.description} 
+            tags={project.tags} 
+            publish={project.publish} 
+          />
         </div>
-        <div slot="buttons">
-          <a data-github={project.id} class="bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.github} target="_blank">
-            <GitHub className="w-12 h-12 lg:w-6 lg:h-6" />
-            <p class="hidden lg:display-initial">Código fuente</p>
-          </a>
-          <a data-website={project.id} class="bg-grey-200 inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.link} target="_blank">
-            <Web className="w-12 h-12 lg:w-6 lg:h-6" />
-            <p class="hidden lg:display-initial">Sitio web</p>
-          </a>
-        </div>
-      </ProjectsCard>
-      <Modal id={project.id} >
-        <div slot="header" class="flex items-center justify-between lg:px-6 lg:pt-4">
-          <p class="text-[40px] lg:text-[20px] font-bold">Detalles</p>
-          <button type="button" data-close-details-modal={project.id} class="hover:text-red-500"><XMark className="w-10 h-10 lg:w-6 lg:h-6" /></button>
-        </div>
-        <div slot="body" class="px-6 pt-2">
-          <TagsCarousel id={project.id} className="row-span-1 mb-10 lg:mb-2" tags={project.tags} />
-          <div class="space-y-3 bottom-0">
-            <p data-cy-description class="row-span-2 font-normal">{project.description}</p>
-            {project.publish 
-              ? <div class="row-span-1 font-normal flex justify-end gap-x-3 lg:gap-x-1">
-                  <strong class="underline"><i>Presentación:</i></strong>
-                  <p data-cy-publish-date>{project.publish}</p>
-                </div> 
-              : <p class="row-span-1 font-bold flex justify-end">No hay fecha de publicación</p>
-            }
-          </div>
-        </div>
-      </Modal>
-    ))}
-  </ul>
+      ))}
+    </ul>
+  )}
 </main>
 
 <script>

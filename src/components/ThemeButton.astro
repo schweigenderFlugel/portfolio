@@ -19,7 +19,7 @@ const { className } = Astro.props;
   const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
   
   const themeBtn = () => {
-    const switchThemeBtn = document.querySelector("[data-switch-theme-btn]") as HTMLButtonElement;
+    const switchThemeBtn = document.querySelector("[data-switch-theme]") as HTMLButtonElement;
     if (switchThemeBtn) {
       switchThemeBtn.addEventListener("click", (e: MouseEvent) => {
         e.preventDefault();
@@ -48,7 +48,7 @@ const { className } = Astro.props;
   }
 
   const themeTouch = () => {
-    const switchThemeTouch = document.querySelector('[data-switch-theme]') as HTMLElement;
+    const switchThemeTouch = document.querySelector('[data-switch-theme]') as HTMLButtonElement;
     if (switchThemeTouch) {
       switchThemeTouch.addEventListener('touchstart', (e: TouchEvent) => {
         e.preventDefault();
