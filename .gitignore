@@ -27,3 +27,6 @@ pnpm-debug.log*
 cypress/screenshots
 cypress/downloads
 cypress/videos
+
+# k6 binary
+k6.exe

@@ -227,7 +227,7 @@ describe('testing the main page', () => {
                 })
               })
             });
-          cy.get(`[data-tags-carousel="${projects[index].id}"]`).trigger('touchend');
+          cy.get(`[data-tags-carousel="${projects[index].id}"]`).trigger('touchend', { force: true });
           cy.get('[data-cy-description]').should('have.text', projects[index].description)
           cy.get('[data-cy-publish-date]').should('have.text', projects[index].publish);
           cy.get(`[data-close-details-modal="${projects[index].id}"]`).trigger('touchstart', { force: true });
