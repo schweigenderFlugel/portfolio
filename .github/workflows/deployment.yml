@@ -41,10 +41,7 @@ jobs:
         env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
            CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-           CYPRESS_PROJECT_ID: ${{ secrets.PROJECT_ID }}
+           CYPRESS_PROJECT_ID: ${{ secrets.CYPRESS_PROJECT_ID }}
 
       - name: Deploy to Netlify
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        run: npx netlify-cli deploy --dir=dist --prod
+        run: curl -X POST -d {} ${{ secrets.NETLIFY_BUILD_HOOK }}
