@@ -1,4 +1,5 @@
 [![main](https://github.com/schweigenderFlugel/portfolio/actions/workflows/main.yml/badge.svg)](https://github.com/schweigenderFlugel/portfolio/actions/workflows/main.yml)
+[![deployment](https://github.com/schweigenderFlugel/portfolio/actions/workflows/deployment.yml/badge.svg)](https://github.com/schweigenderFlugel/portfolio/actions/workflows/deployment.yml)
 [![Portfolio](https://img.shields.io/endpoint?url=https://cloud.cypress.io/badge/detailed/gr9djo/main&style=flat&logo=cypress)](https://cloud.cypress.io/projects/gr9djo/runs)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/07a247cb-ff61-4425-a271-fd770107e64c/deploy-status)](https://app.netlify.com/sites/facundo-castro/deploys)
 
