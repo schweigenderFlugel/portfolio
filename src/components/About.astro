@@ -20,11 +20,15 @@ import AstroIcon from '../icons/AstroIcon.astro';
 import Cypress from '../icons/Cypress.astro';
 import Tooltip from './Tooltip.astro';
 import Modal from './Modal.astro';
+import Discord from '../icons/Discord.astro';
 ---
 
 <GeneralCard>
   <div slot="header">
     <div data-cy="social" class="block space-x-6 lg:space-x-2">
+      <button class="relative inline-flex justify-center" data-discord-username value={about.social.discord}>
+        <Discord className="text-black dark:text-white w-[70px] h-[70px] lg:w-5 lg:h-5" />
+      </button>
       <a href={about.social.linkedin} data-cy="linkedin" target="_blank" class="inline-flex items-center"><Linkedin className='w-[70px] h-[70px] lg:w-5 lg:h-5'/></a>
       <a href={about.social.github} data-cy="github" target="_blank" class="inline-flex items-center"><GitHub className='w-[72px] h-[72px] lg:w-6 lg:h-6'/></a>
     </div>
@@ -83,8 +87,30 @@ import Modal from './Modal.astro';
   const touchEvents = () => {
     const carouselTouch = document.querySelector("[data-carousel]") as HTMLButtonElement;
     const resumeTouch = document.querySelector('[data-resume]') as HTMLButtonElement;
+    const discordTouch = document.querySelector('[data-discord-username]') as HTMLButtonElement;
+    const discordToast = document.querySelector('[data-toast="discord-copied"]') as HTMLElement;
+    const discordErrorToast = document.querySelector('[data-toast="discord-error"]') as HTMLElement;
+
     let startX: number;
     let scrollLeft: any;
+
+    discordTouch.addEventListener('touchstart', async (e: TouchEvent) => {
+      e.preventDefault();
+      try {
+        const copyUsername = discordTouch.value;
+        if (!copyUsername.length) throw new Error('could not copy text');
+        await navigator.clipboard.writeText(copyUsername);
+        discordToast.classList.remove('hidden');
+        setTimeout(() => {
+          discordToast.classList.add('hidden');
+        }, 3000);
+      } catch (error) {
+        discordErrorToast.classList.remove('hidden');
+        setTimeout(() => {
+          discordErrorToast.classList.add('hidden');
+        }, 3000);
+      }
+    })
 
     const touchStart = (e: TouchEvent) => {
       startX = e.touches[0].clientX;
@@ -141,11 +167,32 @@ import Modal from './Modal.astro';
   const btnEvents = () => {
     const carouselBtn = document.querySelector("[data-carousel]") as HTMLButtonElement;
     const resumeBtn = document.querySelector('[data-resume]') as HTMLButtonElement;
+    const discordBtn = document.querySelector('[data-discord-username]') as HTMLButtonElement;
     const experience = document.querySelector('[data-experience]') as HTMLButtonElement;
     const technologies = document.querySelector('[data-technologies]') as HTMLButtonElement;
-    const tooltip1 = document.querySelector(`[data-tooltip="resume"]`) as HTMLElement;
-    const tooltip2 = document.querySelector(`[data-tooltip="technologies"]`) as HTMLElement;
-    const tooltip3 = document.querySelector(`[data-tooltip="experience"]`) as HTMLElement;
+    const resumeTooltip = document.querySelector(`[data-tooltip="resume"]`) as HTMLElement;
+    const technologiesTooltip = document.querySelector(`[data-tooltip="technologies"]`) as HTMLElement;
+    const experienceTooltip = document.querySelector(`[data-tooltip="experience"]`) as HTMLElement;
+    const discordToast = document.querySelector('[data-toast="discord-copied"]') as HTMLElement;
+    const discordErrorToast = document.querySelector('[data-toast="discord-error"]') as HTMLElement;
+
+    discordBtn.addEventListener('click', async (e: MouseEvent) => {
+      e.preventDefault();
+      try {
+        const copyUsername = discordBtn.value;
+        if (!copyUsername.length) throw new Error('could not copy text');
+        await navigator.clipboard.writeText(copyUsername);
+        discordToast.classList.remove('hidden');
+        setTimeout(() => {
+          discordToast.classList.add('hidden');
+        }, 3000);
+      } catch (error) {
+        discordErrorToast.classList.remove('hidden');
+        setTimeout(() => {
+          discordErrorToast.classList.add('hidden');
+        }, 3000);
+      }
+    })
 
     let isDown: boolean = false;
     let startX: any;
@@ -181,11 +228,11 @@ import Modal from './Modal.astro';
     // Tooltip for resume and download
     resumeBtn.addEventListener('mouseover', (e: MouseEvent) => {
       e.preventDefault();
-      tooltip1.classList.remove("hidden");
+      resumeTooltip.classList.remove("hidden");
     });
     resumeBtn.addEventListener('mouseleave', (e: MouseEvent) => {
       e.preventDefault();
-      tooltip1.classList.add("hidden");
+      resumeTooltip.classList.add("hidden");
     });
     resumeBtn.addEventListener('click', async () => {
       modal.classList.add('flex');
@@ -222,21 +269,21 @@ import Modal from './Modal.astro';
     // Tooltip for technologies
     technologies.addEventListener('mouseover', (e: MouseEvent) => {
       e.preventDefault();
-      tooltip2.classList.remove("hidden");
+      technologiesTooltip.classList.remove("hidden");
     });
     technologies.addEventListener('mouseleave', (e: MouseEvent) => {
       e.preventDefault();
-      tooltip2.classList.add("hidden");
+      technologiesTooltip.classList.add("hidden");
     });
   
     // Tooltip for experience
     experience.addEventListener('mouseover', (e: MouseEvent) => {
       e.preventDefault();
-      tooltip3.classList.remove("hidden");
+      experienceTooltip.classList.remove("hidden");
     });
     experience.addEventListener('mouseleave', (e: MouseEvent) => {
       e.preventDefault();
-      tooltip3.classList.add("hidden");
+      experienceTooltip.classList.add("hidden");
     });
   }
 

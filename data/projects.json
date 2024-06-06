@@ -14,7 +14,7 @@
     "id": 2,
     "title": "Marigold",
     "subtitle": "E-commerce",
-    "image": "",
+    "image": "https://res.cloudinary.com/dh1l5r94c/image/upload/v1717693007/marigol-website-distorted_ezqixg.png",
     "description": "Este sitio web fue desarrollado durante mis inicios con React y Tailwind. Fue parte del curso de React y Tailwind llevado a cabo por la plataforma Platzi. La Api fue proporcionada por la plataforma, por tanto es posible que algunas cosas no se vizualicen en la pantalla.",
     "publish": "2 de junio, 2023",
     "tags": ["Javascript", "React", "Tailwind"],

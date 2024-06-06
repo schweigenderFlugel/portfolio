@@ -65,15 +65,15 @@ import ProjectDetails from "../components/ProjectDetails.astro"
       const tagsCarouselBtn = document.querySelector(`[data-tags-carousel="${project.id}"]`) as HTMLButtonElement;
       const openModalBtn = document.querySelector(`[data-open-details-modal="${project.id}"]`) as HTMLButtonElement;
       const closeModalBtn = document.querySelector(`[data-close-details-modal="${project.id}"]`) as HTMLButtonElement;
-      const tooltip = document.querySelector(`[data-details-tooltip="${project.id}"]`) as HTMLElement;
+      const detailsTooltip = document.querySelector(`[data-details-tooltip="${project.id}"]`) as HTMLElement;
 
       openModalBtn.addEventListener('mouseover', (e: MouseEvent) => {
         e.preventDefault();
-        tooltip.classList.remove("hidden"); 
+        detailsTooltip.classList.remove("hidden"); 
       });
       openModalBtn.addEventListener('mouseleave', (e: MouseEvent) => {
         e.preventDefault();
-        tooltip.classList.add("hidden");
+        detailsTooltip.classList.add("hidden");
       })
       openModalBtn.addEventListener('click', (e: MouseEvent) => {
         e.preventDefault();
