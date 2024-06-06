@@ -45,6 +45,14 @@ Then you can execute a performing test, for example:
 ```
 ./k6.exe run load.js
 ```
-For execution of the tests on the cloud, type the next command: 
+For execution of the tests on the cloud, you must pass the token to the config file:
 
-K6_CLOUD_TOKEN=$GRAFANA_K6_CLOUD_TOKEN ./k6.exe cloud ./k6/smoke.js 
+```
+./k6.exe login cloud --token $TOKEN
+```
+
+And then execute the test on the cloud:
+
+```
+./k6.exe cloud --token test.js
+```
