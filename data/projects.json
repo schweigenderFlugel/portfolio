@@ -2,7 +2,7 @@
   {
     "id": 1,
     "title": "Bankme",
-    "images": "",
+    "image": "https://res.cloudinary.com/dh1l5r94c/image/upload/v1717623966/bankme_website_bg_removed_opacity_80.png",
     "subtitle": "Billetera virtual",
     "description": "Parte de una simulación laboral realizada por NoCountry, este proyecto consistió en el desarrollo de una banca digital en donde se puede hacer depósitos, transferencias e inversiones. Infomación más detallada en el repositorio de GitHub.",
     "publish": "26 de abril, 2024",
@@ -14,7 +14,7 @@
     "id": 2,
     "title": "Marigold",
     "subtitle": "E-commerce",
-    "images": "",
+    "image": "https://res.cloudinary.com/dh1l5r94c/image/upload/v1717693007/marigol-website-distorted_ezqixg.png",
     "description": "Este sitio web fue desarrollado durante mis inicios con React y Tailwind. Fue parte del curso de React y Tailwind llevado a cabo por la plataforma Platzi. La Api fue proporcionada por la plataforma, por tanto es posible que algunas cosas no se vizualicen en la pantalla.",
     "publish": "2 de junio, 2023",
     "tags": ["Javascript", "React", "Tailwind"],

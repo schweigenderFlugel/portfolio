@@ -1,5 +1,6 @@
 ---
-import Footer from "../components/Footer.astro";
+import ScrollToTopBtn from '../components/ScrollToTopBtn.astro';
+import ThemeButton from '../components/ThemeButton.astro';
 
 interface Props {
 	title: string;
@@ -16,6 +17,10 @@ const { title } = Astro.props;
   </head>
   <body class="bg-white dark:bg-black text-black dark:text-white">
 	  <slot />
+    <section class="fixed bottom-10 right-2">
+      <ScrollToTopBtn className="absolute bottom-40 right-10 lg:bottom-24 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
+      <ThemeButton className="absolute bottom-1 right-10 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
+    </section>
   </body>
 </html>
 
