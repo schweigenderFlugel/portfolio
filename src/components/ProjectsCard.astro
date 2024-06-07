@@ -27,7 +27,7 @@ const { id } = Astro.props;
   
   projects.map(project => {
     const projectImages = document.querySelector(`#image-${project.id}`) as HTMLElement;
-    projectImages.style.backgroundImage = `url('${project.image}')`;
+    projectImages.style.backgroundImage = `url(${project.image})`;
     projectImages.classList.add('bg-opacity-50')
   })
 

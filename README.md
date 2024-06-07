@@ -6,7 +6,7 @@
 <h1 align="center">My personal portfolio page</h1>
 
 ## Descirption
-I developed this using astro, with the intention to make something simple and to avoid the excesive use of Javascript. For testing this app runs Cypress and the main reason is the possibility of incluiding Cypress on the CI/CD. This app is deployed in Netlify. 
+I developed this application using astro, with the intention to make something simple and to avoid the excesive use of Javascript. For testing this app runs Cypress and the main reason is the possibility of incluiding Cypress on the CI/CD. This app is deployed in Netlify. Besides this code includes a folder containing the performance testing, 
 
 ## Installation
 
@@ -34,25 +34,26 @@ npm run build
 ```
 
 ## Performace Testing
-This repository also contains performace tests to be executed with k6. Don't forget to [download]([/guides/content/editing-an-existing-page](https://github.com/grafana/k6/releases)) the binary file and execute it to check out that it works
+This repository also contains performace tests to be executed with k6. Don't forget to [download]([/guides/content/editing-an-existing-page](https://github.com/grafana/k6/releases)) the binary file and execute it to check out that it works. To make the things easier, the package.json has the necessary scripts.
 
 ```
-./k6.exe version
+npm run k6
 ```
 
 Then you can execute a performing test, for example: 
 
 ```
-./k6.exe run load.js
+npm run k6:run test.js
 ```
-For execution of the tests on the cloud, you must pass the token to the config file:
+
+For execution of the tests on the cloud, you must first pass the auth token to the config file. Warning: it is recommended to create a k6.config.json file with the empty curly brackets "{}" to save the config information. Make sure to not upload config file to the repository. 
 
 ```
-./k6.exe login cloud --token $TOKEN
+"./k6.exe login cloud --config ./k6.config.json --token"
 ```
 
 And then execute the test on the cloud:
 
 ```
-./k6.exe cloud --token test.js
+./k6.exe cloud test.js
 ```

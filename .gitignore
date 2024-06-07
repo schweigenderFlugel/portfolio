@@ -28,5 +28,6 @@ cypress/screenshots
 cypress/downloads
 cypress/videos
 
-# k6 binary
+# k6
 k6.exe
+k6.config.json
