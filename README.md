@@ -5,7 +5,7 @@
 
 <h1 align="center">My personal portfolio page</h1>
 
-## Descirption
+## Description
 I developed this application using astro, with the intention to make something simple and to avoid the excesive use of Javascript. For testing this app runs Cypress and the main reason is the possibility of incluiding Cypress on the CI/CD. This app is deployed in Netlify. Besides this code includes a folder containing the performance testing, 
 
 ## Installation
