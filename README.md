@@ -54,5 +54,5 @@ For execution of the tests on the cloud, you must pass the token to the config f
 And then execute the test on the cloud:
 
 ```
-./k6.exe cloud --token test.js
+./k6.exe cloud test.js
 ```
