@@ -97,17 +97,19 @@ describe('testing the main page', () => {
 
     it('Should get the data of the projects and button events', () => {
       cy.get('[data-cy-projects]').each((project, index) => {
-        cy.wrap(project).within(() => {
-          cy.get('[data-cy="project-title"]').should('have.text', projects[index].title);
-          cy.get('[data-cy="project-subtitle"]').should('have.text', projects[index].subtitle);
-          cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('mouseover');
-          cy.get(`[data-details-tooltip="${projects[index].id}"]`).should('be.visible').within(() => {
-            cy.get('p').should('have.text', 'Ver detalles');
+        cy.wrap(project)
+          .should('have.css', 'background-image', `url("${projects[index].image}")`)
+          .within(() => {
+            cy.get('[data-cy="project-title"]').should('have.text', projects[index].title);
+            cy.get('[data-cy="project-subtitle"]').should('have.text', projects[index].subtitle);
+            cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('mouseover');
+            cy.get(`[data-details-tooltip="${projects[index].id}"]`).should('be.visible').within(() => {
+              cy.get('p').should('have.text', 'Ver detalles');
+            })
+            cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('mouseleave');
+            cy.get(`[data-details-tooltip="${projects[index].id}"]`).should('not.be.visible');
+            cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('click');
           })
-          cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('mouseleave');
-          cy.get(`[data-details-tooltip="${projects[index].id}"]`).should('not.be.visible');
-          cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('click');
-        })
         cy.get(`[data-details-modal="${projects[index].id}"]`).should('be.visible').within(() => {
           cy.get(`[data-tags-carousel="${projects[index].id}"]`)
             .trigger('mousedown').then(() => {
@@ -202,7 +204,6 @@ describe('testing the main page', () => {
       cy.get('[data-experience]').within(() => {
         cy.get('[data-cy-experience-years]').should('have.text', `+${new Date().getFullYear() - about.experience}`);
       })
-  
       cy.get('[data-carousel]')
         .trigger('touchmove')
         .children()
@@ -212,11 +213,13 @@ describe('testing the main page', () => {
 
     it('Should get the data of the projects and touch events', () => {
       cy.get('[data-cy-projects]').each((project, index) => {
-        cy.wrap(project).within(() => {
-          cy.get('[data-cy="project-title"]').should('have.text', projects[index].title);
-          cy.get('[data-cy="project-subtitle"]').should('have.text', projects[index].subtitle);
-          cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('touchstart');
-        })
+        cy.wrap(project)
+          .should('have.css', 'background-image', `url("${projects[index].image}")`)
+          .within(() => {
+            cy.get('[data-cy="project-title"]').should('have.text', projects[index].title);
+            cy.get('[data-cy="project-subtitle"]').should('have.text', projects[index].subtitle);
+            cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('touchstart');
+          })
         cy.get(`[data-details-modal="${projects[index].id}"]`).should('be.visible').within(() => {
           cy.get(`[data-tags-carousel="${projects[index].id}"]`)
             .trigger('touchmove', { force: true })

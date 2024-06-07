@@ -3,7 +3,6 @@ import { sleep } from 'k6';
 
 export const options = {
   cloud: {
-    projectID: 3699710,
     name: 'smoke testing',
   },
   vus: 3,
