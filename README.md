@@ -49,11 +49,11 @@ npm run k6:run test.js
 For execution of the tests on the cloud, you must first pass the auth token to the config file. Warning: it is recommended to create a k6.config.json file with the empty curly brackets "{}" to save the config information. Make sure to not upload config file to the repository. 
 
 ```
-"./k6.exe login cloud --config ./k6.config.json --token"
+npm run k6:login
 ```
 
 And then execute the test on the cloud:
 
 ```
-./k6.exe cloud test.js
+npm run k6:cloud test.js
 ```
