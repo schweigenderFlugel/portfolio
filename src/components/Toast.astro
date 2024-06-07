@@ -9,7 +9,7 @@ const { keyword, className } = Astro.props;
 
 <div
   data-toast={keyword}
-  class={`${className} py-3 px-6 hidden z-10 whitespace-normal transition-opacity duration-300 ease-in-out break-words rounded-3xl lg:rounded-lg font-sans font-normal focus:outline-none select-none`}
+  class={`${className} py-3 px-6 hidden z-10 whitespace-normal break-words rounded-3xl lg:rounded-lg font-sans font-normal focus:outline-none select-none`}
 >
   <slot />
 </div>

@@ -3,7 +3,6 @@ import { sleep } from 'k6';
 
 export const options = {
   cloud: {
-    projectID: 3699710,
     name: 'average testing',
   },
   stages: [
@@ -14,6 +13,6 @@ export const options = {
 };
 
 export default () => {
-  let response = http.get('https://test-api.k6.io');
+  let response = http.get('https://facu-castro.netlify.app/');
   sleep(1);
 }
