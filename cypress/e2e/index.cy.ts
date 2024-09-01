@@ -9,7 +9,7 @@ describe('testing the main page', () => {
     });
 
     it(`The title should be "Bienvenidos"`, () => {
-      cy.get('[data-cy="title"]').should('have.text', 'Bienvenidos');
+      cy.get('[data-cy="title"]').should('have.text', 'Schweigender Flügel');
     })
 
     it('Testing the dark mode button', () => {
