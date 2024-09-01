@@ -12,6 +12,8 @@ import Typeorm from "../icons/Typeorm.astro"
 import Html from "../icons/Html.astro"
 import Css from "../icons/Css.astro"
 import AstroIcon from "../icons/AstroIcon.astro"
+import Mongo from "../icons/Mongo.astro"
+import Prisma from "../icons/Prisma.astro"
 
 export const badges = [
   {
@@ -83,6 +85,16 @@ export const badges = [
     name: "Tailwind",
     class: "w-8 h-8 lg:w-3 lg:h-3",
     icon: Tailwind,
+  },
+  {
+    name: "MongoDB",
+    class: "w-8 h-8 lg:w-3 lg:h-3",
+    icon: Mongo,
+  },
+  {
+    name: "Prisma",
+    class: "w-8 h-8 lg:w-3 lg:h-3",
+    icon: Prisma,
   }
 ]
   
