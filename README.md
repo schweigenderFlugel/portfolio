@@ -11,9 +11,8 @@ I developed this application using astro, with the intention to make something s
 ## Installation
 
 ```
-npm install --force
+npm install 
 ```
-Note: "--force" is used to avoid the conflicts with the libraries during installation, especially with the linter. I personally do not recommend to force the installation in order to prevent posible failures. 
 
 ## Running the app
 

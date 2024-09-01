@@ -21,6 +21,8 @@ import Cypress from '../icons/Cypress.astro';
 import Tooltip from './Tooltip.astro';
 import Modal from './Modal.astro';
 import Discord from '../icons/Discord.astro';
+import Prisma from '../icons/Prisma.astro';
+import Mongo from '../icons/Mongo.astro';
 ---
 
 <GeneralCard>
@@ -48,11 +50,11 @@ import Discord from '../icons/Discord.astro';
     </div>
   </div>
   <div slot="technologies" data-carousel class="flex gap-4 items-center overflow-hidden transition-transform duration-300">
-    <Html className='h-[90px] w-[90px] lg:h-10 lg:w-10 flex-shrink-0'/>
+    <Html className='h-[90px] w-[90px] lg:h-10 lg:w-10 flex-shrink-0' />
     <Css className='h-[82px] w-[82px] lg:h-9 lg:w-9 pt-[5px] flex-shrink-0' />
-    <Javascript className='h-[70px] w-[70px] lg:h-8 lg:w-8 flex-shrink-0'/>
+    <Javascript className='h-[70px] w-[70px] lg:h-8 lg:w-8 flex-shrink-0' />
     <Typescript className='h-[70px] w-[70px] lg:h-8 lg:w-8 flex-shrink-0' />
-    <Php className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0'/> 
+    <Php className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' /> 
     <Express className='h-[70px] w-[70px]lg:h-8 lg:w-8 flex-shrink-0' />
     <Sequelize className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
     <Nestjs className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' /> 
@@ -61,7 +63,9 @@ import Discord from '../icons/Discord.astro';
     <React className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
     <AstroIcon className='h-[70px] w-[70px] lg:h-9 lg:w-9 flex-shrink-0' />
     <Tailwind className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <Cypress className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0'/>
+    <Cypress className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <Prisma className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <Mongo className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
   </div>
   <div slot="experience">
     <p data-cy-experience-years class="font-bold text-[40px] lg:text-[18px] text-purple-600 select-none">+{new Date().getFullYear() - about.experience}</p>
