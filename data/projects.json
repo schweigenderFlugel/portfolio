@@ -1,6 +1,17 @@
 [
   {
     "id": 1,
+    "title": "LawCases",
+    "image": "",
+    "subtitle": "Aplicación para abogados",
+    "description": "Se trata de una aplicación de gestión, en la cual los abogados pueden hacer un seguimiento de sus casos y sus respectivos movimientos. Visite el repositorio de GitHub para obtener información más detallada",
+    "publish": "19 de septiembre, 2024",
+    "tags": ["Typescript", "React", "Express", "Prisma", "Mongo"],
+    "github": "",
+    "link": ""
+  },
+  {
+    "id": 2,
     "title": "Bankme",
     "image": "https://res.cloudinary.com/dh1l5r94c/image/upload/v1717623966/bankme_website_bg_removed_opacity_80.png",
     "subtitle": "Billetera virtual",
@@ -11,7 +22,7 @@
     "link": "https://bankme-nc.netlify.app/"
   },
   {
-    "id": 2,
+    "id": 3,
     "title": "Marigold",
     "subtitle": "E-commerce",
     "image": "https://res.cloudinary.com/dh1l5r94c/image/upload/v1717693007/marigol-website-distorted_ezqixg.png",

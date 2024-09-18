@@ -87,7 +87,7 @@ export const badges = [
     icon: Tailwind,
   },
   {
-    name: "MongoDB",
+    name: "Mongo",
     class: "w-8 h-8 lg:w-3 lg:h-3",
     icon: Mongo,
   },

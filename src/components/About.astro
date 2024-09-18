@@ -19,7 +19,6 @@ import Download from '../icons/Download.astro';
 import AstroIcon from '../icons/AstroIcon.astro';
 import Cypress from '../icons/Cypress.astro';
 import Tooltip from './Tooltip.astro';
-import Modal from './Modal.astro';
 import Discord from '../icons/Discord.astro';
 import Prisma from '../icons/Prisma.astro';
 import Mongo from '../icons/Mongo.astro';
@@ -71,19 +70,8 @@ import Mongo from '../icons/Mongo.astro';
     <p data-cy-experience-years class="font-bold text-[40px] lg:text-[18px] text-purple-600 select-none">+{new Date().getFullYear() - about.experience}</p>
   </div>
 </GeneralCard>
-<Modal keyword="resume">
-  <div slot="body">
-    <p>Generando documento pdf...</p>
-  </div>
-</Modal>
 
 <script>
-  import { generatePdf } from '../scripts/pdf.utils';
-  import about from '../../data/about.json';
-  
-  const modal = document.querySelector('[data-modal="resume"]') as HTMLElement;
-  const errorToast = document.querySelector('[data-toast="error"]') as HTMLElement;
-
   const lgBreakPoint = 1024;
   const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
 
@@ -135,35 +123,7 @@ import Mongo from '../icons/Mongo.astro';
     carouselTouch.addEventListener('touchstart', touchStart);
 
     resumeTouch.addEventListener('touchstart', async () => {
-      modal.classList.add('flex');
-      modal.classList.remove('hidden');
-      resumeTouch.classList.add('hidden');
-      resumeTouch.classList.remove('flex');
-      document.body.style.overflow = "hidden";
-      await generatePdf(about.resume).then(url => {
-        setTimeout(() => {
-          modal.classList.add('hidden');
-          modal.classList.remove('flex');
-          resumeTouch.classList.add('flex');
-          resumeTouch.classList.remove('hidden');
-          document.body.style.overflow = "auto";
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = `facundo_castro_cv`;
-          link.click();
-        }, 1000)
-      }).catch(() => {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-        errorToast.classList.remove('hidden');
-        document.body.style.overflow = "auto";
-        window.scrollTo({ top: 0 });
-        setTimeout(() => {
-          resumeTouch.classList.add('flex');
-          resumeTouch.classList.remove('hidden');
-          errorToast.classList.add('hidden');
-        }, 3000)
-      })
+      // TODO
     });
   }
   
@@ -239,35 +199,7 @@ import Mongo from '../icons/Mongo.astro';
       resumeTooltip.classList.add("hidden");
     });
     resumeBtn.addEventListener('click', async () => {
-      modal.classList.add('flex');
-      modal.classList.remove('hidden');
-      resumeBtn.classList.add('hidden');
-      resumeBtn.classList.remove('flex');
-      document.body.style.overflow = "hidden";
-      await generatePdf(about.resume).then(url => {
-        setTimeout(() => {
-          modal.classList.add('hidden');
-          modal.classList.remove('flex');
-          resumeBtn.classList.add('flex');
-          resumeBtn.classList.remove('hidden');
-          document.body.style.overflow = "auto";
-          const link = document.createElement('a');
-          link.href = url;
-          link.download = `facundo_castro_cv`;
-          link.click();
-        }, 1000)
-      }).catch(() => {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-        errorToast.classList.remove('hidden');
-        document.body.style.overflow = "auto";
-        window.scrollTo({ top: 0 });
-        setTimeout(() => {
-          resumeBtn.classList.add('flex');
-          resumeBtn.classList.remove('hidden');
-          errorToast.classList.add('hidden');
-        }, 3000)
-      })
+      // TODO
     });
 
     // Tooltip for technologies
