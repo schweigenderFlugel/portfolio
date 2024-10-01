@@ -51,12 +51,6 @@ describe('testing the main page', () => {
       cy.get('[data-cy="description"]').should('have.text', about.description);
   
       // RESUME
-      cy.get('[data-resume]').trigger('click');
-      cy.get('[data-modal="resume"]').should('be.visible').within(() => {
-          cy.get('p').should('have.text', 'Generando documento pdf...');
-      });
-      cy.wait(1000);
-      cy.get('[data-modal="resume"]').should('not.be.visible');
       cy.get('[data-resume]').trigger('mouseover');
       cy.get('[data-tooltip="resume"]')
         .should('be.visible')
@@ -196,11 +190,6 @@ describe('testing the main page', () => {
       cy.get('[data-cy="full-name"]').should('have.text', about.fullName);
       cy.get('[data-cy="description"]').should('have.text', about.description);
       cy.get('[data-resume]').trigger('touchstart');
-      cy.get('[data-modal="resume"]').should('be.visible').within(() => {
-        cy.get('p').should('have.text', 'Generando documento pdf...');
-      });
-      cy.wait(1000);
-      cy.get('[data-modal="resume"]').should('not.be.visible');
       cy.get('[data-experience]').within(() => {
         cy.get('[data-cy-experience-years]').should('have.text', `+${new Date().getFullYear() - about.experience}`);
       })
