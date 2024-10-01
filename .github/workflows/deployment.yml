@@ -30,7 +30,7 @@ jobs:
       - name: Cypress Tests
         uses: cypress-io/github-action@v6
         with:
-          install-command: npm install --force 
+          install-command: npm ci
           start: npm run start
           wait-on: http://localhost:9000
           record: true
