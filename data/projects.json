@@ -2,8 +2,8 @@
   {
     "id": 1,
     "title": "Bankme",
+    "subtitle": "Fintech",
     "image": "https://res.cloudinary.com/dh1l5r94c/image/upload/v1717623966/bankme_website_bg_removed_opacity_80.png",
-    "subtitle": "Billetera virtual",
     "description": "Parte de una simulación laboral realizada por NoCountry, este proyecto consistió en el desarrollo de una banca digital en donde se puede hacer depósitos, transferencias e inversiones. Infomación más detallada en el repositorio de GitHub.",
     "publish": "26 de abril, 2024",
     "tags": ["Typescript", "Express", "Sequelize", "Postgresql", "React", "Tailwind"],
@@ -20,5 +20,16 @@
     "tags": ["Javascript", "React", "Tailwind"],
     "github": "https://github.com/schweigenderFlugel/react-vite-tailwindcss",
     "link": "https://comforting-marigold-0290d0.netlify.app/"
+  },
+  {
+    "id": 3,
+    "title": "Recetapp",
+    "subtitle": "Food Recipes",
+    "image": "",
+    "description": "En esta simulaciòn laboral, se llevó a cabo el desarrollo de una aplicación para recetas personalizadas.",
+    "publish": "5 de noviembre, 2024",
+    "tags": ["Typescript", "React", "Tailwind", "Express", "Prisma", "Postgresql"],
+    "github": "https://github.com/No-Country-simulation/s18-14-n-node-react",
+    "link": ""
   }
 ]

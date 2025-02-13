@@ -31,3 +31,5 @@ cypress/videos
 # k6
 k6.exe
 k6.config.json
+
+.netlify
