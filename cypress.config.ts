@@ -1,4 +1,4 @@
-import { defineConfig } from 'cypress'
+import { defineConfig } from 'cypress';
 import fs from 'node:fs';
 
 export default defineConfig({
@@ -14,14 +14,14 @@ export default defineConfig({
         (_spec: Cypress.Spec, results: CypressCommandLine.RunResult) => {
           if(results && results.video) {
             const failures = results.tests.some(test => 
-              test.attempts.some(attempt => attempt.state === 'failed')
-            )
+              test.attempts.some(attempt => attempt.state === 'failed'),
+            );
             if (!failures) {
               fs.unlinkSync(results.video);
-            }
-          }
-        }
-      )
-    }
+            };
+          };
+        },
+      );
+    },
   },
-})
+});
