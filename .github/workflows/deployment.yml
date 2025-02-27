@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@b80ff79f1755d06ba70441c368a6fe801f5f3a62
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@eff380dfbcf941bf8832e4acb788cebe13dfd758
         with:
           node-version: 18
 
@@ -28,7 +28,7 @@ jobs:
         run: npm run lint
 
       - name: Cypress Tests
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@65a304c3ceca767ae029124625699e9a76b05201
         with:
           install-command: npm ci
           start: npm run start
