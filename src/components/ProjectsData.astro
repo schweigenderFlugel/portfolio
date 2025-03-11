@@ -10,8 +10,8 @@ import ProjectDetails from "../components/ProjectDetails.astro"
 
 <main class="space-y-12 lg:space-y-6 lg:h-auto">
   {projects.length && (
-    <p>Estos son algunos de mis proyectos</p>
-    <ul class="space-y-20 lg:space-y-8">
+    <p class="font-bold text-[20px]">Proyectos:</p>
+    <ul class="space-y-20 sm:flex lg:space-x-1 lg:overflow-x-hidden">
       {projects.map(project => (
         <ProjectsCard id={project.id}>
           <div slot="header" class="flex justify-between items-center">

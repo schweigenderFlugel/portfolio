@@ -2,16 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import About from '../components/About.astro';
 import ProjectsData from '../components/ProjectsData.astro';
-import Footer from '../components/Footer.astro';
 import Toast from '../components/Toast.astro';
 import Warning from '../icons/Warning.astro';
 import CheckIcon from '../icons/CheckIcon.astro';
-import ScrollToTopBtn from '../components/ScrollToTopBtn.astro';
-import ThemeButton from '../components/ThemeButton.astro';
 ---
 
 <Layout title="Schweigender Flügel">
-  <div class="sm:flex sm:justify-center">
+  <div class="flex justify-center">
 	  <Toast keyword="error" className='mt-24 lg:mt-8 border border-red-700 dark:border-red-400 bg-red-200 dark:bg-transparent text-red-700 dark:text-red-400'>
 	    <div class="flex items-center gap-x-3 text-[35px] lg:text-[16px]">
 		    <Warning className='w-10 h-10 lg:w-5 lg:h-5'/>
@@ -31,19 +28,12 @@ import ThemeButton from '../components/ThemeButton.astro';
       </div>	
     </Toast>
   </div>
-  <main class="sm:space-y-20 sm:py-20 lg:space-x-4 lg:h-[2000px] lg:grid lg:grid-cols-6 lg:grid-rows-12">
-    <section class="flex justify-center text-[40px]  lg:text-[16px] lg:col-span-6 lg:row-span-1">
+  <main class="sm:space-y-20 sm:py-20 lg:space-x-4">
+    <section class="flex justify-center text-[40px] lg:text-[16px]">
       <About />
     </section>
-    <section class="flex justify-center text-[40px] lg:text-[16px] lg:col-span-6 lg:row-span-1">
+    <section class="flex justify-center text-[40px] lg:text-[16px] lg:col-span-6 lg:row-span-3">
       <ProjectsData />
     </section>
-    <section class="lg:flex lg:justify-center lg:w-auto lg:h-auto text-[40px] lg:text-[16px] px-10 lg:col-span-12 lg:row-span-1">
-      <Footer className="lg:flex lg:justify-center lg:items-center lg:space-x-16 text-center px-16 py-8 lg:px-6 lg:py-4"/>
-    </section>
   </main>
-  <div class="lg:hidden w-32 space-y-6 fixed inline-block bottom-20 right-10">
-    <ThemeButton className="bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
-    <ScrollToTopBtn className="bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
-  </div>
 </Layout>

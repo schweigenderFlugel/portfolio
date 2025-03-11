@@ -27,7 +27,7 @@ import Docker from '../icons/Docker.astro';
 
 <GeneralCard>
   <div slot="header">
-    <div data-cy="social" class="block space-x-6 lg:space-x-2">
+    <div data-cy="social" class="block space-x-4 space-y-6 lg:space-x-2">
       <button class="relative inline-flex justify-center" data-discord-username value={about.social.discord}>
         <Discord className="text-black dark:text-white w-[70px] h-[70px] lg:w-5 lg:h-5" />
       </button>
@@ -35,12 +35,15 @@ import Docker from '../icons/Docker.astro';
       <a href={about.social.github} data-cy="github" target="_blank" class="inline-flex items-center"><GitHub className='w-[72px] h-[72px] lg:w-6 lg:h-6'/></a>
     </div>
   </div>
-  <div slot="description" class="grid grid-cols-12">
-    <div class="col-span-10 space-y-3">
+  <div slot="description" class="flex justify-between">
+    <div class="space-y-3">
       <p class="text-purple-600">Hola, soy <strong data-cy="full-name" class="text-black dark:text-white">{about.fullName}</strong></p>
-      <p data-cy="description">{about.description}</p>
+      <ul class="inline-flex space-x-2">
+        <li class="sm:py-2 sm:px-4 lg:px-2 lg:py-1 font-bold border sm:rounded-2xl lg:rounded-xl bg-purple-600 text-white">Backend</li>
+        <li class="sm:py-2 sm:px-4 lg:px-2 lg:py-1 font-bold border sm:rounded-2xl lg:rounded-xl bg-purple-600 text-white">DevOps</li>  
+      </ul> 
     </div>
-    <div class="flex justify-center items-center col-span-2">
+    <div class="flex justify-center items-center">
       <button data-resume type="button" class="flex gap-2 justify-center items-center hover:text-purple-600 px-3 py-1">
         <Download className='w-20 h-20 lg:w-10 lg:h-10' /> 
       </button>
@@ -49,27 +52,31 @@ import Docker from '../icons/Docker.astro';
       </Tooltip>
     </div>
   </div>
-  <div slot="technologies" data-carousel class="flex gap-4 items-center overflow-hidden transition-transform duration-300">
-    <Html className='h-[90px] w-[90px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <Css className='h-[82px] w-[82px] lg:h-9 lg:w-9 pt-[5px] flex-shrink-0' />
-    <Javascript className='h-[70px] w-[70px] lg:h-8 lg:w-8 flex-shrink-0' />
-    <Typescript className='h-[70px] w-[70px] lg:h-8 lg:w-8 flex-shrink-0' />
-    <Php className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' /> 
-    <Express className='h-[70px] w-[70px]lg:h-8 lg:w-8 flex-shrink-0' />
-    <Sequelize className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <Nestjs className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' /> 
-    <Typeorm className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <Laravel className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <React className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <AstroIcon className='h-[70px] w-[70px] lg:h-9 lg:w-9 flex-shrink-0' />
-    <Tailwind className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <Cypress className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <Prisma className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <Mongo className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <Docker className='h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+  <div slot="technologies" data-carousel class="sm:h-auto flex gap-4 items-center overflow-hidden transition-transform duration-300">
+    <Html className='sm:h-[90px] sm:w-[90px] lg:h-auto lg:w-10 flex-shrink-0' />
+    <Css className='sm:h-[70px] sm:w-[82px] lg:h-9 lg:w-9 pt-[5px] flex-shrink-0' />
+    <Javascript className='sm:h-[70px] sm:w-[70px] lg:h-8 lg:w-8 flex-shrink-0' />
+    <Typescript className='sm:h-[70px] sm:w-[70px] lg:h-8 lg:w-8 flex-shrink-0' />
+    <Php className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' /> 
+    <Express className='sm:h-[70px] w-[70px] lg:h-8 lg:w-8 flex-shrink-0' />
+    <Sequelize className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <Nestjs className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' /> 
+    <Typeorm className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <Laravel className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <React className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <AstroIcon className='sm:h-[70px] w-[70px] lg:h-9 lg:w-9 flex-shrink-0' />
+    <Tailwind className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <Cypress className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <Prisma className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <Mongo className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <Docker className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
   </div>
   <div slot="experience">
     <p data-cy-experience-years class="font-bold text-[40px] lg:text-[18px] text-purple-600 select-none">+{new Date().getFullYear() - about.experience}</p>
+  </div>
+  <div slot="presentation" class="space-y-3">
+    <p class="text-[20px] font-bold">Presentación:</p>
+    <p>{about.description}</p>
   </div>
 </GeneralCard>
 

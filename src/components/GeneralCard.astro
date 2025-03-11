@@ -2,25 +2,30 @@
 import Tooltip from "./Tooltip.astro";
 ---
 
-<article class="sm:w-[800px] lg:w-auto lg:h-auto grid grid-cols-6 grid-rows-6 gap-4">
-  <section class="grid sm:h-[1200px] lg:h-auto grid-rows-6 col-span-6 row-span-5 border bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600 rounded-3xl">
+<article class="sm:w-[800px] lg:w-auto lg:h-auto grid lg:grid-cols-8 lg:grid-rows-5 sm:grid-cols-6 sm:grid-rows-12 gap-4">
+  <section class="grid sm:grid-rows-5 sm:h-[600px] sm:px-6 lg:h-auto sm:row-span-5 sm:col-span-6 lg:row-span-5 lg:col-span-3 border bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600 rounded-3xl">
     <header class="row-span-1 flex justify-end px-16 py-16 lg:px-8 lg:py-5">
       <slot name="header" />
     </header>
-    <section class="flex row-span-5 justify-start items-end px-8 pb-10">
+    <section class="flex row-span-4 justify-start items-end px-8 pb-10">
       <slot name="description" />
     </section>
   </section>
-  <section data-technologies class="sm:h-[150px] lg:w-auto lg:h-auto flex justify-center items-center col-span-5 row-span-1 px-3 py-3 border bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600 rounded-3xl">
+  <section data-technologies class="sm:h-[150px] lg:w-auto lg:h-auto flex justify-center items-center sm:col-span-5 sm:row-span-1 lg:row-span-1 lg:col-span-4 px-3 py-3 border bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600 rounded-3xl">
     <slot name="technologies" />
-    <Tooltip keyword="technologies" className="absolute bg-purple-600 text-[32px] lg:text-[16px]  px-6 py-3 lg:py-1.5 lg:px-3 mt-72 lg:mt-32">
+    <Tooltip keyword="technologies" className="absolute bg-purple-600 text-[32px] lg:text-[16px] px-6 py-3 lg:py-1.5 lg:px-3 mt-72 lg:mt-32">
       <p>Tecnologías</p>
     </Tooltip>
   </section>
-  <section data-experience class="h-[150px] lg:w-auto lg:h-auto flex justify-center items-center col-span-1 row-span-1 border bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600 rounded-3xl">
+  <section data-experience class="h-[150px] lg:w-auto lg:h-auto flex justify-center items-center sm:col-span-1 sm:row-span-1 lg:row-span-1 lg:col-span-1 border bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600 rounded-3xl">
     <slot name="experience" />
     <Tooltip keyword="experience" className="absolute bg-purple-600 text-[32px] lg:text-[16px] px-6 py-3 lg:py-1.5 lg:px-3 mt-72 lg:mt-32">
       <p>Experiencia</p>
     </Tooltip>
+  </section>
+  <section class="grid sm:h-[600px] sm:px-6 lg:h-auto sm:row-span-6 sm:col-span-6 lg:row-span-4 lg:col-span-5 border bg-gray-100 dark:bg-black dark:bg-opacity-50 dark:border-purple-600 rounded-3xl">
+    <section class="flex row-span-5 text-justify justify-start items-start px-8 pt-10">
+      <slot name="presentation" />
+    </section>
   </section>
 </article>
