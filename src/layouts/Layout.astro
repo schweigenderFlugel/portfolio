@@ -12,14 +12,12 @@ const { title } = Astro.props;
 <!doctype html>
 <html lang="en">
   <head>
-	<meta charset="UTF-8" />
-  <link rel="icon" type="image" href="/feather.png">
-	<title data-cy="title">{title}</title>
+	  <meta charset="UTF-8" />
+    <link rel="icon" type="image" href="/feather.png">
+	  <title data-cy="title">{title}</title>
   </head>
-  <body class="bg-white dark:bg-black text-black dark:text-white">
+  <body class="bg-white lg:px-6 lg:w-screen lg:h-screen dark:bg-black text-black dark:text-white">
 	  <slot />
-    <ScrollToTopBtn className="fixed bottom-52 right-10 lg:bottom-32 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
-    <ThemeButton className="fixed bottom-10 right-10 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
   </body>
 </html>
 
