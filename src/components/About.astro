@@ -33,17 +33,18 @@ import Docker from '../icons/Docker.astro';
       </button>
       <a href={about.social.linkedin} data-cy="linkedin" target="_blank" class="inline-flex items-center"><Linkedin className='w-[70px] h-[70px] lg:w-5 lg:h-5'/></a>
       <a href={about.social.github} data-cy="github" target="_blank" class="inline-flex items-center"><GitHub className='w-[72px] h-[72px] lg:w-6 lg:h-6'/></a>
+      <a href={about.social.dockerhub} data-cy="github" target="_blank" class="inline-flex items-center"><Docker className='w-[72px] h-[72px] lg:w-6 lg:h-6'/></a>
     </div>
   </div>
-  <div slot="description" class="flex justify-between">
-    <div class="space-y-3">
+  <div slot="description" class="grid grid-cols-12">
+    <div class="space-y-3 col-span-10">
       <p class="text-purple-600">Hola, soy <strong data-cy="full-name" class="text-black dark:text-white">{about.fullName}</strong></p>
       <ul class="inline-flex space-x-2">
         <li class="sm:py-2 sm:px-4 lg:px-2 lg:py-1 font-bold border sm:rounded-2xl lg:rounded-xl bg-purple-600 text-white">Backend</li>
         <li class="sm:py-2 sm:px-4 lg:px-2 lg:py-1 font-bold border sm:rounded-2xl lg:rounded-xl bg-purple-600 text-white">DevOps</li>  
       </ul> 
     </div>
-    <div class="flex justify-center items-center">
+    <div class="flex justify-center items-center col-span-2">
       <button data-resume type="button" class="flex gap-2 justify-center items-center hover:text-purple-600 px-3 py-1">
         <Download className='w-20 h-20 lg:w-10 lg:h-10' /> 
       </button>
@@ -75,7 +76,7 @@ import Docker from '../icons/Docker.astro';
     <p data-cy-experience-years class="font-bold text-[40px] lg:text-[18px] text-purple-600 select-none">+{new Date().getFullYear() - about.experience}</p>
   </div>
   <div slot="presentation" class="space-y-3">
-    <p class="text-[20px] font-bold">Presentación:</p>
+    <p class="sm:text-[40px] lg:text-[20px] font-bold">Presentación:</p>
     <p>{about.description}</p>
   </div>
 </GeneralCard>

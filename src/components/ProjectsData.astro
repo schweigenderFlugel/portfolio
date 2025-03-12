@@ -10,43 +10,45 @@ import ProjectDetails from "../components/ProjectDetails.astro"
 
 <main class="space-y-12 lg:space-y-6 lg:h-auto">
   {projects.length && (
-    <p class="font-bold text-[20px]">Proyectos:</p>
-    <ul class="space-y-20 sm:flex lg:space-x-1 lg:overflow-x-hidden">
+    <p class="font-bold sm:text-[35px] lg:text-[20px]">Proyectos:</p>
+    <ul class="sm:space-y-20 lg:space-x-3 lg:grid lg:grid-cols-12">
       {projects.map(project => (
-        <ProjectsCard id={project.id}>
-          <div slot="header" class="flex justify-between items-center">
-            <div>
-              <p data-cy="project-title">{project.title}</p>
-              <p data-cy="project-subtitle">{project.subtitle}</p>
+        <li class="col-span-4 flex">
+          <ProjectsCard id={project.id}>
+            <div slot="header" class="flex justify-between items-center">
+              <div>
+                <p data-cy="project-title">{project.title}</p>
+                <p data-cy="project-subtitle">{project.subtitle}</p>
+              </div>
+              <div class="absolute right-2 inline-flex">
+                <Tooltip id={project.id} className="inline-flex bg-purple-600 lg:text-[16px] text-[32px] px-6 py-3 lg:py-1.5 lg:px-3 mr-4 lg:mr-4">
+                  <p>Ver detalles</p>
+                </Tooltip>
+                <button data-open-details-modal={project.id} type="button" class="hover:text-purple-600 cursor-pointer">
+                  <DetailsIcon className="w-20 h-20 lg:w-8 lg:h-8" />
+                </button>
+              </div>
             </div>
-            <div class="absolute right-2 inline-flex">
-              <Tooltip id={project.id} className="inline-flex bg-purple-600 lg:text-[16px] text-[32px] px-6 py-3 lg:py-1.5 lg:px-3 mr-4 lg:mr-4">
-                <p>Ver detalles</p>
-              </Tooltip>
-              <button data-open-details-modal={project.id} type="button" class="hover:text-purple-600 cursor-pointer">
-                <DetailsIcon className="w-20 h-20 lg:w-8 lg:h-8" />
-              </button>
+            <div slot="buttons">
+              <a data-github={project.id} class="inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl bg-white dark:bg-black border-black dark:border-white hover:border-purple-600 hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.github} target="_blank">
+                <GitHub className="w-12 h-12 lg:w-6 lg:h-6" />
+                <p class="hidden lg:display-initial">Código fuente</p>
+              </a>
+              <a data-website={project.id} class="inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl bg-white dark:bg-black border-black dark:border-white hover:border-purple-600 hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.link} target="_blank">
+                <Web className="w-12 h-12 lg:w-6 lg:h-6" />
+                <p class="hidden lg:display-initial">Sitio web</p>
+              </a>
             </div>
+          </ProjectsCard>
+          <div>
+            <ProjectDetails 
+              id={project.id} 
+              description={project.description} 
+              tags={project.tags} 
+              publish={project.publish} 
+            />
           </div>
-          <div slot="buttons">
-            <a data-github={project.id} class="inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl bg-white dark:bg-black border-black dark:border-white hover:border-purple-600 hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.github} target="_blank">
-              <GitHub className="w-12 h-12 lg:w-6 lg:h-6" />
-              <p class="hidden lg:display-initial">Código fuente</p>
-            </a>
-            <a data-website={project.id} class="inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl bg-white dark:bg-black border-black dark:border-white hover:border-purple-600 hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.link} target="_blank">
-              <Web className="w-12 h-12 lg:w-6 lg:h-6" />
-              <p class="hidden lg:display-initial">Sitio web</p>
-            </a>
-          </div>
-        </ProjectsCard>
-        <div>
-          <ProjectDetails 
-            id={project.id} 
-            description={project.description} 
-            tags={project.tags} 
-            publish={project.publish} 
-          />
-        </div>
+        </li>
       ))}
     </ul>
   )}

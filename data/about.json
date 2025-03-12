@@ -5,7 +5,8 @@
   "social": {
     "discord": "facu597",
     "linkedin": "https://www.linkedin.com/in/facundo-castro-87b864234",
-    "github": "https://github.com/schweigenderFlugel"
+    "github": "https://github.com/schweigenderFlugel",
+    "dockerhub": "https://hub.docker.com/u/schweigenderflugel"
   },
   "thisApp": {
     "repository": "https://github.com/schweigenderFlugel/portfolio"
