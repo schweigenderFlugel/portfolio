@@ -13,7 +13,7 @@ export interface Props {
 const { id, tags, description, publish } = Astro.props;
 ---
 
-<Modal id={id} >
+<Modal id={id} className="w-[800px] lg:w-[500px]" >
   <div slot="header" class="flex items-center justify-between pt-4 pb-10 lg:px-6 lg:pt-4 lg:pb-0">
     <p class="text-[48px] lg:text-[20px] font-bold pl-4 lg:pl-0">Detalles</p>
     <button type="button" data-close-details-modal={id} class="hover:text-red-500 pr-10 lg:pr-0"><XMark className="w-16 h-16 lg:w-6 lg:h-6" /></button>

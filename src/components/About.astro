@@ -23,6 +23,8 @@ import Discord from '../icons/Discord.astro';
 import Prisma from '../icons/Prisma.astro';
 import Mongo from '../icons/Mongo.astro';
 import Docker from '../icons/Docker.astro';
+import Modal from './Modal.astro';
+import XMark from '../icons/XMark.astro';
 ---
 
 <GeneralCard>
@@ -80,8 +82,16 @@ import Docker from '../icons/Docker.astro';
     <p>{about.description}</p>
   </div>
 </GeneralCard>
+<Modal keyword="resume" className='lg:h-[600px] lg:w-[900px]'>
+  <div slot="header" class="flex justify-end items-center px-6 py-3">
+    <button type="button" data-close-modal="resume" class="hover:text-red-500 pr-10 lg:pr-0"><XMark className="w-16 h-16 lg:w-6 lg:h-6" /></button>
+  </div>
+  <div slot="body" class='flex justify-center items-center' />
+</Modal>
 
 <script>
+  import about from '../../data/about.json';
+
   const lgBreakPoint = 1024;
   const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
 
@@ -148,6 +158,14 @@ import Docker from '../icons/Docker.astro';
     const experienceTooltip = document.querySelector(`[data-tooltip="experience"]`) as HTMLElement;
     const discordToast = document.querySelector('[data-toast="discord-copied"]') as HTMLElement;
     const discordErrorToast = document.querySelector('[data-toast="discord-error"]') as HTMLElement;
+    const resumeModal = document.querySelector('[data-modal="resume"]') as HTMLElement;
+    const resumeBody = resumeModal.querySelector('div')
+    const closeResumeModal = document.querySelector('[data-close-modal="resume"]') as HTMLElement;
+
+    const resumeView = document.createElement('iframe');
+    resumeView.src = about.cv;
+    resumeView.classList = 'lg:h-[500px] lg:w-[800px]';
+    resumeBody?.appendChild(resumeView);
 
     discordBtn.addEventListener('click', async (e: MouseEvent) => {
       e.preventDefault();
@@ -230,6 +248,19 @@ import Docker from '../icons/Docker.astro';
       e.preventDefault();
       experienceTooltip.classList.add("hidden");
     });
+
+    resumeBtn.addEventListener('click', (e: MouseEvent) => {
+      e.preventDefault();
+      resumeModal.classList.add('flex');
+      resumeModal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    })
+
+    closeResumeModal.addEventListener('click', (e: MouseEvent) => {
+      resumeModal.classList.add('hidden');
+      resumeModal.classList.remove('flex');
+      document.body.style.overflow = "auto";      
+    })
   }
 
   if (isLgOrAbove()) btnEvents();
