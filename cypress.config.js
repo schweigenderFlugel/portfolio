@@ -11,7 +11,7 @@ export default defineConfig({
     setupNodeEvents(on, _config) {
       on(
         'after:spec',
-        (_spec: Cypress.Spec, results: CypressCommandLine.RunResult) => {
+        (_spec, results) => {
           if(results && results.video) {
             const failures = results.tests.some(test => 
               test.attempts.some(attempt => attempt.state === 'failed'),

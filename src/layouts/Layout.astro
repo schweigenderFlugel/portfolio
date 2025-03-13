@@ -19,17 +19,17 @@ const { title, className } = Astro.props;
 	  <title data-cy="title">{title}</title>
   </head>
   <body class=`${className} bg-white dark:bg-black text-black dark:text-white sm:px-12 lg:px-24`>
-    <section class="flex  justify-end pt-6 bg-transparent -mb-8">
+    <div class="flex  justify-end pt-6 bg-transparent -mb-8">
       <ThemeButton className="w-8 h-8" />
-    </section>
+    </div>
 	  <slot />
     <div class="lg:hidden w-32 space-y-6 fixed inline-block bottom-20 right-10">
       <ThemeButton className="sm:w-28 sm:h-28 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
       <ScrollToTopBtn className="sm:w-28 sm:h-28 bg-gray-200 dark:bg-black rounded-full p-5 border border-black dark:border-white hover:text-purple-600 hover:border-purple-600 dark:hover:border-purple-600" />
     </div>
-    <section class="lg:flex lg:justify-center lg:w-auto lg:h-auto text-[40px] lg:text-[16px] px-10 lg:col-span-12 lg:row-span-1">
+    <div class="lg:flex lg:justify-center lg:w-auto lg:h-auto text-[40px] lg:text-[16px] px-10 lg:col-span-12 lg:row-span-1">
       <Footer className="lg:flex lg:justify-center lg:items-center lg:space-x-16 text-center px-16 py-8 lg:px-6 lg:py-4"/>
-    </section>
+    </div>
   </body>
 </html>
 

@@ -45,10 +45,18 @@ describe('testing the main page', () => {
           cy.wrap(item)
             .should('have.attr', 'href', about.social.github)
             .and('have.attr', 'target', '_blank');
+        } else if (index === 2) {
+          cy.wrap(item)
+            .should('have.attr', 'href', about.social.dockerhub)
+            .and('have.attr', 'target', '_blank');
         }
       })
+      cy.get('[data-cy="stacks"]').find('li').each((item, index) => {
+        if (index === 0) cy.wrap(item).should('have.text', about.stacks[0])
+        else if (index === 1) cy.wrap(item).should('have.text', about.stacks[1]);
+      })
       cy.get('[data-cy="full-name"]').should('have.text', about.fullName);
-      cy.get('[data-cy="description"]').should('have.text', about.description);
+      cy.get('[data-cy="presentation"]').should('have.text', about.presentation);
   
       // RESUME
       cy.get('[data-resume]').trigger('mouseover');
@@ -102,6 +110,14 @@ describe('testing the main page', () => {
             })
             cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('mouseleave');
             cy.get(`[data-details-tooltip="${projects[index].id}"]`).should('not.be.visible');
+            cy.get('[data-cy-project-buttons]').should('have.length', 2).each(() => {
+              cy.get(`[data-github="${projects[index].id}"]`)
+                .should('have.attr', 'href', projects[index].github)
+                .and('have.attr', 'target', '_blank');
+              cy.get(`[data-website="${projects[index].id}"]`)
+                .should('have.attr', 'href', projects[index].link)
+                .and('have.attr', 'target', '_blank');
+            })
             cy.get(`[data-open-details-modal="${projects[index].id}"]`).trigger('click');
           })
         cy.get(`[data-details-modal="${projects[index].id}"]`).should('be.visible').within(() => {
@@ -124,14 +140,6 @@ describe('testing the main page', () => {
           cy.get(`[data-close-details-modal="${projects[index].id}"]`).trigger('click');
         });
         cy.get(`[data-details-modal="${projects[index].id}"]`).should('not.be.visible');
-        cy.get('[data-cy-project-buttons]').should('have.length', 2).each(() => {
-          cy.get(`[data-github="${projects[index].id}"]`)
-            .should('have.attr', 'href', projects[index].github)
-            .and('have.attr', 'target', '_blank');
-          cy.get(`[data-website="${projects[index].id}"]`)
-            .should('have.attr', 'href', projects[index].link)
-            .and('have.attr', 'target', '_blank');
-        })
       });
     })
 
@@ -187,8 +195,12 @@ describe('testing the main page', () => {
             .and('have.attr', 'target', '_blank');
         }
       })
+      cy.get('[data-cy="stacks"]').find('li').each((item, index) => {
+        if (index === 0) cy.wrap(item).should('have.text', about.stacks[0])
+        else if (index === 1) cy.wrap(item).should('have.text', about.stacks[1]);
+      })
       cy.get('[data-cy="full-name"]').should('have.text', about.fullName);
-      cy.get('[data-cy="description"]').should('have.text', about.description);
+      cy.get('[data-cy="presentation"]').should('have.text', about.presentation);
       cy.get('[data-resume]').trigger('touchstart');
       cy.get('[data-experience]').within(() => {
         cy.get('[data-cy-experience-years]').should('have.text', `+${new Date().getFullYear() - about.experience}`);

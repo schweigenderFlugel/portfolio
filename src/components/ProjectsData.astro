@@ -8,12 +8,12 @@ import Tooltip from "../components/Tooltip.astro"
 import ProjectDetails from "../components/ProjectDetails.astro"
 ---
 
-<main class="space-y-12 lg:space-y-6 lg:h-auto">
+<div class="space-y-12 lg:space-y-1 lg:h-auto">
   {projects.length && (
-    <p class="font-bold sm:text-[35px] lg:text-[20px]">Proyectos:</p>
+    <p class="font-bold sm:text-[35px] lg:text-[20px] lg:-mb-16">Proyectos:</p>
     <ul class="sm:space-y-20 lg:space-x-3 lg:grid lg:grid-cols-12">
       {projects.map(project => (
-        <li class="col-span-4 flex">
+        <li class="col-span-4 flex items-center lg:mt-20">
           <ProjectsCard id={project.id}>
             <div slot="header" class="flex justify-between items-center">
               <div>
@@ -30,13 +30,13 @@ import ProjectDetails from "../components/ProjectDetails.astro"
               </div>
             </div>
             <div slot="buttons">
-              <a data-github={project.id} class="inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl bg-white dark:bg-black border-black dark:border-white hover:border-purple-600 hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.github} target="_blank">
-                <GitHub className="w-12 h-12 lg:w-6 lg:h-6" />
-                <p class="hidden lg:display-initial">Código fuente</p>
+              <a data-github={project.id} class="inline-flex items-center px-10 py-6 lg:px-2 lg:py-[4px] gap-2 border rounded-full lg:rounded-xl bg-white dark:bg-black border-black dark:border-white hover:border-purple-600 hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.github} target="_blank">
+                <GitHub className="w-12 h-12 lg:w-5 lg:h-5" />
+                <p class="hidden lg:display-initial text-[14px]">Código fuente</p>
               </a>
-              <a data-website={project.id} class="inline-flex items-center px-10 py-6 lg:px-5 lg:py-2 gap-2 border rounded-full lg:rounded-xl bg-white dark:bg-black border-black dark:border-white hover:border-purple-600 hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.link} target="_blank">
-                <Web className="w-12 h-12 lg:w-6 lg:h-6" />
-                <p class="hidden lg:display-initial">Sitio web</p>
+              <a data-website={project.id} class="inline-flex items-center px-10 py-6 lg:px-2 lg:py-[4px] gap-2 border rounded-full lg:rounded-xl bg-white dark:bg-black border-black dark:border-white hover:border-purple-600 hover:text-white dark:hover:text-purple-600 hover:bg-purple-600 dark:hover:bg-black dark:hover:border-purple-600" href={project.link} target="_blank">
+                <Web className="w-12 h-12 lg:w-5 lg:h-5" />
+                <p class="hidden lg:display-initial text-[14px]">Sitio web</p>
               </a>
             </div>
           </ProjectsCard>
@@ -52,7 +52,7 @@ import ProjectDetails from "../components/ProjectDetails.astro"
       ))}
     </ul>
   )}
-</main>
+</div>
 
 <script>
   import projects from "../../data/projects.json";
