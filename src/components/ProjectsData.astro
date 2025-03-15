@@ -1,11 +1,22 @@
 ---
-import ProjectsCard from "../components/ProjectsCard.astro"
-import projects from "../../data/projects.json"
-import GitHub from "../icons/GitHub.astro"
-import Web from "../icons/Web.astro"
-import DetailsIcon from "../icons/DetailsIcon.astro"
-import Tooltip from "../components/Tooltip.astro"
-import ProjectDetails from "../components/ProjectDetails.astro"
+import { app } from "../firebase/server";
+import { getFirestore } from "firebase-admin/firestore";
+
+import ProjectsCard from "../components/ProjectsCard.astro";
+import GitHub from "../icons/GitHub.astro";
+import Web from "../icons/Web.astro";
+import DetailsIcon from "../icons/DetailsIcon.astro";
+import Tooltip from "../components/Tooltip.astro";
+import ProjectDetails from "../components/ProjectDetails.astro";
+import type { Project } from "../scripts/interface";
+
+const db = getFirestore(app);
+const projectsRef = db.collection("projects");
+const projectsSnapshot = await projectsRef.get();
+const projects = projectsSnapshot.docs.map((project) => ({
+  id: project.id,
+  ...project.data(),
+})) as Project[];
 ---
 
 <div class="space-y-12 lg:space-y-1 lg:h-auto">
@@ -45,7 +56,7 @@ import ProjectDetails from "../components/ProjectDetails.astro"
               id={project.id} 
               description={project.description} 
               tags={project.tags} 
-              publish={project.publish} 
+              publish={project.published} 
             />
           </div>
         </li>
@@ -55,7 +66,17 @@ import ProjectDetails from "../components/ProjectDetails.astro"
 </div>
 
 <script>
-  import projects from "../../data/projects.json";
+  import { app } from "../firebase/server";
+  import { getFirestore } from "firebase-admin/firestore";
+  import type { Project } from "../scripts/interface";
+
+  const db = getFirestore(app);
+  const projectsRef = db.collection("projects");
+  const projectsSnapshot = await projectsRef.get();
+  const projects = projectsSnapshot.docs.map((project) => ({
+    id: project.id,
+    ...project.data(),
+  })) as Project[];
 
   projects.map(project => {
     const modal = document.querySelector(`[data-details-modal="${project.id}"]`) as HTMLElement;

@@ -1,6 +1,8 @@
 ---
+import { app } from "../firebase/server";
+import { getFirestore } from "firebase-admin/firestore";
+
 import GeneralCard from './GeneralCard.astro';
-import about from '../../data/about.json';
 import Linkedin from '../icons/Linkedin.astro';
 import GitHub from '../icons/GitHub.astro';
 import Html from '../icons/Html.astro';
@@ -25,6 +27,12 @@ import Mongo from '../icons/Mongo.astro';
 import Docker from '../icons/Docker.astro';
 import Modal from './Modal.astro';
 import XMark from '../icons/XMark.astro';
+import type { About } from "../scripts/interface";
+
+const db = getFirestore(app);
+const aboutRef = db.collection("about");
+const aboutSnapshot = await aboutRef.doc('PuZHqROjWYIeLSJuzVfc').get();
+const about = aboutSnapshot.data() as About;
 ---
 
 <GeneralCard>
@@ -91,7 +99,14 @@ import XMark from '../icons/XMark.astro';
 </Modal>
 
 <script>
-  import about from '../../data/about.json';
+  import { app } from "../firebase/server";
+  import { getFirestore } from "firebase-admin/firestore";
+  import type { About } from "../scripts/interface";
+
+  const db = getFirestore(app);
+  const aboutRef = db.collection("about");
+  const aboutSnapshot = await aboutRef.doc('PuZHqROjWYIeLSJuzVfc').get();
+  const about = aboutSnapshot.data() as About;
 
   const lgBreakPoint = 1024;
   const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };

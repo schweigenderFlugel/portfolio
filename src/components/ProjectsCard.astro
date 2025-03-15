@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  id: number;
+  id: string;
 }
 
 const { id } = Astro.props;
@@ -23,7 +23,17 @@ const { id } = Astro.props;
 </article>
 
 <script>
-  import projects from "../../data/projects.json";
+  import { app } from "../firebase/server";
+  import { getFirestore } from "firebase-admin/firestore";
+  import type { Project } from "../scripts/interface";
+
+  const db = getFirestore(app);
+  const projectsRef = db.collection("projects");
+  const projectsSnapshot = await projectsRef.get();
+  const projects = projectsSnapshot.docs.map((project) => ({
+    id: project.id,
+    ...project.data(),
+  })) as Project[];
   
   projects.map(project => {
     const projectImages = document.querySelector(`#image-${project.id}`) as HTMLElement;
