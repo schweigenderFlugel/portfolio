@@ -1,6 +1,6 @@
 ---
 export interface Props {
-  id: string;
+  id: number;
 }
 
 const { id } = Astro.props;
@@ -30,12 +30,12 @@ const { id } = Astro.props;
   const db = getFirestore(app);
   const projectsRef = db.collection("projects");
   const projectsSnapshot = await projectsRef.get();
-  const projects = projectsSnapshot.docs.map((project) => ({
-    id: project.id,
-    ...project.data(),
+  const projects = projectsSnapshot.docs.map((project, index) => ({ 
+    id: index, 
+    ...project.data()
   })) as Project[];
   
-  projects.map(project => {
+  projects.map((project) => {
     const projectImages = document.querySelector(`#image-${project.id}`) as HTMLElement;
     projectImages.style.backgroundImage = `url(${project.image})`;
     projectImages.classList.add('bg-opacity-50')

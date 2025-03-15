@@ -2,7 +2,7 @@
 import { badges } from '../scripts/badges';
 
 export interface Props {
-  id: string;
+  id: number;
   className?: string;
   tags: string[];
 }
@@ -32,12 +32,12 @@ const { id, className, tags } = Astro.props;
   const db = getFirestore(app);
   const projectsRef = db.collection("projects");
   const projectsSnapshot = await projectsRef.get();
-  const projects = projectsSnapshot.docs.map((project) => ({
-    id: project.id,
-    ...project.data(),
+  const projects = projectsSnapshot.docs.map((project, index) => ({ 
+    id: index, 
+    ...project.data()
   })) as Project[];
 
-  projects.map(project => {
+  projects.map((project) => {
     const lgBreakPoint = 1024;
     const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };
 

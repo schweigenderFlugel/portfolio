@@ -4,13 +4,13 @@ import TagsCarousel from "./TagsCarousel.astro";
 import XMark from "../icons/XMark.astro";
 
 export interface Props {
-  id: string;
+  id: number;
   tags: string[];
   description: string;
-  publish: string;
+  published: string;
 }
 
-const { id, tags, description, publish } = Astro.props;
+const { id, tags, description, published } = Astro.props;
 ---
 
 <Modal id={id} className="w-[800px] lg:w-[500px]" >
@@ -22,10 +22,10 @@ const { id, tags, description, publish } = Astro.props;
     <TagsCarousel id={id} className="row-span-1 mb-10 lg:mb-2" tags={tags} />
     <div class="space-y-3 bottom-0">
     <p data-cy-description class="row-span-2 font-normal">{description}</p>
-    {publish 
+    {published 
       ? <div class="row-span-1 font-normal flex justify-end gap-x-3 lg:gap-x-1">
           <strong class="underline"><i>Presentación:</i></strong>
-          <p data-cy-publish-date>{publish}</p>
+          <p data-cy-publish-date>{published}</p>
         </div> 
       : <p class="row-span-1 font-bold flex justify-end">No hay fecha de publicación</p>
     }

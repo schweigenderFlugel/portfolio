@@ -1,5 +1,4 @@
 export interface About {
-  id: string;
   fullName: string;
   presentation: string;
   experience: number;
@@ -17,7 +16,7 @@ export interface About {
 }
 
 export interface Project {
-  id: string;
+  id: number;
   title: string;
   subtitle: string;
   image: string;
