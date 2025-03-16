@@ -25,17 +25,17 @@ const { id, className, tags } = Astro.props;
 }
 
 <script>
-  import { app } from "../firebase/server";
-  import { getFirestore } from "firebase-admin/firestore";
+  import { getFirestore, collection, getDocs } from "firebase/firestore";
+  import { app } from "../firebase/client";
   import type { Project } from "../scripts/interface";
 
-  const db = getFirestore(app);
-  const projectsRef = db.collection("projects");
-  const projectsSnapshot = await projectsRef.get();
-  const projects = projectsSnapshot.docs.map((project, index) => ({ 
-    id: index, 
-    ...project.data()
-  })) as Project[];
+  const database = getFirestore(app);
+  const projectsRef = collection(database, 'projects');
+  const projectsSnapShot = await getDocs(projectsRef)
+  const projects = projectsSnapShot.docs.map((project, index) => ({
+    id: index,
+    ...project.data(),
+  })) as Project[]; 
 
   projects.map((project) => {
     const lgBreakPoint = 1024;

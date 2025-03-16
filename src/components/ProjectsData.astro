@@ -1,6 +1,7 @@
 ---
-import { app } from "../firebase/server";
 import { getFirestore } from "firebase-admin/firestore";
+import { app } from "../firebase/server";
+import type { Project } from "../scripts/interface";
 
 import ProjectsCard from "../components/ProjectsCard.astro";
 import GitHub from "../icons/GitHub.astro";
@@ -8,15 +9,18 @@ import Web from "../icons/Web.astro";
 import DetailsIcon from "../icons/DetailsIcon.astro";
 import Tooltip from "../components/Tooltip.astro";
 import ProjectDetails from "../components/ProjectDetails.astro";
-import type { Project } from "../scripts/interface";
 
-const db = getFirestore(app);
-const projectsRef = db.collection("projects");
-const projectsSnapshot = await projectsRef.get();
-const projects = projectsSnapshot.docs.map((project, index) => ({ 
-  id: index, 
-  ...project.data()
-})) as Project[];
+const getProjectsOnServerSide = async () => {
+  const db = getFirestore(app);
+  const projectsRef = db.collection("projects");
+  const projectSnapshot = await projectsRef.get();
+  return projectSnapshot.docs.map((project, index) => ({ 
+    id: index, 
+    ...project.data()
+  })) as Project[];
+}
+
+const projects = await getProjectsOnServerSide();
 ---
 
 <div class="space-y-12 lg:space-y-1 lg:h-auto">
@@ -66,17 +70,17 @@ const projects = projectsSnapshot.docs.map((project, index) => ({
 </div>
 
 <script>
-  import { app } from "../firebase/server";
-  import { getFirestore } from "firebase-admin/firestore";
+  import { getFirestore, collection, getDocs } from "firebase/firestore";
+  import { app } from "../firebase/client";
   import type { Project } from "../scripts/interface";
 
-  const db = getFirestore(app);
-  const projectsRef = db.collection("projects");
-  const projectsSnapshot = await projectsRef.get();
-  const projects = projectsSnapshot.docs.map((project, index) => ({ 
-    id: index, 
-    ...project.data()
-  })) as Project[];
+  const database = getFirestore(app);
+  const projectsRef = collection(database, 'projects');
+  const projectsSnapShot = await getDocs(projectsRef)
+  const projects = projectsSnapShot.docs.map((project, index) => ({
+    id: index,
+    ...project.data(),
+  })) as Project[]; 
 
   projects.map((project) => {
     const modal = document.querySelector(`[data-details-modal="${project.id}"]`) as HTMLElement;

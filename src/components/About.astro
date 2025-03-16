@@ -1,6 +1,7 @@
 ---
-import { app } from "../firebase/server";
-import { getFirestore } from "firebase-admin/firestore";
+import { getFirestore } from 'firebase-admin/firestore';
+import { app } from '../firebase/server';
+import type { About } from '../scripts/interface';
 
 import GeneralCard from './GeneralCard.astro';
 import Linkedin from '../icons/Linkedin.astro';
@@ -27,12 +28,15 @@ import Mongo from '../icons/Mongo.astro';
 import Docker from '../icons/Docker.astro';
 import Modal from './Modal.astro';
 import XMark from '../icons/XMark.astro';
-import type { About } from "../scripts/interface";
 
-const db = getFirestore(app);
-const aboutRef = db.collection("about");
-const aboutSnapshot = await aboutRef.doc('PuZHqROjWYIeLSJuzVfc').get();
-const about = aboutSnapshot.data() as About;
+const getPersonalInfo = async () => {
+  const db = getFirestore(app);
+  const aboutRef = db.collection("about");
+  const aboutSnapshot = await aboutRef.doc("PuZHqROjWYIeLSJuzVfc").get();
+  return aboutSnapshot.data() as About;
+}
+
+const about = await getPersonalInfo();
 ---
 
 <GeneralCard>
@@ -99,14 +103,14 @@ const about = aboutSnapshot.data() as About;
 </Modal>
 
 <script>
-  import { app } from "../firebase/server";
-  import { getFirestore } from "firebase-admin/firestore";
+  import { getFirestore, doc, getDoc } from "firebase/firestore";
+  import { app } from "../firebase/client";
   import type { About } from "../scripts/interface";
 
-  const db = getFirestore(app);
-  const aboutRef = db.collection("about");
-  const aboutSnapshot = await aboutRef.doc('PuZHqROjWYIeLSJuzVfc').get();
-  const about = aboutSnapshot.data() as About;
+  const database = getFirestore(app);
+  const aboutRef = doc(database, 'about', "PuZHqROjWYIeLSJuzVfc");
+  const aboutSnapShot = await getDoc(aboutRef)
+  const about = aboutSnapShot.data() as About;
 
   const lgBreakPoint = 1024;
   const isLgOrAbove = () => { return window.innerWidth >= lgBreakPoint };

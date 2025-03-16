@@ -1,8 +1,8 @@
 import type { ServiceAccount } from "firebase-admin";
 import { initializeApp, cert, getApps } from "firebase-admin/app";
 
-const activeApps = getApps();
 const serviceAccount = {
+  type: "service_account",
   project_id: import.meta.env.FIREBASE_PROJECT_ID,
   private_key_id: import.meta.env.FIREBASE_PRIVATE_KEY_ID,
   private_key: import.meta.env.FIREBASE_PRIVATE_KEY,
@@ -23,4 +23,4 @@ const initApp = () => {
   })
 }
 
-export const app = activeApps.length === 0 ? initApp() : activeApps[0];
+export const app = !getApps().length ? initApp() : getApps()[0];
