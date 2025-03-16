@@ -88,7 +88,7 @@ const about = await getPersonalInfo();
     <Docker className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
   </div>
   <div slot="experience">
-    <p data-cy-experience-years class="font-bold text-[40px] lg:text-[18px] text-purple-600 select-none">+{new Date().getFullYear() - about.experience}</p>
+    <p data-cy-experience-years class="font-bold text-[40px] lg:text-[18px] text-purple-600 select-none">+{new Date().getFullYear() - new Date(about.experience.seconds * 1000).getFullYear()}</p>
   </div>
   <div slot="presentation" class="space-y-3">
     <p class="sm:text-[40px] lg:text-[20px] font-bold">Presentación:</p>

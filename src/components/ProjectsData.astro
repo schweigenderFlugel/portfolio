@@ -1,6 +1,7 @@
 ---
 import { getFirestore } from "firebase-admin/firestore";
 import { app } from "../firebase/server";
+import { createMapForProjects } from "../scripts/projects-order";
 import type { Project } from "../scripts/interface";
 
 import ProjectsCard from "../components/ProjectsCard.astro";
@@ -9,23 +10,42 @@ import Web from "../icons/Web.astro";
 import DetailsIcon from "../icons/DetailsIcon.astro";
 import Tooltip from "../components/Tooltip.astro";
 import ProjectDetails from "../components/ProjectDetails.astro";
+import { formatter } from "../scripts/date-formatter";
 
 const getProjectsOnServerSide = async () => {
   const db = getFirestore(app);
   const projectsRef = db.collection("projects");
   const projectSnapshot = await projectsRef.get();
   return projectSnapshot.docs.map((project, index) => ({ 
-    id: index, 
+    id: index,
     ...project.data()
   })) as Project[];
 }
 
-const projects = await getProjectsOnServerSide();
+const years = new Set<number>();
+const rawProjects = await getProjectsOnServerSide();
+const projects = createMapForProjects(rawProjects);
+
+projects.forEach((project) => {
+  const year = new Date(project.published.seconds * 1000).getFullYear();
+  years.add(year);
+});
 ---
 
 <div class="space-y-12 lg:space-y-1 lg:h-auto">
   {projects.length && (
-    <p class="font-bold sm:text-[35px] lg:text-[20px] lg:-mb-16">Proyectos:</p>
+    <div class="flex justify-between">
+      <p class="font-bold sm:text-[35px] lg:text-[20px] lg:-mb-16">Proyectos:</p>
+      <div class="space-x-3">
+        <label for="publish-year">Año de publicación</label>
+        <select data-select-year class="dark:bg-black inline-flex justify-end px-2 py-1 border rounded-md dark:border-purple-600" name="publish-year">
+          <option disabled={true}>Seleccionar</option>
+          {[...years].map((year) => (
+            <option value={year}>{year}</option>
+          ))}
+        </select>
+      </div>
+    </div>
     <ul class="sm:space-y-20 lg:space-x-3 lg:grid lg:grid-cols-12">
       {projects.map((project) => (
         <li class="col-span-4 flex items-center lg:mt-20">
@@ -60,7 +80,12 @@ const projects = await getProjectsOnServerSide();
               id={project.id} 
               description={project.description} 
               tags={project.tags} 
-              published={project.published} 
+              published={
+                formatter({ year: 'numeric', 
+                  month: 'long', 
+                  day: '2-digit'
+                }).format(new Date(project.published.seconds * 1000))
+              } 
             />
           </div>
         </li>
@@ -73,14 +98,24 @@ const projects = await getProjectsOnServerSide();
   import { getFirestore, collection, getDocs } from "firebase/firestore";
   import { app } from "../firebase/client";
   import type { Project } from "../scripts/interface";
+  import { createMapForProjects } from "../scripts/projects-order";
 
   const database = getFirestore(app);
   const projectsRef = collection(database, 'projects');
   const projectsSnapShot = await getDocs(projectsRef)
-  const projects = projectsSnapShot.docs.map((project, index) => ({
+  const rawProjects = projectsSnapShot.docs.map((project, index) => ({
     id: index,
     ...project.data(),
-  })) as Project[]; 
+  })) as Project[];
+
+  const projects = createMapForProjects(rawProjects);
+  const selectYear = document.querySelector('[data-select-year]') as HTMLSelectElement;
+
+  selectYear.addEventListener('change', (e: Event) => {
+    e.preventDefault();
+    const target = e.target as HTMLSelectElement;
+    console.log(target.value);
+  })
 
   projects.map((project) => {
     const modal = document.querySelector(`[data-details-modal="${project.id}"]`) as HTMLElement;

@@ -1,7 +1,9 @@
+import type { Timestamp } from "firebase-admin/firestore";
+
 export interface About {
   fullName: string;
   presentation: string;
-  experience: number;
+  experience: Timestamp;
   cv: string;
   social: {
     discord: string;
@@ -21,7 +23,7 @@ export interface Project {
   subtitle: string;
   image: string;
   description: string;
-  published: string;
+  published: Timestamp;
   tags: string[];
   github: string;
   link: string;

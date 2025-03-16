@@ -26,14 +26,17 @@ const { id } = Astro.props;
   import { getFirestore, collection, getDocs } from "firebase/firestore";
   import { app } from "../firebase/client";
   import type { About, Project } from "../scripts/interface";
+  import { createMapForProjects } from "../scripts/projects-order";
 
   const database = getFirestore(app);
   const projectsRef = collection(database, 'projects');
   const projectsSnapShot = await getDocs(projectsRef)
-  const projects = projectsSnapShot.docs.map((project, index) => ({
+  const rawProjects = projectsSnapShot.docs.map((project, index) => ({
     id: index,
     ...project.data(),
-  })) as Project[]; 
+  })) as Project[];
+
+  const projects = createMapForProjects(rawProjects);
   
   projects.map((project) => {
     const projectImages = document.querySelector(`#image-${project.id}`) as HTMLElement;
