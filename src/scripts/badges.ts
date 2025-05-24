@@ -16,6 +16,7 @@ import Mongo from "../icons/Mongo.astro"
 import Prisma from "../icons/Prisma.astro"
 import Docker from "../icons/Docker.astro"
 import Python from "../icons/Python.astro"
+import FastAPI from "../icons/FastAPI.astro"
 
 export const badges = [
   {
@@ -108,6 +109,11 @@ export const badges = [
     name: "Python",
     class: "w-8 h-8 lg:w-3 lg:h-3",
     icon: Python,
+  },
+  {
+    name: "FastAPI",
+    class: "w-8 h-8 lg:w-3 lg:h-3",
+    icon: FastAPI,
   }
 ]
   

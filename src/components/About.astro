@@ -28,6 +28,8 @@ import Mongo from '../icons/Mongo.astro';
 import Docker from '../icons/Docker.astro';
 import Modal from './Modal.astro';
 import XMark from '../icons/XMark.astro';
+import Python from '../icons/Python.astro';
+import FastAPI from '../icons/FastAPI.astro';
 
 const getPersonalInfo = async () => {
   const db = getFirestore(app);
@@ -70,21 +72,16 @@ const about = await getPersonalInfo();
   </div>
   <div slot="technologies" data-carousel class="sm:h-auto flex gap-4 items-center overflow-hidden transition-transform duration-300">
     <Html className='sm:h-[90px] sm:w-[90px] lg:h-auto lg:w-10 flex-shrink-0' />
-    <Css className='sm:h-[70px] sm:w-[82px] lg:h-9 lg:w-9 pt-[5px] flex-shrink-0' />
+    <Css className='sm:h-[70px] sm:w-[82px] lg:h-[38px] lg:w-[38px] pt-[4px] flex-shrink-0' />
     <Javascript className='sm:h-[70px] sm:w-[70px] lg:h-8 lg:w-8 flex-shrink-0' />
     <Typescript className='sm:h-[70px] sm:w-[70px] lg:h-8 lg:w-8 flex-shrink-0' />
-    <Php className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' /> 
+    <Php className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <Python className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
     <Express className='sm:h-[70px] w-[70px] lg:h-8 lg:w-8 flex-shrink-0' />
-    <Sequelize className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
     <Nestjs className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' /> 
-    <Typeorm className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <Laravel className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
+    <FastAPI className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
     <React className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
     <AstroIcon className='sm:h-[70px] w-[70px] lg:h-9 lg:w-9 flex-shrink-0' />
-    <Tailwind className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <Cypress className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <Prisma className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
-    <Mongo className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
     <Docker className='sm:h-[70px] w-[70px] lg:h-10 lg:w-10 flex-shrink-0' />
   </div>
   <div slot="experience">

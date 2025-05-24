@@ -1,6 +1,7 @@
 /// <reference types="astro/client" />
 
 interface ImportMetaEnv {
+  // For server side
   readonly FIREBASE_PRIVATE_KEY_ID: string;
   readonly FIREBASE_PRIVATE_KEY: string;
   readonly FIREBASE_PROJECT_ID: string;
@@ -10,6 +11,8 @@ interface ImportMetaEnv {
   readonly FIREBASE_TOKEN_URI: string;
   readonly FIREBASE_AUTH_CERT_URL: string  
   readonly FIREBASE_CLIENT_CERT_URL: string;
+
+  // For client side
   readonly PUBLIC_FIREBASE_PROJECT_ID: string;
   readonly PUBLIC_FIREBASE_PUBLIC_API_KEY: string;
   readonly PUBLIC_FIREBASE_AUTH_DOMAIN: string;
